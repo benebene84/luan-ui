@@ -1,0 +1,56 @@
+{
+	"name": "luan-ui",
+	"version": "0.1.0",
+	"description": "",
+	"main": "/dist/index.js",
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"test": "test",
+		"dev": "storybook dev -p 6006",
+		"build-storybook": "storybook build",
+		"check": "biome check",
+		"format": "biome format --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/benebene84/luan-ui.git"
+	},
+	"author": "benebene84",
+	"license": "GPL-3.0-only",
+	"bugs": {
+		"url": "https://github.com/benebene84/luan-ui/issues"
+	},
+	"homepage": "https://github.com/benebene84/luan-ui#readme",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@chromatic-com/storybook": "^3",
+		"@storybook/addon-essentials": "^8.6.6",
+		"@storybook/addon-interactions": "^8.6.6",
+		"@storybook/addon-onboarding": "^8.6.6",
+		"@storybook/addon-webpack5-compiler-swc": "^3.0.0",
+		"@storybook/blocks": "^8.6.6",
+		"@storybook/react": "^8.6.6",
+		"@storybook/react-webpack5": "^8.6.6",
+		"@storybook/test": "^8.6.6",
+		"@tailwindcss/postcss": "^4.0.14",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
+		"css-loader": "^7.1.2",
+		"lefthook": "^1.11.3",
+		"postcss": "^8.5.3",
+		"postcss-loader": "^8.1.1",
+		"storybook": "^8.6.6",
+		"style-loader": "^4.0.0",
+		"tailwindcss": "^4.0.14",
+		"typescript": "^5.8.2"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0 || ^19.0.0",
+		"react-dom": "^18.0.0 || ^19.0.0"
+	},
+	"dependencies": {
+		"cva": "1.0.0-beta.3",
+		"tailwind-merge": "^3.0.2"
+	}
+}
