@@ -18,19 +18,60 @@ type ResponsiveClassesConfig<T> = {
 	compoundVariants?: CompoundVariant<T>[];
 };
 
-type InferVariantProps<T> = {
+type VariantProps<T> = {
 	[K in keyof T]: ResponsiveValue<keyof T[K]>;
 } & {
-	className?: string;
+	className?: string | string[];
 };
 
+/**
+ * Creates a function that generates classes based on variant configurations and responsive props
+ *
+ * @template T - Type extending VariantConfig (Record of variant names to their possible values and corresponding classes)
+ *
+ * @param config - Configuration object for variants
+ * @param config.base - Base classes that are always applied
+ * @param config.variants - Object containing variant definitions where each key is a variant name
+ *                         and value is either a string of class names or an object mapping variant values to class names
+ * @param config.compoundVariants - Optional array of compound variants that apply additional classes
+ *                                 when multiple variants have specific values
+ *
+ * @returns A function that accepts variant props and returns classes with twMerge
+ *
+ * @example
+ * const getButtonVariants = getVariants({
+ *   base: "px-4 py-2 rounded",
+ *   variants: {
+ *     intent: {
+ *       primary: "bg-blue-500 text-white",
+ *       secondary: "bg-gray-200 text-gray-800"
+ *     },
+ *     size: {
+ *       sm: "text-sm",
+ *       lg: "text-lg"
+ *     }
+ *   },
+ *   compoundVariants: [
+ *     {
+ *       intent: "primary",
+ *       size: "lg",
+ *       className: "font-bold"
+ *     }
+ *   ]
+ * });
+ *
+ * // Usage:
+ * getButtonVariants({ intent: "primary", size: "lg" })
+ * // Or with responsive values:
+ * getButtonVariants({ intent: { initial: "primary", md: "secondary" } })
+ */
 export const getVariants =
 	<T extends VariantConfig>({
 		base,
 		variants,
 		compoundVariants,
 	}: ResponsiveClassesConfig<T>) =>
-	({ className, ...props }: InferVariantProps<T>) => {
+	({ className, ...props }: VariantProps<T>) => {
 		const responsiveClasses = Object.entries(props)
 			.flatMap(([key, value]) => {
 				const variant = variants[key];
