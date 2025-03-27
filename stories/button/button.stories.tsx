@@ -1,0 +1,64 @@
+import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { Button } from "../../src/components/button/button";
+
+const LinkChildren = () => {
+	return <a href="https://www.google.com">Test</a>;
+};
+
+// Define the Meta type with the Button component props
+const meta = {
+	title: "Example/Button",
+	component: Button,
+	tags: ["autodocs"],
+} satisfies Meta<typeof Button>;
+
+export default meta;
+
+// Use the inferred type from meta
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+	args: {
+		variant: "primary",
+		size: "large",
+		children: "Button",
+		disabled: false,
+		iconStart: <ArrowLeftIcon aria-label="ArrowLeftIcon" />,
+		iconEnd: <ArrowRightIcon aria-label="ArrowRightIcon" />,
+	},
+};
+
+export const Secondary: Story = {
+	args: {
+		variant: "secondary",
+		size: "medium",
+		children: "Button",
+		className: "bg-red-500",
+		iconStart: <ArrowLeftIcon />,
+		iconEnd: <ArrowRightIcon />,
+	},
+};
+
+export const Responsive: Story = {
+	args: {
+		variant: "primary",
+		size: {
+			initial: "small",
+			sm: "medium",
+			md: "large",
+		},
+		children: "Button",
+		iconStart: <ArrowLeftIcon />,
+		iconEnd: <ArrowRightIcon />,
+	},
+};
+
+export const AsChild: Story = {
+	render: () => (
+		<Button asChild iconStart={<ArrowLeftIcon />} iconEnd={<ArrowRightIcon />}>
+			<a href="https://www.google.com">Test</a>
+		</Button>
+	),
+};

@@ -19,7 +19,10 @@ type ResponsiveClassesConfig<T> = {
 };
 
 type VariantProps<T> = {
-	[K in keyof T]: ResponsiveValue<keyof T[K]>;
+	// Check if the value is a boolean or a responsive value
+	[K in keyof T]: T[K] extends Partial<Record<"true" | "false", string>>
+		? boolean | undefined
+		: ResponsiveValue<keyof T[K]>;
 } & {
 	className?: string | string[];
 };
@@ -32,7 +35,8 @@ type VariantProps<T> = {
  * @param config - Configuration object for variants
  * @param config.base - Base classes that are always applied
  * @param config.variants - Object containing variant definitions where each key is a variant name
- *                         and value is either a string of class names or an object mapping variant values to class names
+ *                         and value is either a string of class names, an object mapping variant values to class names,
+ *                         or an object with true/false keys for boolean variants
  * @param config.compoundVariants - Optional array of compound variants that apply additional classes
  *                                 when multiple variants have specific values
  *
@@ -49,19 +53,15 @@ type VariantProps<T> = {
  *     size: {
  *       sm: "text-sm",
  *       lg: "text-lg"
+ *     },
+ *     disabled: {
+ *       true: "opacity-50 cursor-not-allowed"
  *     }
- *   },
- *   compoundVariants: [
- *     {
- *       intent: "primary",
- *       size: "lg",
- *       className: "font-bold"
- *     }
- *   ]
+ *   }
  * });
  *
  * // Usage:
- * getButtonVariants({ intent: "primary", size: "lg" })
+ * getButtonVariants({ intent: "primary", size: "lg", disabled: true })
  * // Or with responsive values:
  * getButtonVariants({ intent: { initial: "primary", md: "secondary" } })
  */
@@ -76,12 +76,22 @@ export const getVariants =
 			.flatMap(([key, value]) => {
 				const variant = variants[key];
 
+				// Handle undefined values
+				if (!value) return;
+
+				// Convert boolean values to string
+				if (typeof value === "boolean") {
+					return variant?.[String(value) as keyof typeof variant];
+				}
+
 				const variantValue = variant?.[value as keyof typeof variant];
 
+				// Handle string values
 				if (typeof variantValue === "string") {
 					return variantValue;
 				}
 
+				// Handle responsive values
 				return Object.entries(value as Partial<BreakpointsMap<T>>)
 					.map(([breakpoint, value]) => {
 						if (breakpoint === "initial") {

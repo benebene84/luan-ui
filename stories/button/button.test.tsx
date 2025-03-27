@@ -1,24 +1,35 @@
 import { composeStories } from "@storybook/react";
 import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import * as stories from "./button.stories";
 
-const { Primary } = composeStories(stories);
+const { Primary, AsChild } = composeStories(stories);
 
 describe("Button", () => {
-	it("Checks if the button is valid", async () => {
+	it("checks if the button is valid", async () => {
 		await Primary.run();
 
-		const user = userEvent.setup();
-
 		const buttonElement = screen.getByRole("button", {
-			name: "Button",
+			name: "ArrowLeftIcon Button ArrowRightIcon",
+		});
+
+		const iconStart = screen.getByLabelText("ArrowLeftIcon");
+		const iconEnd = screen.getByLabelText("ArrowRightIcon");
+
+		expect(buttonElement).toBeInTheDocument();
+		expect(iconStart).toBeInTheDocument();
+		expect(iconEnd).toBeInTheDocument();
+	});
+
+	it("checks if the button can be rendered as a different element", async () => {
+		await AsChild.run();
+
+		const buttonElement = screen.getByRole("link", {
+			name: "Test",
 		});
 
 		expect(buttonElement).toBeInTheDocument();
-
-		await user.click(buttonElement);
+		expect(buttonElement).toHaveAttribute("href", "https://www.google.com");
 	});
 });
