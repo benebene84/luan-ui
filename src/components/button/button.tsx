@@ -1,11 +1,16 @@
+import { forwardRef } from "react";
 import {
 	type ResponsiveValue,
 	getVariants,
 } from "../../utilities/get-variants/get-variants";
+import { Slot, Slottable } from "../../utilities/slot/slot";
 
-type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant?: ResponsiveValue<"primary" | "secondary">;
 	size?: ResponsiveValue<"small" | "medium" | "large">;
+	asChild?: boolean;
+	iconStart?: React.ReactNode;
+	iconEnd?: React.ReactNode;
 };
 
 export const SIZES = {
@@ -40,7 +45,7 @@ export const VARIANTS = {
 };
 
 const buttonStyles = getVariants({
-	base: "flex items-center justify-center font-semibold border rounded",
+	base: "flex items-center justify-center font-semibold border rounded w-fit gap-2",
 	variants: {
 		variant: {
 			primary: "bg-blue-500 text-white border-transparent hover:bg-blue-600",
@@ -50,6 +55,9 @@ const buttonStyles = getVariants({
 			small: "text-sm px-2 gap-2",
 			medium: "text-base px-4 gap-4",
 			large: "text-lg px-6 gap-6",
+		},
+		disabled: {
+			true: "opacity-50 cursor-not-allowed",
 		},
 	},
 	compoundVariants: [
@@ -61,16 +69,40 @@ const buttonStyles = getVariants({
 	],
 });
 
-export const Button = ({
-	children,
-	variant = "primary",
-	size = "medium",
-	className,
-	...props
-}: ButtonProps) => {
-	return (
-		<button className={buttonStyles({ variant, size, className })} {...props}>
-			{children}
-		</button>
-	);
-};
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+	(
+		{
+			asChild,
+			children,
+			variant = "primary",
+			size = "medium",
+			className,
+			disabled,
+			iconStart,
+			iconEnd,
+			...props
+		},
+		ref,
+	) => {
+		const Component = asChild ? Slot : "button";
+		return (
+			<Component
+				ref={ref}
+				className={buttonStyles({ variant, size, disabled, className })}
+				{...props}
+			>
+				<Slottable child={children}>
+					{(child) => (
+						<>
+							{iconStart}
+							{child}
+							{iconEnd}
+						</>
+					)}
+				</Slottable>
+			</Component>
+		);
+	},
+);
+
+Button.displayName = "Button";
