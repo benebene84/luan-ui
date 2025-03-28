@@ -6,11 +6,13 @@ type BreakpointsMap<T> = Record<Breakpoints, T>;
 
 export type ResponsiveValue<T> = T | Partial<BreakpointsMap<T>>;
 
-type VariantConfig = Record<string, Record<string, string>>;
+type VariantConfig =
+	| Record<string, Record<string, string>>
+	| Record<string, never>;
 
 type ResponsiveClassesConfig<T> = {
 	base: string;
-	variants: T;
+	variants?: T;
 	compoundVariants?: Partial<VariantProps<T>>[];
 };
 
@@ -18,10 +20,12 @@ type StringBoolean = "true" | "false";
 type BooleanVariant = Partial<Record<StringBoolean, string>>;
 
 type VariantProps<T> = {
-	// Check if the value is a boolean or a "normal" responsive value
+	// Check if the value is a boolean or a "normal" responsive value or no value
 	[K in keyof T]: T[K] extends BooleanVariant
 		? ResponsiveValue<boolean> | undefined
-		: ResponsiveValue<keyof T[K]>;
+		: T[K] extends Record<string, unknown>
+			? ResponsiveValue<keyof T[K]>
+			: never;
 } & {
 	className?: string | string[];
 };
@@ -73,7 +77,7 @@ export const getVariants =
 	({ className, ...props }: VariantProps<T>) => {
 		const responsiveClasses = Object.entries(props)
 			.flatMap(([key, propValue]) => {
-				const variant = variants[key];
+				const variant = variants?.[key];
 				const value =
 					typeof propValue === "boolean" ? String(propValue) : propValue;
 
