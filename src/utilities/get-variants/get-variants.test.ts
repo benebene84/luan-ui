@@ -23,6 +23,7 @@ describe("getVariants", () => {
 			{
 				intent: "primary",
 				size: "lg",
+				disabled: true,
 				className: "font-bold",
 			},
 		],
@@ -61,9 +62,15 @@ describe("getVariants", () => {
 		const result = getButtonVariants({
 			intent: "primary",
 			size: "lg",
+			disabled: true,
+		});
+		const noResult = getButtonVariants({
+			intent: "secondary",
+			size: "sm",
 			disabled: false,
 		});
 		expect(result).toContain("font-bold");
+		expect(noResult).not.toContain("font-bold");
 	});
 
 	it("should handle responsive values", () => {

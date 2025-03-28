@@ -8,14 +8,10 @@ export type ResponsiveValue<T> = T | Partial<BreakpointsMap<T>>;
 
 type VariantConfig = Record<string, Record<string, string>>;
 
-type CompoundVariant<T> = {
-	[K in keyof T]?: keyof T[K];
-} & { className: string };
-
 type ResponsiveClassesConfig<T> = {
 	base: string;
 	variants: T;
-	compoundVariants?: CompoundVariant<T>[];
+	compoundVariants?: Partial<VariantProps<T>>[];
 };
 
 type StringBoolean = "true" | "false";
@@ -111,7 +107,10 @@ export const getVariants =
 		const compoundClasses = compoundVariants
 			?.map(({ className, ...compound }) => {
 				if (
-					Object.entries(compound).every(([key, value]) => props[key] === value)
+					Object.entries(compound).every(
+						([key, value]) =>
+							props[key] === String(value) || props[key] === value,
+					)
 				) {
 					return className;
 				}
