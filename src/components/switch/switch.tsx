@@ -1,14 +1,24 @@
 import * as RadixSwitch from "@radix-ui/react-switch";
 import { type ComponentRef, forwardRef } from "react";
-import { getVariants } from "../../utilities/get-variants/get-variants";
+import {
+	type ResponsiveValue,
+	getVariants,
+} from "../../utilities/get-variants/get-variants";
 
-type SwitchProps = RadixSwitch.SwitchProps;
+type SwitchProps = RadixSwitch.SwitchProps & {
+	size?: ResponsiveValue<"small" | "medium" | "large">;
+};
 
 const rootStyles = getVariants({
-	base: "relative flex h-7 w-12 cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[state=checked]:bg-green-500",
+	base: "relative flex cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[state=checked]:bg-green-500",
 	variants: {
 		disabled: {
 			true: "cursor-not-allowed opacity-50",
+		},
+		size: {
+			small: "h-5 w-10",
+			medium: "h-7 w-12",
+			large: "h-9 w-14",
 		},
 	},
 });
@@ -20,21 +30,26 @@ const thumbStyles = getVariants({
 			true: "bg-gray-300",
 			false: "bg-white",
 		},
+		size: {
+			small: "h-3 w-3",
+			medium: "h-5 w-5",
+			large: "h-7 w-7",
+		},
 	},
 });
 
 export const Switch = forwardRef<
 	ComponentRef<typeof RadixSwitch.Root>,
 	SwitchProps
->(({ className, disabled, ...props }, ref) => {
+>(({ className, disabled, size = "medium", ...props }, ref) => {
 	return (
 		<RadixSwitch.Root
-			className={rootStyles({ disabled, className })}
+			className={rootStyles({ disabled, size, className })}
 			disabled={disabled}
 			{...props}
 			ref={ref}
 		>
-			<RadixSwitch.Thumb className={thumbStyles({ disabled })} />
+			<RadixSwitch.Thumb className={thumbStyles({ disabled, size })} />
 		</RadixSwitch.Root>
 	);
 });
