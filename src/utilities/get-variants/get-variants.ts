@@ -18,10 +18,13 @@ type ResponsiveClassesConfig<T> = {
 	compoundVariants?: CompoundVariant<T>[];
 };
 
+type StringBoolean = "true" | "false";
+type BooleanVariant = Partial<Record<StringBoolean, string>>;
+
 type VariantProps<T> = {
-	// Check if the value is a boolean or a responsive value
-	[K in keyof T]: T[K] extends Partial<Record<"true" | "false", string>>
-		? boolean | undefined
+	// Check if the value is a boolean or a "normal" responsive value
+	[K in keyof T]: T[K] extends BooleanVariant
+		? ResponsiveValue<boolean> | undefined
 		: ResponsiveValue<keyof T[K]>;
 } & {
 	className?: string | string[];
@@ -73,16 +76,13 @@ export const getVariants =
 	}: ResponsiveClassesConfig<T>) =>
 	({ className, ...props }: VariantProps<T>) => {
 		const responsiveClasses = Object.entries(props)
-			.flatMap(([key, value]) => {
+			.flatMap(([key, propValue]) => {
 				const variant = variants[key];
+				const value =
+					typeof propValue === "boolean" ? String(propValue) : propValue;
 
 				// Handle undefined values
 				if (!value) return;
-
-				// Convert boolean values to string
-				if (typeof value === "boolean") {
-					return variant?.[String(value) as keyof typeof variant];
-				}
 
 				const variantValue = variant?.[value as keyof typeof variant];
 
@@ -94,9 +94,11 @@ export const getVariants =
 				// Handle responsive values
 				return Object.entries(value as Partial<BreakpointsMap<T>>)
 					.map(([breakpoint, value]) => {
+						// If the breakpoint is initial, return the variant value without breakpoint prefix
 						if (breakpoint === "initial") {
 							return variants?.[key]?.[value as keyof typeof variant];
 						}
+						// Otherwise, return the variant value with the breakpoint prefix
 						return variants?.[key]?.[value as keyof typeof variant]
 							?.split(" ")
 							.map((className) => `${breakpoint}:${className}`)

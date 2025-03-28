@@ -3,10 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button } from "../../src/components/button/button";
 
-const LinkChildren = () => {
-	return <a href="https://www.google.com">Test</a>;
-};
-
 // Define the Meta type with the Button component props
 const meta = {
 	title: "Example/Button",
