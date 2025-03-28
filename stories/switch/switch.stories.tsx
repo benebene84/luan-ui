@@ -13,6 +13,11 @@ const meta = {
 			control: "boolean",
 			description: "Disables the switch",
 		},
+		size: {
+			control: "radio",
+			options: ["small", "medium", "large"],
+			description: "The size of the switch",
+		},
 		onCheckedChange: {
 			action: "changed",
 		},
