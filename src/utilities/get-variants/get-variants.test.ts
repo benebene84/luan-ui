@@ -4,7 +4,7 @@ import { getVariants } from "./get-variants";
 describe("getVariants", () => {
 	// Basic setup with common variants for testing
 	const getButtonVariants = getVariants({
-		base: "px-4 py-2 rounded",
+		base: "rounded px-4 py-2",
 		variants: {
 			intent: {
 				primary: "bg-blue-500 text-white",
@@ -15,7 +15,7 @@ describe("getVariants", () => {
 				lg: "text-lg",
 			},
 			disabled: {
-				true: "opacity-50 cursor-not-allowed",
+				true: "cursor-not-allowed opacity-50",
 				false: "cursor-pointer",
 			},
 		},
@@ -35,7 +35,7 @@ describe("getVariants", () => {
 			size: "lg",
 			disabled: false,
 		});
-		expect(result).toContain("px-4 py-2 rounded");
+		expect(result).toContain("rounded px-4 py-2");
 	});
 
 	it("should apply single variant", () => {
@@ -113,7 +113,7 @@ describe("getVariants", () => {
 	it("should handle undefined values", () => {
 		// @ts-expect-error - undefined is not assignable to type 'ResponsiveValue<"primary" | "secondary">'
 		const result = getButtonVariants({ intent: undefined });
-		expect(result).toBe("px-4 py-2 rounded");
+		expect(result).toBe("rounded px-4 py-2");
 	});
 
 	it("should properly merge classes with tailwind-merge", () => {

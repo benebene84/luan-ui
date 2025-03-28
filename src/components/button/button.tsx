@@ -45,19 +45,19 @@ export const VARIANTS = {
 };
 
 const buttonStyles = getVariants({
-	base: "flex items-center justify-center font-semibold border rounded w-fit gap-2",
+	base: "flex w-fit items-center justify-center gap-2 rounded border font-semibold",
 	variants: {
 		variant: {
-			primary: "bg-blue-500 text-white border-transparent hover:bg-blue-600",
-			secondary: "bg-black text-white border-transparent hover:bg-gray-800",
+			primary: "border-transparent bg-blue-500 text-white hover:bg-blue-600",
+			secondary: "border-transparent bg-black text-white hover:bg-gray-800",
 		},
 		size: {
-			small: "text-sm px-2 gap-2",
-			medium: "text-base px-4 gap-4",
-			large: "text-lg px-6 gap-6",
+			small: "gap-2 px-2 text-sm",
+			medium: "gap-4 px-4 text-base",
+			large: "gap-6 px-6 text-lg",
 		},
 		disabled: {
-			true: "opacity-50 cursor-not-allowed",
+			true: "cursor-not-allowed opacity-50",
 		},
 	},
 	compoundVariants: [
