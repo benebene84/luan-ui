@@ -13,7 +13,7 @@ const meta = {
 			control: "boolean",
 			description: "Disables the switch",
 		},
-		onChange: {
+		onCheckedChange: {
 			action: "changed",
 		},
 	},
@@ -27,4 +27,9 @@ export const Default: Story = {
 	args: {
 		disabled: false,
 	},
+	render: (args) => (
+		<form>
+			<Switch {...args} />
+		</form>
+	),
 };
