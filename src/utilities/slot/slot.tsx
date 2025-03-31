@@ -1,15 +1,21 @@
 import { composeRefs } from "@radix-ui/react-compose-refs";
+import type { ComponentRef } from "react";
 import * as React from "react";
 
 /* -------------------------------------------------------------------------------------------------
  * Slot
  * -----------------------------------------------------------------------------------------------*/
 
-interface SlotProps extends React.HTMLAttributes<HTMLElement> {
+interface SlotProps {
 	children?: React.ReactNode;
 }
 
-const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+type AnyRef = ComponentRef<any>;
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+type AnyRefAttributes = React.RefAttributes<any>;
+
+const Slot = React.forwardRef<AnyRef, SlotProps>((props, forwardedRef) => {
 	const { children, ...slotProps } = props;
 
 	if (isSlottable(children)) {
@@ -47,19 +53,16 @@ interface SlotCloneProps {
 	children: React.ReactNode;
 }
 
-const SlotClone = React.forwardRef<HTMLElement, SlotCloneProps>(
+const SlotClone = React.forwardRef<AnyRef, SlotCloneProps>(
 	(props, forwardedRef) => {
 		const { children, ...slotProps } = props;
 
-		if (React.isValidElement<React.RefAttributes<HTMLElement>>(children)) {
+		if (React.isValidElement<AnyRefAttributes>(children)) {
 			return React.cloneElement(children, {
 				...mergeProps(slotProps, children.props),
 				ref: forwardedRef
-					? composeRefs(
-							forwardedRef,
-							(children as React.RefAttributes<HTMLElement>).ref,
-						)
-					: (children as React.RefAttributes<HTMLElement>).ref,
+					? composeRefs(forwardedRef, (children as AnyRefAttributes).ref)
+					: (children as AnyRefAttributes).ref,
 			});
 		}
 

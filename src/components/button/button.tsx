@@ -4,6 +4,7 @@ import {
 	getVariants,
 } from "../../utilities/get-variants/get-variants";
 import { Slot, Slottable } from "../../utilities/slot/slot";
+import { Icon } from "../icon/icon";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant?: ResponsiveValue<"primary" | "secondary">;
@@ -94,9 +95,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				<Slottable child={children}>
 					{(child) => (
 						<>
-							{iconStart}
+							{iconStart && (
+								<Icon size={size} asChild>
+									{iconStart}
+								</Icon>
+							)}
 							{child}
-							{iconEnd}
+							{iconEnd && (
+								<Icon size={size} asChild>
+									{iconEnd}
+								</Icon>
+							)}
 						</>
 					)}
 				</Slottable>
