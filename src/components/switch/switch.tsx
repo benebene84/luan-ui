@@ -5,7 +5,7 @@ import {
 	getVariants,
 } from "../../utilities/get-variants/get-variants";
 
-type SwitchProps = RadixSwitch.SwitchProps & {
+export type SwitchProps = RadixSwitch.SwitchProps & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
 };
 

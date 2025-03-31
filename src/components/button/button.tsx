@@ -5,7 +5,7 @@ import {
 } from "../../utilities/get-variants/get-variants";
 import { Slot, Slottable } from "../../utilities/slot/slot";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant?: ResponsiveValue<"primary" | "secondary">;
 	size?: ResponsiveValue<"small" | "medium" | "large">;
 	asChild?: boolean;
