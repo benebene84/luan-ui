@@ -11,7 +11,7 @@ const meta = {
 	argTypes: {
 		size: {
 			control: "radio",
-			options: ["small", "middle", "large"],
+			options: ["small", "medium", "large"],
 		},
 	},
 } satisfies Meta<typeof Icon>;
