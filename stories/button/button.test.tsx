@@ -4,11 +4,11 @@ import { describe, expect, it } from "vitest";
 
 import * as stories from "./button.stories";
 
-const { Primary, AsChild } = composeStories(stories);
+const { Default, AsChild } = composeStories(stories);
 
 describe("Button", () => {
 	it("checks if the button is valid", async () => {
-		await Primary.run();
+		await Default.run();
 
 		const buttonElement = screen.getByRole("button", {
 			name: "ArrowLeftIcon Button ArrowRightIcon",

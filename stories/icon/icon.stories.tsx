@@ -21,6 +21,8 @@ export default meta;
 // Use the inferred type from meta
 type Story = StoryObj<typeof meta>;
 
+StarIcon.displayName = "StarIcon";
+
 export const Default: Story = {
 	args: {
 		size: "small",

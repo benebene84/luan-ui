@@ -44,6 +44,32 @@ const iconStyles = getVariants({
 	},
 });
 
+/**
+ * A flexible icon component that serves as a wrapper for SVG icons.
+ * Must be used with asChild={true} to render the actual icon component.
+ *
+ * @example
+ * // Correct usage
+ * <Icon asChild size="medium">
+ *   <HomeIcon />
+ * </Icon>
+ *
+ * @example
+ * // With different sizes
+ * <Icon asChild size="small">
+ *   <UserIcon />
+ * </Icon>
+ *
+ * @example
+ * // With custom className
+ * <Icon asChild className="text-blue-500">
+ *   <SettingsIcon />
+ * </Icon>
+ *
+ * @param {boolean} [props.asChild] - Should always be true when using this component
+ * @param {ResponsiveValue<"small" | "medium" | "large">} [props.size="medium"] - The size of the icon
+ * @param {string} [props.className] - Additional CSS classes to apply
+ */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
 	({ className, size = "medium", asChild, ...props }, ref) => {
 		const Comp = asChild ? Slot : "svg";

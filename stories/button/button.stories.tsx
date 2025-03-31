@@ -8,6 +8,16 @@ const meta = {
 	title: "Example/Button",
 	component: Button,
 	tags: ["autodocs"],
+	argTypes: {
+		variant: {
+			control: "radio",
+			options: ["primary", "secondary"],
+		},
+		size: {
+			control: "radio",
+			options: ["small", "medium", "large"],
+		},
+	},
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -15,7 +25,7 @@ export default meta;
 // Use the inferred type from meta
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
 	args: {
 		variant: "primary",
 		size: "large",
@@ -23,17 +33,6 @@ export const Primary: Story = {
 		disabled: false,
 		iconStart: <ArrowLeftIcon aria-label="ArrowLeftIcon" />,
 		iconEnd: <ArrowRightIcon aria-label="ArrowRightIcon" />,
-	},
-};
-
-export const Secondary: Story = {
-	args: {
-		variant: "secondary",
-		size: "medium",
-		children: "Button",
-		className: "bg-red-500",
-		iconStart: <ArrowLeftIcon />,
-		iconEnd: <ArrowRightIcon />,
 	},
 };
 

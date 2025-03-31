@@ -38,6 +38,32 @@ const thumbStyles = getVariants({
 	},
 });
 
+/**
+ * A switch component that toggles between on and off states.
+ * Built on top of Radix UI's Switch primitive.
+ *
+ * @example
+ * // Basic usage
+ * <Switch />
+ *
+ * @example
+ * // With different sizes
+ * <Switch size="small" />
+ * <Switch size="medium" />
+ * <Switch size="large" />
+ *
+ * @example
+ * // Disabled state
+ * <Switch disabled />
+ *
+ * @example
+ * // With onChange handler
+ * <Switch onCheckedChange={(checked) => console.log(checked)} />
+ *
+ * @param {ResponsiveValue<"small" | "medium" | "large">} [props.size="medium"] - The size of the switch
+ * @param {boolean} [props.disabled] - Whether the switch is disabled
+ * @param {string} [props.className] - Additional CSS classes to apply
+ */
 export const Switch = forwardRef<
 	ComponentRef<typeof RadixSwitch.Root>,
 	SwitchProps
