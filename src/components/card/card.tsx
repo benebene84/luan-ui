@@ -1,9 +1,23 @@
-import { forwardRef } from "react";
+import { createContext, forwardRef, useContext } from "react";
 import {
 	type ResponsiveValue,
 	getVariants,
 } from "../../utilities/get-variants/get-variants";
 import { Slot } from "../../utilities/slot/slot";
+
+// Card context
+
+type CardContextValue = Required<Pick<CardProps, "size">>;
+
+const CardContext = createContext<CardContextValue | undefined>(undefined);
+
+const useCardContext = () => {
+	const context = useContext(CardContext);
+	if (!context) {
+		throw new Error("Card components must be used within a Card");
+	}
+	return context;
+};
 
 // Card component
 
@@ -50,11 +64,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 	({ className, size = "medium", asChild, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
 		return (
-			<Component
-				ref={ref}
-				className={cardStyles({ className, size })}
-				{...props}
-			/>
+			<CardContext.Provider value={{ size }}>
+				<Component
+					ref={ref}
+					className={cardStyles({ className, size })}
+					{...props}
+				/>
+			</CardContext.Provider>
 		);
 	},
 );
@@ -102,18 +118,20 @@ const cardHeaderStyles = getVariants({
 	},
 });
 
-export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
-	({ className, size = "medium", asChild, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
-		return (
-			<Component
-				ref={ref}
-				className={cardHeaderStyles({ className, size })}
-				{...props}
-			/>
-		);
-	},
-);
+export const CardHeader = forwardRef<
+	HTMLDivElement,
+	Omit<CardHeaderProps, "size">
+>(({ className, asChild, ...props }, ref) => {
+	const { size } = useCardContext();
+	const Component = asChild ? Slot : "div";
+	return (
+		<Component
+			ref={ref}
+			className={cardHeaderStyles({ className, size })}
+			{...props}
+		/>
+	);
+});
 
 CardHeader.displayName = "CardHeader";
 
@@ -158,18 +176,20 @@ const cardContentStyles = getVariants({
 	},
 });
 
-export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
-	({ className, size = "medium", asChild, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
-		return (
-			<Component
-				ref={ref}
-				className={cardContentStyles({ className, size })}
-				{...props}
-			/>
-		);
-	},
-);
+export const CardContent = forwardRef<
+	HTMLDivElement,
+	Omit<CardContentProps, "size">
+>(({ className, asChild, ...props }, ref) => {
+	const { size } = useCardContext();
+	const Component = asChild ? Slot : "div";
+	return (
+		<Component
+			ref={ref}
+			className={cardContentStyles({ className, size })}
+			{...props}
+		/>
+	);
+});
 
 CardContent.displayName = "CardContent";
 
@@ -214,17 +234,19 @@ const cardFooterStyles = getVariants({
 	},
 });
 
-export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
-	({ className, size = "medium", asChild, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
-		return (
-			<Component
-				ref={ref}
-				className={cardFooterStyles({ className, size })}
-				{...props}
-			/>
-		);
-	},
-);
+export const CardFooter = forwardRef<
+	HTMLDivElement,
+	Omit<CardFooterProps, "size">
+>(({ className, asChild, ...props }, ref) => {
+	const { size } = useCardContext();
+	const Component = asChild ? Slot : "div";
+	return (
+		<Component
+			ref={ref}
+			className={cardFooterStyles({ className, size })}
+			{...props}
+		/>
+	);
+});
 
 CardFooter.displayName = "CardFooter";

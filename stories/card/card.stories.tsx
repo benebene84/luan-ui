@@ -30,10 +30,10 @@ export const Default: Story = {
 	},
 	render: (args) => (
 		<Card {...args}>
-			<CardHeader {...args}>
+			<CardHeader>
 				<h3 className="font-semibold text-lg">Card Title</h3>
 			</CardHeader>
-			<CardContent {...args}>
+			<CardContent>
 				{args.children}
 				<img
 					src="https://placehold.co/600x400"
@@ -61,10 +61,10 @@ export const Responsive: Story = {
 	},
 	render: (args) => (
 		<Card {...args}>
-			<CardHeader {...args}>
+			<CardHeader>
 				<h3 className="font-semibold text-lg">Card Title</h3>
 			</CardHeader>
-			<CardContent {...args}>
+			<CardContent>
 				{args.children}
 				<img
 					src="https://placehold.co/600x400"
