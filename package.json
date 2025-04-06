@@ -2,6 +2,7 @@
 	"name": "luan-ui",
 	"version": "0.1.0",
 	"description": "",
+	"author": "benebene84 <benedikt.sperl@gmail.com> (https://github.com/benebene84)",
 	"main": "/dist/index.js",
 	"type": "module",
 	"scripts": {
@@ -20,8 +21,7 @@
 		"type": "git",
 		"url": "git+https://github.com/benebene84/luan-ui.git"
 	},
-	"author": "benebene84",
-	"license": "GPL-3.0-only",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/benebene84/luan-ui/issues"
 	},
