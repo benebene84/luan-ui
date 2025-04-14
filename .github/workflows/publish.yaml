@@ -1,0 +1,24 @@
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The version to publish"
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+      - run: pnpm build
+      - run: |
+          npm version ${{ inputs.version }}
+          git add .
+          git commit -m "chore: update version ${inputs.version} [skip ci]"
+          git push origin HEAD --tags
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
