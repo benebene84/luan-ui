@@ -89,6 +89,31 @@ describe("getVariants", () => {
 		expect(result).toContain("md:opacity-50");
 	});
 
+	it("should handle custom breakpoints", () => {
+		const styles = getVariants({
+			base: "rounded px-4 py-2",
+			variants: {
+				intent: {
+					primary: "bg-blue-500 text-white",
+					secondary: "bg-gray-200 text-gray-800",
+				},
+			},
+			breakpoints: ["mobile", "tablet", "desktop"],
+		});
+		const result = styles({
+			intent: {
+				initial: "primary",
+				tablet: "secondary",
+				desktop: "primary",
+			},
+			className: "custom-class",
+		});
+		expect(result).toContain("bg-blue-500");
+		expect(result).toContain("tablet:bg-gray-200");
+		expect(result).toContain("desktop:bg-blue-500");
+		expect(result).toContain("custom-class");
+	});
+
 	it("should merge custom className", () => {
 		const result = getButtonVariants({
 			intent: "primary",
