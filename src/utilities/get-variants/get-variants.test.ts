@@ -97,21 +97,34 @@ describe("getVariants", () => {
 					primary: "bg-blue-500 text-white",
 					secondary: "bg-gray-200 text-gray-800",
 				},
+				disabled: {
+					true: "cursor-not-allowed opacity-50",
+					false: "cursor-pointer",
+				},
 			},
 			breakpoints: ["mobile", "tablet", "desktop"],
 		});
 		const result = styles({
 			intent: {
 				initial: "primary",
-				tablet: "secondary",
-				desktop: "primary",
+				mobile: "secondary",
+				tablet: "primary",
+				desktop: "secondary",
+			},
+			disabled: {
+				initial: false,
+				desktop: true,
 			},
 			className: "custom-class",
 		});
 		expect(result).toContain("bg-blue-500");
-		expect(result).toContain("tablet:bg-gray-200");
-		expect(result).toContain("desktop:bg-blue-500");
+		expect(result).toContain("mobile:bg-gray-200");
+		expect(result).toContain("tablet:bg-blue-500");
+		expect(result).toContain("desktop:bg-gray-200");
 		expect(result).toContain("custom-class");
+		expect(result).toContain("cursor-pointer");
+		expect(result).toContain("desktop:cursor-not-allowed");
+		expect(result).toContain("desktop:opacity-50");
 	});
 
 	it("should merge custom className", () => {

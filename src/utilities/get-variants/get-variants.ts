@@ -1,13 +1,19 @@
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
-const defaultBreakpoints = ["sm", "md", "lg", "xl"];
+const defaultBreakpoints = ["sm", "md", "lg", "xl"] as const;
 type DefaultBreakpoints = (typeof defaultBreakpoints)[number];
 type BreakpointsMap<B extends string, T> = Record<B, T> & { initial: T };
 
-export type ResponsiveValue<B extends string = DefaultBreakpoints, T = string> =
-	| T
-	| (Partial<BreakpointsMap<B, T>> & { initial: T });
+export type ResponsiveValueWithCustomBreakpoints<
+	B extends string = DefaultBreakpoints,
+	T = string,
+> = T | (Partial<BreakpointsMap<B, T>> & { initial: T });
+
+export type ResponsiveValue<T> = ResponsiveValueWithCustomBreakpoints<
+	DefaultBreakpoints,
+	T
+>;
 
 type VariantValue = Record<string, string>;
 type VariantConfig = Record<string, VariantValue>;
@@ -16,9 +22,9 @@ type StringBoolean = "true" | "false";
 type BooleanVariant = Partial<Record<StringBoolean, string>>;
 
 type VariantPropValue<B extends string, T> = T extends BooleanVariant
-	? ResponsiveValue<B, boolean> | undefined
+	? ResponsiveValueWithCustomBreakpoints<B, boolean> | undefined
 	: T extends Record<string, unknown>
-		? ResponsiveValue<B, keyof T>
+		? ResponsiveValueWithCustomBreakpoints<B, keyof T>
 		: never;
 
 type VariantProps<B extends string, T extends VariantConfig> = {
@@ -86,14 +92,17 @@ type ResponsiveClassesConfig<
  * // Or with custom breakpoints:
  * getCustomButtonVariants({ intent: { initial: "primary", tablet: "secondary" } })
  */
-export const getVariants = <T extends VariantConfig>({
+export const getVariants = <
+	T extends VariantConfig,
+	B extends string = DefaultBreakpoints,
+>({
 	base,
 	variants,
 	compoundVariants,
-	breakpoints = defaultBreakpoints,
-}: ResponsiveClassesConfig<string, T>) => {
-	type Breakpoint = (typeof breakpoints)[number];
-	return ({ className, ...props }: VariantProps<Breakpoint, T>) => {
+	// we need to cast to unknown to get type inference working
+	breakpoints = defaultBreakpoints as unknown as B[],
+}: ResponsiveClassesConfig<B, T>) => {
+	return ({ className, ...props }: VariantProps<B, T>) => {
 		const responsiveClasses = Object.entries(props)
 			.flatMap(([key, propValue]) => {
 				const variant = variants?.[key];
@@ -111,7 +120,7 @@ export const getVariants = <T extends VariantConfig>({
 				}
 
 				// Handle responsive values
-				return Object.entries(value as Partial<BreakpointsMap<Breakpoint, T>>)
+				return Object.entries(value as Partial<BreakpointsMap<B, T>>)
 					.map(([breakpoint, value]) => {
 						// If the breakpoint is initial, return the variant value without breakpoint prefix
 						if (breakpoint === "initial") {
@@ -127,8 +136,8 @@ export const getVariants = <T extends VariantConfig>({
 			})
 			.join(" ");
 
-		const compoundClasses = compoundVariants
-			?.map(({ className, ...compound }) => {
+		const compoundClasses = compoundVariants?.map(
+			({ className, ...compound }) => {
 				if (
 					Object.entries(compound).every(
 						([key, value]) =>
@@ -138,8 +147,8 @@ export const getVariants = <T extends VariantConfig>({
 					return className;
 				}
 				return undefined;
-			})
-			.filter(Boolean);
+			},
+		);
 
 		return twMerge(clsx(base, responsiveClasses, compoundClasses, className));
 	};
