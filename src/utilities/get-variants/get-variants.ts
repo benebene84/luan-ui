@@ -6,28 +6,28 @@ type BreakpointsMap<T> = Record<Breakpoints, T>;
 
 export type ResponsiveValue<T> = T | Partial<BreakpointsMap<T>>;
 
-type VariantConfig =
-	| Record<string, Record<string, string>>
-	| Record<string, never>;
-
-type ResponsiveClassesConfig<T> = {
-	base: string;
-	variants?: T;
-	compoundVariants?: Partial<VariantProps<T>>[];
-};
+type VariantValue = Record<string, string>;
+type VariantConfig = Record<string, VariantValue>;
 
 type StringBoolean = "true" | "false";
 type BooleanVariant = Partial<Record<StringBoolean, string>>;
 
-type VariantProps<T> = {
-	// Check if the value is a boolean or a "normal" responsive value or no value
-	[K in keyof T]: T[K] extends BooleanVariant
-		? ResponsiveValue<boolean> | undefined
-		: T[K] extends Record<string, unknown>
-			? ResponsiveValue<keyof T[K]>
-			: never;
+type VariantPropValue<T> = T extends BooleanVariant
+	? ResponsiveValue<boolean> | undefined
+	: T extends Record<string, unknown>
+		? ResponsiveValue<keyof T>
+		: never;
+
+type VariantProps<T extends VariantConfig> = {
+	[K in keyof T]: VariantPropValue<T[K]>;
 } & {
-	className?: string | string[];
+	className?: string;
+};
+
+type ResponsiveClassesConfig<T extends VariantConfig> = {
+	base: string;
+	variants?: T;
+	compoundVariants?: Partial<VariantProps<T>>[];
 };
 
 /**
