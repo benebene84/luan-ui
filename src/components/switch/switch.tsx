@@ -1,4 +1,4 @@
-import * as RadixSwitch from "@radix-ui/react-switch";
+import { Switch as RadixSwitch } from "radix-ui";
 import { type ComponentRef, forwardRef } from "react";
 import {
 	type ResponsiveValue,
