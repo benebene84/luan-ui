@@ -1,10 +1,55 @@
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Popover as RadixPopover } from "radix-ui";
-import { type ComponentRef, forwardRef } from "react";
+import {
+	type ComponentRef,
+	createContext,
+	forwardRef,
+	useContext,
+	useMemo,
+} from "react";
 import { getVariants } from "../../utilities/get-variants/get-variants";
 import { Icon } from "../icon/icon";
 
-const Popover = RadixPopover.Root;
+const PopoverContext = createContext<PopoverProps | undefined>(undefined);
+
+const usePopoverContext = () => {
+	const context = useContext(PopoverContext);
+	if (!context) {
+		throw new Error("Popover components must be used within a Popover");
+	}
+	return context;
+};
+
+type PopoverProps = {
+	showArrow?: boolean;
+	closeButtonAriaLabel?: string;
+	showCloseButton?: boolean;
+} & RadixPopover.PopoverProps &
+	Pick<RadixPopover.PopoverContentProps, "side">;
+
+const Popover = ({
+	children,
+	showArrow = true,
+	closeButtonAriaLabel = "Close",
+	showCloseButton = true,
+	side,
+	...props
+}: PopoverProps) => {
+	const contextValue = useMemo(
+		() => ({
+			showArrow,
+			closeButtonAriaLabel,
+			side,
+			showCloseButton,
+		}),
+		[showArrow, closeButtonAriaLabel, side, showCloseButton],
+	);
+	return (
+		<PopoverContext.Provider value={contextValue}>
+			<RadixPopover.Root {...props}>{children}</RadixPopover.Root>
+		</PopoverContext.Provider>
+	);
+};
 
 const PopoverTrigger = RadixPopover.Trigger;
 
@@ -21,25 +66,18 @@ const popoverContentStyles = getVariants({
 const PopoverContent = forwardRef<
 	ComponentRef<typeof RadixPopover.Content>,
 	PopoverContentProps
->(
-	(
-		{
-			children,
-			className,
-			showArrow = true,
-			sideOffset = 4,
-			closeButtonAriaLabel = "Close",
-			...props
-		},
-		ref,
-	) => {
-		return (
-			<RadixPopover.Content
-				className={popoverContentStyles({ className })}
-				sideOffset={sideOffset}
-				{...props}
-				ref={ref}
-			>
+>(({ children, className, sideOffset = 4, ...props }, ref) => {
+	const { showArrow, closeButtonAriaLabel, side, showCloseButton } =
+		usePopoverContext();
+	return (
+		<RadixPopover.Content
+			className={popoverContentStyles({ className })}
+			sideOffset={sideOffset}
+			side={side}
+			{...props}
+			ref={ref}
+		>
+			{showCloseButton && (
 				<PopoverClose
 					className="absolute top-4 right-4"
 					aria-label={closeButtonAriaLabel}
@@ -48,12 +86,12 @@ const PopoverContent = forwardRef<
 						<Cross1Icon />
 					</Icon>
 				</PopoverClose>
-				{children}
-				{showArrow && <RadixPopover.Arrow className="fill-gray-700" />}
-			</RadixPopover.Content>
-		);
-	},
-);
+			)}
+			{children}
+			{showArrow && <RadixPopover.Arrow className="fill-gray-700" />}
+		</RadixPopover.Content>
+	);
+});
 
 const PopoverClose = RadixPopover.Close;
 

@@ -10,6 +10,18 @@ const meta: Meta<typeof Popover> = {
 	title: "Example/Popover",
 	component: Popover,
 	tags: ["autodocs"],
+	argTypes: {
+		showArrow: {
+			control: "boolean",
+		},
+		side: {
+			control: "select",
+			options: ["top", "right", "bottom", "left"],
+		},
+		showCloseButton: {
+			control: "boolean",
+		},
+	},
 };
 
 export default meta;
@@ -20,6 +32,7 @@ export const Default: Story = {
 	args: {
 		showArrow: true,
 		side: "left",
+		showCloseButton: true,
 	},
 	decorators: [
 		(Story) => (
@@ -29,11 +42,11 @@ export const Default: Story = {
 		),
 	],
 	render: (args) => (
-		<Popover>
+		<Popover {...args}>
 			<PopoverTrigger asChild>
 				<Button variant="secondary">Open Popover</Button>
 			</PopoverTrigger>
-			<PopoverContent showArrow={args.showArrow} side={args.side}>
+			<PopoverContent>
 				<div className="flex flex-col gap-2">
 					<h3 className="font-medium">Popover Title</h3>
 					<p>This is a basic popover content with some text.</p>
