@@ -135,10 +135,10 @@ const Pagination = forwardRef<HTMLElement, PaginationProps>(
 export type PaginationItemProps = {
 	children?: React.ReactNode;
 	index?: number;
-};
+} & React.HTMLAttributes<HTMLButtonElement>;
 
 const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>(
-	({ index, children }, ref) => {
+	({ index, children, ...props }, ref) => {
 		const { registerRef, page, setPage } = usePaginationContext();
 
 		const isActive = page === index;
@@ -163,6 +163,8 @@ const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>(
 						"bg-gray-700 text-white hover:bg-gray-800": isActive,
 					},
 				)}
+				aria-current={isActive ? "page" : undefined}
+				{...props}
 			>
 				{children ?? index}
 			</button>
@@ -170,45 +172,49 @@ const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>(
 	},
 );
 
-const PaginationPrev = forwardRef<HTMLButtonElement, PropsWithChildren>(
-	({ children }, ref) => {
-		const { registerRef, page, setPage, hasPreviousPage } =
-			usePaginationContext();
+const PaginationPrev = forwardRef<
+	HTMLButtonElement,
+	PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
+>(({ children, ...props }, ref) => {
+	const { registerRef, page, setPage, hasPreviousPage } =
+		usePaginationContext();
 
-		return (
-			<button
-				type="button"
-				onClick={() => setPage(page - 1)}
-				ref={(el) => {
-					if (typeof ref === "function") ref(el);
-					else if (ref) ref.current = el;
-					registerRef(0, el);
-				}}
-				disabled={!hasPreviousPage}
-				className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
-			>
-				{children}
-			</button>
-		);
-	},
-);
+	return (
+		<button
+			type="button"
+			onClick={() => setPage(page - 1)}
+			ref={(el) => {
+				if (typeof ref === "function") ref(el);
+				else if (ref) ref.current = el;
+				registerRef(0, el);
+			}}
+			disabled={!hasPreviousPage}
+			className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
+			{...props}
+		>
+			{children}
+		</button>
+	);
+});
 
-const PaginationNext = forwardRef<HTMLButtonElement, PropsWithChildren>(
-	({ children }, ref) => {
-		const { page, setPage, hasNextPage, registerRef, totalPages } =
-			usePaginationContext();
-		return (
-			<button
-				type="button"
-				className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-20"
-				onClick={() => setPage(page + 1)}
-				disabled={!hasNextPage}
-				ref={(el) => registerRef(totalPages + 1, el)}
-			>
-				{children}
-			</button>
-		);
-	},
-);
+const PaginationNext = forwardRef<
+	HTMLButtonElement,
+	PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
+>(({ children, ...props }, ref) => {
+	const { page, setPage, hasNextPage, registerRef, totalPages } =
+		usePaginationContext();
+	return (
+		<button
+			type="button"
+			className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-20"
+			onClick={() => setPage(page + 1)}
+			disabled={!hasNextPage}
+			ref={(el) => registerRef(totalPages + 1, el)}
+			{...props}
+		>
+			{children}
+		</button>
+	);
+});
 
 export { Pagination, PaginationItem, PaginationPrev, PaginationNext };

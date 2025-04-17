@@ -37,7 +37,7 @@ export const Default: Story = {
 	render: (args) => {
 		return (
 			<Pagination {...args}>
-				<PaginationPrev>
+				<PaginationPrev aria-label="Previous">
 					<ChevronLeftIcon className="h-5 w-5" />
 				</PaginationPrev>
 				{Array.from({ length: args.totalPages }, (_, index) => (
@@ -48,7 +48,7 @@ export const Default: Story = {
 						}`}
 					/>
 				))}
-				<PaginationNext>
+				<PaginationNext aria-label="Next">
 					<ChevronRightIcon className="h-5 w-5" />
 				</PaginationNext>
 			</Pagination>
