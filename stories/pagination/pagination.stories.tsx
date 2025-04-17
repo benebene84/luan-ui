@@ -1,3 +1,4 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
 	Pagination,
@@ -36,7 +37,9 @@ export const Default: Story = {
 	render: (args) => {
 		return (
 			<Pagination {...args}>
-				<PaginationPrev />
+				<PaginationPrev>
+					<ChevronLeftIcon className="h-5 w-5" />
+				</PaginationPrev>
 				{Array.from({ length: args.totalPages }, (_, index) => (
 					<PaginationItem
 						key={`pagination-item-${
@@ -45,7 +48,9 @@ export const Default: Story = {
 						}`}
 					/>
 				))}
-				<PaginationNext />
+				<PaginationNext>
+					<ChevronRightIcon className="h-5 w-5" />
+				</PaginationNext>
 			</Pagination>
 		);
 	},

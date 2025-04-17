@@ -20,7 +20,7 @@ const usePopoverContext = () => {
 	return context;
 };
 
-type PopoverProps = {
+export type PopoverProps = {
 	showArrow?: boolean;
 	closeButtonAriaLabel?: string;
 	showCloseButton?: boolean;
@@ -53,7 +53,7 @@ const Popover = ({
 
 const PopoverTrigger = RadixPopover.Trigger;
 
-type PopoverContentProps = RadixPopover.PopoverContentProps & {
+export type PopoverContentProps = RadixPopover.PopoverContentProps & {
 	showArrow?: boolean;
 	closeButtonAriaLabel?: string;
 };

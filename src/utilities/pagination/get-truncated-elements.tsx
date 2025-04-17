@@ -155,8 +155,8 @@ export const getTruncatedElements = ({
 			</span>,
 		);
 
-		// Show exactly 3 pages with current page in middle
-		for (let i = page - 1; i <= page + 1; i++) {
+		// Show 5 pages with current page in middle
+		for (let i = page - 2; i <= page + 2; i++) {
 			if (i > 1 && i < paginationItems.length) {
 				const item = paginationItems[i - 1];
 				if (item) {
