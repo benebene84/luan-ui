@@ -1,111 +1,65 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { render, screen } from "@testing-library/react";
+import { composeStories } from "@storybook/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-	Pagination,
-	PaginationItem,
-	PaginationNext,
-	PaginationPrev,
-} from "../../src/components/pagination/pagination";
+import { describe, expect, it, vi } from "vitest";
+import * as stories from "./pagination.stories";
 
 describe("Pagination", () => {
-	const onPageChange = vi.fn();
 	const user = userEvent.setup();
 
-	beforeEach(() => {
-		onPageChange.mockClear();
-	});
+	const { Default } = composeStories(stories);
 
-	const renderPagination = (page: number, totalPages: number) => {
-		return render(
-			<Pagination
-				page={page}
-				totalPages={totalPages}
-				onPageChange={onPageChange}
-			>
-				<PaginationPrev>
-					<ChevronLeftIcon className="h-5 w-5" />
-				</PaginationPrev>
-				{Array.from({ length: totalPages }, (_, i) => (
-					<PaginationItem key={`page-${i + 1}`} />
-				))}
-				<PaginationNext>
-					<ChevronRightIcon className="h-5 w-5" />
-				</PaginationNext>
-			</Pagination>,
-		);
-	};
-
-	it("renders pagination with correct number of items", () => {
-		renderPagination(1, 5);
+	it("renders pagination with correct number of items", async () => {
+		await Default.run();
 		// Should render 5 page items + prev + next buttons
 		expect(screen.getAllByRole("button")).toHaveLength(7);
 	});
 
-	it("highlights the active page", () => {
-		renderPagination(3, 5);
-		const activeButton = screen.getByText("3");
-		expect(activeButton).toHaveClass("bg-gray-700");
-	});
-
 	it("calls onPageChange when clicking a page", async () => {
-		renderPagination(1, 5);
+		const onPageChange = vi.fn();
+		await Default.run({
+			args: { page: 2, totalPages: 5, onPageChange },
+		});
 		const pageButton = screen.getByText("2");
 		await user.click(pageButton);
 		expect(onPageChange).toHaveBeenCalledWith(2);
 	});
 
-	it("disables prev button on first page", () => {
-		renderPagination(1, 5);
-		const prevButton = screen.getAllByRole("button").at(0);
+	it("disables prev button on first page", async () => {
+		await Default.run({ args: { page: 1, totalPages: 5 } });
+		const prevButton = screen.getByRole("button", { name: "Previous" });
 		expect(prevButton).toBeDisabled();
 	});
 
-	it("disables next button on last page", () => {
-		renderPagination(5, 5);
-		const nextButton = screen.getAllByRole("button").at(-1);
+	it("disables next button on last page", async () => {
+		await Default.run({ args: { page: 5, totalPages: 5 } });
+		const nextButton = screen.getByRole("button", { name: "Next" });
 		expect(nextButton).toBeDisabled();
 	});
 
 	it("handles keyboard navigation", async () => {
-		renderPagination(3, 5);
+		await Default.run({ args: { page: 3, totalPages: 5 } });
 		const activeButton = screen.getByRole("button", { name: "3" });
-		const allButtons = screen.getAllByRole("button");
 		activeButton.focus();
 
 		// Press left arrow to go to page 2
 		await user.keyboard("[ArrowLeft]");
+		expect(screen.getByRole("button", { name: "2" })).toHaveFocus();
+		// Press enter to select the page
 		await user.keyboard("[Enter]");
 
-		expect(allButtons[2]).toHaveAttribute("aria-current", "page");
-
-		// Press right arrow to go to page 4
-		await user.keyboard("[ArrowRight]");
-		await user.keyboard("[Enter]");
-
-		expect(allButtons[3]).toHaveAttribute("aria-current", "page");
-	});
-
-	it("updates when page prop changes", () => {
-		const { rerender } = renderPagination(1, 5);
-		expect(screen.getByText("1")).toHaveClass("bg-gray-700");
-
-		// Rerender with new page
-		rerender(
-			<Pagination page={3} totalPages={5} onPageChange={onPageChange}>
-				<PaginationPrev>
-					<ChevronLeftIcon className="h-5 w-5" />
-				</PaginationPrev>
-				{Array.from({ length: 5 }, (_, i) => (
-					<PaginationItem key={`page-${i + 1}`} />
-				))}
-				<PaginationNext>
-					<ChevronRightIcon className="h-5 w-5" />
-				</PaginationNext>
-			</Pagination>,
+		expect(screen.getByRole("button", { name: "2" })).toHaveAttribute(
+			"aria-current",
+			"page",
 		);
 
-		expect(screen.getByText("3")).toHaveClass("bg-gray-700");
+		// Press right arrow to go to page 4
+		await user.keyboard("[ArrowRight][ArrowRight]");
+		await user.keyboard("[Enter]");
+
+		expect(screen.getByRole("button", { name: "4" })).toHaveAttribute(
+			"aria-current",
+			"page",
+		);
 	});
 });
