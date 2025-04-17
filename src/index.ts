@@ -15,3 +15,25 @@ export type {
 	CardContentProps,
 	CardFooterProps,
 } from "./components/card/card";
+export {
+	Pagination,
+	PaginationItem,
+	PaginationPrev,
+	PaginationNext,
+} from "./components/pagination/pagination";
+export type {
+	PaginationProps,
+	PaginationItemProps,
+} from "./components/pagination/pagination";
+export {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+	PopoverClose,
+	PopoverPortal,
+	PopoverAnchor,
+} from "./components/popover/popover";
+export type {
+	PopoverProps,
+	PopoverContentProps,
+} from "./components/popover/popover";
