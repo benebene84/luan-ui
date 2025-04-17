@@ -50,7 +50,6 @@ export const getTruncatedElements = ({
 
 	const result: ReactNode[] = [];
 	let currentIndex = 0;
-	const pageNumber = 1;
 
 	// Add non-PaginationItem elements at the start
 	while (currentIndex < elements.length) {

@@ -206,7 +206,7 @@ const PaginationNext = forwardRef<
 	return (
 		<button
 			type="button"
-			className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-20"
+			className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
 			onClick={() => setPage(page + 1)}
 			disabled={!hasNextPage}
 			ref={(el) => registerRef(totalPages + 1, el)}
