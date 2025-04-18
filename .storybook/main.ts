@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { StorybookConfig } from "@storybook/react-webpack5";
 
 const config: StorybookConfig = {
@@ -29,6 +30,20 @@ const config: StorybookConfig = {
 			exclude: /node_modules/,
 			use: ["postcss-loader"],
 		});
+
+		// Add path aliases
+		if (!config.resolve) {
+			config.resolve = {};
+		}
+		if (!config.resolve.alias) {
+			config.resolve.alias = {};
+		}
+
+		config.resolve.alias = {
+			...config.resolve.alias,
+			"@components": path.resolve(__dirname, "../src/components"),
+			"@utilities": path.resolve(__dirname, "../src/utilities"),
+		};
 
 		return config;
 	},
