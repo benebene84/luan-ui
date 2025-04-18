@@ -1,5 +1,4 @@
-import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@utilities/cn/cn";
 
 type Breakpoints = "initial" | "sm" | "md" | "lg" | "xl";
 type BreakpointsMap<T> = Record<Breakpoints, T>;
@@ -122,5 +121,5 @@ export const getVariants =
 			})
 			.filter(Boolean);
 
-		return twMerge(clsx(base, responsiveClasses, compoundClasses, className));
+		return cn(base, responsiveClasses, compoundClasses, className);
 	};
