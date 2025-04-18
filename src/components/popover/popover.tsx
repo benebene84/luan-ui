@@ -10,6 +10,10 @@ import {
 import { getVariants } from "../../utilities/get-variants/get-variants";
 import { Icon } from "../icon/icon";
 
+/**
+ * Popover Context
+ */
+
 const PopoverContext = createContext<PopoverProps | undefined>(undefined);
 
 const usePopoverContext = () => {
@@ -19,6 +23,10 @@ const usePopoverContext = () => {
 	}
 	return context;
 };
+
+/**
+ * Popover
+ */
 
 export type PopoverProps = {
 	showArrow?: boolean;
@@ -63,6 +71,10 @@ const popoverContentStyles = getVariants({
 	variants: {},
 });
 
+/**
+ * Popover Content
+ */
+
 const PopoverContent = forwardRef<
 	ComponentRef<typeof RadixPopover.Content>,
 	PopoverContentProps
@@ -93,9 +105,21 @@ const PopoverContent = forwardRef<
 	);
 });
 
+/**
+ * Popover Close
+ */
+
 const PopoverClose = RadixPopover.Close;
 
+/**
+ * Popover Portal
+ */
+
 const PopoverPortal = RadixPopover.Portal;
+
+/**
+ * Popover Anchor
+ */
 
 const PopoverAnchor = RadixPopover.Anchor;
 

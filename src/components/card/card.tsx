@@ -5,7 +5,9 @@ import {
 } from "../../utilities/get-variants/get-variants";
 import { Slot } from "../../utilities/slot/slot";
 
-// Card context
+/**
+ * Card Context
+ */
 
 type CardContextValue = Required<Pick<CardProps, "size">>;
 
@@ -19,7 +21,9 @@ const useCardContext = () => {
 	return context;
 };
 
-// Card component
+/**
+ * Card
+ */
 
 export type CardProps = React.HTMLAttributes<HTMLDivElement> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
@@ -77,7 +81,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = "Card";
 
-// Card header component
+/**
+ * Card Header
+ */
 
 export type CardHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
@@ -135,7 +141,9 @@ export const CardHeader = forwardRef<
 
 CardHeader.displayName = "CardHeader";
 
-// Card content component
+/**
+ * Card Content
+ */
 
 export type CardContentProps = React.HTMLAttributes<HTMLDivElement> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
@@ -193,7 +201,9 @@ export const CardContent = forwardRef<
 
 CardContent.displayName = "CardContent";
 
-// Card footer component
+/**
+ * Card Footer
+ */
 
 export type CardFooterProps = React.HTMLAttributes<HTMLDivElement> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;

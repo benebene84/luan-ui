@@ -14,6 +14,10 @@ import { getTruncatedElements } from "../../utilities/pagination/get-truncated-e
 import { handleKeyboardNavigation } from "../../utilities/pagination/keyboard-navigation";
 import { Slot } from "../../utilities/slot/slot";
 
+/**
+ * Pagination Context
+ */
+
 type PaginationContextValue = {
 	page: number;
 	totalPages: number;
@@ -34,6 +38,10 @@ const usePaginationContext = () => {
 	}
 	return context;
 };
+
+/**
+ * Pagination
+ */
 
 export type PaginationProps = {
 	children?: React.ReactNode;
@@ -132,6 +140,10 @@ const Pagination = forwardRef<HTMLElement, PaginationProps>(
 	},
 );
 
+/**
+ * Pagination Item
+ */
+
 export type PaginationItemProps = {
 	children?: React.ReactNode;
 	index?: number;
@@ -172,6 +184,10 @@ const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>(
 	},
 );
 
+/**
+ * Pagination Prev
+ */
+
 const PaginationPrev = forwardRef<
 	HTMLButtonElement,
 	PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
@@ -196,6 +212,10 @@ const PaginationPrev = forwardRef<
 		</button>
 	);
 });
+
+/**
+ * Pagination Next
+ */
 
 const PaginationNext = forwardRef<
 	HTMLButtonElement,
