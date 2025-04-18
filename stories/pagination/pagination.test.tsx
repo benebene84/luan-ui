@@ -62,4 +62,36 @@ describe("Pagination", () => {
 			"page",
 		);
 	});
+
+	it("renders ellipsis when there are more than 7 pages", async () => {
+		await Default.run({ args: { page: 1, totalPages: 8 } });
+		expect(screen.getByText("...")).toBeInTheDocument();
+	});
+
+	it("renders two ellipsis and the current page +- 2 pages and the last page", async () => {
+		await Default.run({ args: { page: 8, totalPages: 25 } });
+		expect(screen.getAllByText("...")).toHaveLength(2);
+		expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "6" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "7" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "8" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "9" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "10" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "25" })).toBeInTheDocument();
+	});
+
+	it("doesn't render two ellipsis when the current page is at the beginning or end of the pagination (+- 4 pages)", async () => {
+		await Default.run({ args: { page: 4, totalPages: 25 } });
+		expect(screen.getAllByText("...")).toHaveLength(1);
+		expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "2" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "3" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "4" })).toBeInTheDocument();
+		await Default.run({ args: { page: 22, totalPages: 25 } });
+		expect(screen.getAllByText("...")).toHaveLength(1);
+		expect(screen.getByRole("button", { name: "22" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "23" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "24" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "25" })).toBeInTheDocument();
+	});
 });

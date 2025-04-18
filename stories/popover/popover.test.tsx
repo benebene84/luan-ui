@@ -8,8 +8,8 @@ import * as stories from "./popover.stories";
 const { Default } = composeStories(stories);
 
 describe("Popover", () => {
-	it("should render and open and close", async () => {
-		render(<Default />);
+	it("should render, open and close", async () => {
+		await Default.run();
 
 		const user = userEvent.setup();
 
