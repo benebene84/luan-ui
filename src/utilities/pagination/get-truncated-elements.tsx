@@ -1,13 +1,13 @@
 import {
+	PaginationItem,
+	type PaginationItemProps,
+} from "@components/pagination/pagination";
+import {
 	Children,
 	type ReactElement,
 	type ReactNode,
 	isValidElement,
 } from "react";
-import {
-	PaginationItem,
-	type PaginationItemProps,
-} from "../../components/pagination/pagination";
 
 type TruncatedElementsOptions = {
 	page: number;

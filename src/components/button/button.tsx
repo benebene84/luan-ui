@@ -1,10 +1,10 @@
-import { forwardRef } from "react";
+import { Icon } from "@components/icon/icon";
 import {
 	type ResponsiveValue,
 	getVariants,
-} from "../../utilities/get-variants/get-variants";
-import { Slot, Slottable } from "../../utilities/slot/slot";
-import { Icon } from "../icon/icon";
+} from "@utilities/get-variants/get-variants";
+import { Slot, Slottable } from "@utilities/slot/slot";
+import { forwardRef } from "react";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant?: "primary" | "secondary";

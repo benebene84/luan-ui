@@ -1,9 +1,9 @@
-import { type ComponentRef, forwardRef } from "react";
 import {
 	type ResponsiveValue,
 	getVariants,
-} from "../../utilities/get-variants/get-variants";
-import { Slot } from "../../utilities/slot/slot";
+} from "@utilities/get-variants/get-variants";
+import { Slot } from "@utilities/slot/slot";
+import { type ComponentRef, forwardRef } from "react";
 
 export type IconProps = React.SVGProps<SVGSVGElement> & {
 	asChild?: boolean;

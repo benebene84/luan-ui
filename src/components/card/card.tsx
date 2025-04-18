@@ -1,9 +1,9 @@
-import { createContext, forwardRef, useContext } from "react";
 import {
 	type ResponsiveValue,
 	getVariants,
-} from "../../utilities/get-variants/get-variants";
-import { Slot } from "../../utilities/slot/slot";
+} from "@utilities/get-variants/get-variants";
+import { Slot } from "@utilities/slot/slot";
+import { createContext, forwardRef, useContext } from "react";
 
 /**
  * Card Context
@@ -64,6 +64,19 @@ const cardStyles = getVariants({
 	},
 });
 
+/**
+ * Card component that provides a container with consistent styling and spacing.
+ * Supports different sizes and can be used with asChild prop for composition.
+ *
+ * @example
+ * ```tsx
+ * <Card size="medium">
+ *   <CardHeader>Header</CardHeader>
+ *   <CardContent>Content</CardContent>
+ *   <CardFooter>Footer</CardFooter>
+ * </Card>
+ * ```
+ */
 export const Card = forwardRef<HTMLDivElement, CardProps>(
 	({ className, size = "medium", asChild, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
@@ -124,6 +137,18 @@ const cardHeaderStyles = getVariants({
 	},
 });
 
+/**
+ * Card Header component that provides a consistent header section for the Card.
+ * Inherits size from parent Card component.
+ *
+ * @example
+ * ```tsx
+ * <CardHeader>
+ *   <h2>Title</h2>
+ *   <button>Action</button>
+ * </CardHeader>
+ * ```
+ */
 export const CardHeader = forwardRef<
 	HTMLDivElement,
 	Omit<CardHeaderProps, "size">
@@ -184,6 +209,17 @@ const cardContentStyles = getVariants({
 	},
 });
 
+/**
+ * Card Content component that provides the main content area for the Card.
+ * Inherits size from parent Card component.
+ *
+ * @example
+ * ```tsx
+ * <CardContent>
+ *   <p>Main content goes here</p>
+ * </CardContent>
+ * ```
+ */
 export const CardContent = forwardRef<
 	HTMLDivElement,
 	Omit<CardContentProps, "size">
@@ -244,6 +280,18 @@ const cardFooterStyles = getVariants({
 	},
 });
 
+/**
+ * Card Footer component that provides a consistent footer section for the Card.
+ * Inherits size from parent Card component.
+ *
+ * @example
+ * ```tsx
+ * <CardFooter>
+ *   <button>Cancel</button>
+ *   <button>Submit</button>
+ * </CardFooter>
+ * ```
+ */
 export const CardFooter = forwardRef<
 	HTMLDivElement,
 	Omit<CardFooterProps, "size">

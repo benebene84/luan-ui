@@ -1,4 +1,6 @@
+import { Icon } from "@components/icon/icon";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { getVariants } from "@utilities/get-variants/get-variants";
 import { Popover as RadixPopover } from "radix-ui";
 import {
 	type ComponentRef,
@@ -7,8 +9,6 @@ import {
 	useContext,
 	useMemo,
 } from "react";
-import { getVariants } from "../../utilities/get-variants/get-variants";
-import { Icon } from "../icon/icon";
 
 /**
  * Popover Context
@@ -35,6 +35,24 @@ export type PopoverProps = {
 } & RadixPopover.PopoverProps &
 	Pick<RadixPopover.PopoverContentProps, "side">;
 
+/**
+ * Popover component that provides a popover container with a trigger and content.
+ *
+ * @param {boolean} [props.showArrow=true] - Whether to show the arrow pointing to the trigger
+ * @param {string} [props.closeButtonAriaLabel="Close"] - Aria label for the close button
+ * @param {boolean} [props.showCloseButton=true] - Whether to show the close button
+ * @param {RadixPopover.PopoverContentProps["side"]} [props.side] - The preferred side to show the popover
+ *
+ * @example
+ * ```tsx
+ * <Popover>
+ *   <PopoverTrigger>Open Popover</PopoverTrigger>
+ *   <PopoverContent>
+ *     <p>Popover content goes here</p>
+ *   </PopoverContent>
+ * </Popover>
+ * ```
+ */
 const Popover = ({
 	children,
 	showArrow = true,
@@ -75,6 +93,17 @@ const popoverContentStyles = getVariants({
  * Popover Content
  */
 
+/**
+ * Popover Content component that provides the content area for the Popover.
+ * Inherits size from parent Popover component.
+ *
+ * @example
+ * ```tsx
+ * <PopoverContent>
+ *   <p>Popover content goes here</p>
+ * </PopoverContent>
+ * ```
+ */
 const PopoverContent = forwardRef<
 	ComponentRef<typeof RadixPopover.Content>,
 	PopoverContentProps
