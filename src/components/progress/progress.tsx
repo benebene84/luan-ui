@@ -6,7 +6,9 @@ import {
 	forwardRef,
 } from "react";
 
-type ProgressProps = ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
+export type ProgressProps = ComponentPropsWithoutRef<
+	typeof ProgressPrimitive.Root
+> & {
 	showLabel?: boolean;
 };
 
