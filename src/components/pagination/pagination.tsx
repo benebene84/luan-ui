@@ -1,8 +1,8 @@
+import { Slot } from "@components/slot/slot";
 import { cn } from "@utilities/cn/cn";
 import { mergeRefs } from "@utilities/merge-refs/merge-refs";
 import { getTruncatedElements } from "@utilities/pagination/get-truncated-elements";
 import { handleKeyboardNavigation } from "@utilities/pagination/keyboard-navigation";
-import { Slot } from "@utilities/slot/slot";
 import clsx from "clsx";
 import {
 	type PropsWithChildren,

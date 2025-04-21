@@ -1,8 +1,8 @@
+import { Slot } from "@components/slot/slot";
 import {
 	type ResponsiveValue,
 	getVariants,
 } from "@utilities/get-variants/get-variants";
-import { Slot } from "@utilities/slot/slot";
 import { createContext, forwardRef, useContext } from "react";
 
 /**
