@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+	--animate-accordion-up: accordion-up 350ms ease;
+	--animate-accordion-down: accordion-down 350ms ease;
+}
+
+@keyframes accordion-up {
+	from {
+		height: var(--radix-accordion-content-height);
+	}
+	to {
+		height: 0;
+	}
+}
+
+@keyframes accordion-down {
+	from {
+		height: 0;
+	}
+	to {
+		height: var(--radix-accordion-content-height);
+	}
+}

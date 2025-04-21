@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		variant: "primary",
-		size: "large",
+		size: "medium",
 		children: "Button",
 		disabled: false,
 		iconStart: <ArrowLeftIcon aria-label="ArrowLeftIcon" />,
