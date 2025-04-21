@@ -37,3 +37,17 @@ export type {
 	PopoverProps,
 	PopoverContentProps,
 } from "@components/popover/popover";
+export { Progress } from "@components/progress/progress";
+export type { ProgressProps } from "@components/progress/progress";
+export {
+	Accordion,
+	AccordionItem,
+	AccordionTrigger,
+	AccordionContent,
+} from "@components/accordion/accordion";
+export type {
+	AccordionProps,
+	AccordionItemProps,
+	AccordionTriggerProps,
+	AccordionContentProps,
+} from "@components/accordion/accordion";

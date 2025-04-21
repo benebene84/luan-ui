@@ -31,11 +31,19 @@ import {
  * @param {function} [props.onValueChange] - Callback when value changes
  * @returns {React.ReactNode} The rendered accordion component
  */
+export type AccordionProps = ComponentPropsWithoutRef<
+	typeof RadixAccordion.Root
+>;
+
 const Accordion = RadixAccordion.Root;
+
+export type AccordionItemProps = ComponentPropsWithoutRef<
+	typeof RadixAccordion.Item
+>;
 
 const AccordionItem = forwardRef<
 	ComponentRef<typeof RadixAccordion.Item>,
-	ComponentPropsWithoutRef<typeof RadixAccordion.Item>
+	AccordionItemProps
 >(({ className, ...props }, ref) => (
 	<RadixAccordion.Item
 		ref={ref}
@@ -45,9 +53,13 @@ const AccordionItem = forwardRef<
 ));
 AccordionItem.displayName = "AccordionItem";
 
+export type AccordionTriggerProps = ComponentPropsWithoutRef<
+	typeof RadixAccordion.Trigger
+>;
+
 const AccordionTrigger = forwardRef<
 	ComponentRef<typeof RadixAccordion.Trigger>,
-	ComponentPropsWithoutRef<typeof RadixAccordion.Trigger>
+	AccordionTriggerProps
 >(({ className, children, ...props }, ref) => (
 	<RadixAccordion.Header className="flex">
 		<RadixAccordion.Trigger
@@ -67,9 +79,13 @@ const AccordionTrigger = forwardRef<
 ));
 AccordionTrigger.displayName = "AccordionTrigger";
 
+export type AccordionContentProps = ComponentPropsWithoutRef<
+	typeof RadixAccordion.Content
+>;
+
 const AccordionContent = forwardRef<
 	ComponentRef<typeof RadixAccordion.Content>,
-	ComponentPropsWithoutRef<typeof RadixAccordion.Content>
+	AccordionContentProps
 >(({ className, children, ...props }, ref) => (
 	<RadixAccordion.Content
 		ref={ref}
