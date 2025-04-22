@@ -26,6 +26,8 @@ export type {
 } from "@components/card/card";
 export { getVariants } from "@utilities/get-variants/get-variants";
 export type { ResponsiveValue } from "@utilities/get-variants/get-variants";
+export { Label } from "@components/label/label";
+export type { LabelProps } from "@components/label/label";
 export { Input } from "@components/input/input";
 export type { InputProps } from "@components/input/input";
 export {
