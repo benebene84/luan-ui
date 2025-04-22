@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Input } from "../../src/components/input/input";
-import { Label } from "../../src/components/label/label";
+import { Input } from "@components/input/input";
+import { Label } from "@components/label/label";
+
+type LabelStoryProps = React.ComponentProps<typeof Label> & {
+	disabled?: boolean;
+};
 
 const meta = {
 	title: "Example/Label",
@@ -11,33 +15,34 @@ const meta = {
 		children: {
 			control: "text",
 		},
-		// @ts-expect-error
 		disabled: {
 			control: "boolean",
 		},
 	},
-} satisfies Meta<typeof Label>;
+} satisfies Meta<LabelStoryProps>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<LabelStoryProps>;
 
 export const Default: Story = {
-	render: (args) => (
-		<div className="flex w-fit flex-col-reverse gap-2">
-			<Input
-				id="input-field"
-				placeholder="Type something..."
-				className="peer"
-				// @ts-expect-error
-				disabled={args.disabled}
-			/>
-			<Label htmlFor="input-field" {...args}>
-				{args.children}
-			</Label>
-		</div>
-	),
+	render: ({ disabled, children, ...args }) => {
+		return (
+			<div className="flex w-fit flex-col-reverse gap-2">
+				<Input
+					id="input-field"
+					placeholder="Type something..."
+					className="peer"
+					disabled={disabled}
+				/>
+				<Label htmlFor="input-field" {...args}>
+					{children}
+				</Label>
+			</div>
+		);
+	},
 	args: {
 		children: "Label",
+		disabled: false,
 	},
 };
