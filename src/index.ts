@@ -56,3 +56,9 @@ export { Progress } from "@components/progress/progress";
 export type { ProgressProps } from "@components/progress/progress";
 export { Switch } from "@components/switch/switch";
 export type { SwitchProps } from "@components/switch/switch";
+export {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@components/tooltip/tooltip";
+export type { TooltipProps } from "@components/tooltip/tooltip";
