@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
