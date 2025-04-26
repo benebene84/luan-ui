@@ -1,9 +1,8 @@
 import { cn } from "@utilities/cn/cn";
-
-type Breakpoints = "initial" | "sm" | "md" | "lg" | "xl";
-type BreakpointsMap<T> = Record<Breakpoints, T>;
-
-export type ResponsiveValue<T> = T | Partial<BreakpointsMap<T>>;
+import type {
+	BreakpointsMap,
+	ResponsiveValue,
+} from "@utilities/responsive/responsive";
 
 type VariantValue = Record<string, string>;
 type VariantConfig = Record<string, VariantValue>;

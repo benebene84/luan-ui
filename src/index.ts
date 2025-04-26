@@ -24,8 +24,10 @@ export type {
 	CardHeaderProps,
 	CardProps,
 } from "@components/card/card";
+export { Checkbox } from "@components/checkbox/checkbox";
+export type { CheckboxProps } from "@components/checkbox/checkbox";
 export { getVariants } from "@utilities/get-variants/get-variants";
-export type { ResponsiveValue } from "@utilities/get-variants/get-variants";
+export type { ResponsiveValue } from "@utilities/responsive/responsive";
 export { Label } from "@components/label/label";
 export type { LabelProps } from "@components/label/label";
 export { Input } from "@components/input/input";
