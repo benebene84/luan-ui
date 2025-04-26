@@ -1,7 +1,5 @@
-import {
-	type ResponsiveValue,
-	getVariants,
-} from "@utilities/get-variants/get-variants";
+import { getVariants } from "@utilities/get-variants/get-variants";
+import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { Switch as RadixSwitch } from "radix-ui";
 import { type ComponentRef, forwardRef } from "react";
 
