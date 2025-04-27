@@ -56,6 +56,8 @@ export type {
 } from "@components/popover/popover";
 export { Progress } from "@components/progress/progress";
 export type { ProgressProps } from "@components/progress/progress";
+export { Slider } from "@components/slider/slider";
+export type { SliderProps } from "@components/slider/slider";
 export { Switch } from "@components/switch/switch";
 export type { SwitchProps } from "@components/switch/switch";
 export {
