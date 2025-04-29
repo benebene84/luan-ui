@@ -26,6 +26,16 @@ export type {
 } from "@components/card/card";
 export { Checkbox } from "@components/checkbox/checkbox";
 export type { CheckboxProps } from "@components/checkbox/checkbox";
+export {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@components/dialog/dialog";
 export { getVariants } from "@utilities/get-variants/get-variants";
 export type { ResponsiveValue } from "@utilities/responsive/responsive";
 export { Label } from "@components/label/label";
