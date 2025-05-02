@@ -31,11 +31,11 @@ export const SIZES = {
 };
 
 const buttonStyles = getVariants({
-	base: "flex w-fit items-center justify-center gap-2 rounded border font-semibold",
+	base: "flex w-fit cursor-pointer items-center justify-center gap-2 rounded border font-semibold",
 	variants: {
 		variant: {
-			primary: "border-transparent bg-blue-700 text-white hover:bg-blue-800",
-			secondary: "border-transparent bg-black text-white hover:bg-gray-800",
+			primary: "border-transparent bg-gray-700 text-white hover:bg-gray-800",
+			secondary: "border-gray-700 bg-white text-gray-700 hover:bg-gray-50",
 		},
 		size: {
 			small: "gap-2 px-2 py-1 text-sm",
