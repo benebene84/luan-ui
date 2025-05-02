@@ -66,6 +66,10 @@ export type {
 } from "@components/popover/popover";
 export { Progress } from "@components/progress/progress";
 export type { ProgressProps } from "@components/progress/progress";
+export {
+	RadioGroup,
+	RadioGroupItem,
+} from "@components/radio-group/radio-group";
 export { Slider } from "@components/slider/slider";
 export type { SliderProps } from "@components/slider/slider";
 export { Switch } from "@components/switch/switch";
