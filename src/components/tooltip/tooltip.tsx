@@ -30,6 +30,21 @@ export type TooltipProps = React.ComponentProps<typeof RadixTooltip.Root> & {
 	side?: RadixTooltip.TooltipContentProps["side"];
 };
 
+/**
+ * A tooltip component built on top of Radix UI's tooltip primitive.
+ *
+ * @param {TooltipProps} props - The props for the Tooltip component
+ * @param {boolean} [props.showArrow=true] - Whether to show the arrow pointing to the trigger
+ * @param {RadixTooltip.TooltipContentProps["side"]} [props.side] - The preferred side to show the tooltip
+ *
+ * @example
+ * ```tsx
+ * <Tooltip>
+ *   <TooltipTrigger>Hover me</TooltipTrigger>
+ *   <TooltipContent>Tooltip content</TooltipContent>
+ * </Tooltip>
+ * ```
+ */
 const Tooltip = ({
 	children,
 	showArrow = true,

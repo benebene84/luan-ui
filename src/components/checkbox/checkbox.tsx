@@ -60,6 +60,14 @@ const iconSizeMap = {
 	large: "medium",
 } as const;
 
+/**
+ * A checkbox component built on top of Radix UI's checkbox primitive.
+ *
+ * @example
+ * ```tsx
+ * <Checkbox id="checkbox" onCheckedChange={(checked) => console.log(checked)} />
+ * ```
+ */
 export const Checkbox = forwardRef<
 	ComponentRef<typeof CheckboxPrimitive.Root>,
 	CheckboxProps

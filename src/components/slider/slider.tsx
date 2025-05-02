@@ -14,9 +14,35 @@ import {
 import { cn } from "@utilities/cn/cn";
 
 export type SliderProps = ComponentPropsWithoutRef<typeof RadixSlider.Root> & {
+	/**
+	 * Whether to show the minimum and maximum values below the slider
+	 * @default true
+	 */
 	showMinMax?: boolean;
 };
 
+/**
+ * A customizable slider component built on top of Radix UI's slider primitive.
+ *
+ * @example
+ * ```tsx
+ * <Slider
+ *   min={0}
+ *   max={100}
+ *   defaultValue={[50]}
+ *   showMinMax={true}
+ * />
+ * ```
+ *
+ * @param {Object} props - The props for the Slider component
+ * @param {number[]} [props.defaultValue] - The initial value of the slider
+ * @param {number} [props.min=0] - The minimum value of the slider
+ * @param {number} [props.max=100] - The maximum value of the slider
+ * @param {boolean} [props.showMinMax=true] - Whether to show min/max values below the slider
+ * @param {string} [props.className] - Additional CSS classes to apply to the slider
+ * @param {React.Ref<ComponentRef<typeof RadixSlider.Root>>} ref - Forwarded ref for the slider root element
+ * @returns {JSX.Element} A slider component with optional tooltips and min/max display
+ */
 const Slider = forwardRef<ComponentRef<typeof RadixSlider.Root>, SliderProps>(
 	({ className, defaultValue, min, max, showMinMax = true, ...props }, ref) => {
 		const [value, setValue] = useState<number[]>(defaultValue ?? []);
