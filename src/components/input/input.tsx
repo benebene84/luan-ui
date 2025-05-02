@@ -3,6 +3,14 @@ import { forwardRef } from "react";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
+/**
+ * A basic input component with styling.
+ *
+ * @example
+ * ```tsx
+ * <Input placeholder="Enter your email" id="email" />
+ * ```
+ */
 const Input = forwardRef<HTMLInputElement, InputProps>(
 	({ className, ...props }, ref) => {
 		return (

@@ -40,6 +40,11 @@ const thumbStyles = getVariants({
  * A switch component that toggles between on and off states.
  * Built on top of Radix UI's Switch primitive.
  *
+ * @param {SwitchProps} props - The props for the Switch component
+ * @param {ResponsiveValue<"small" | "medium" | "large">} [props.size="medium"] - The size of the switch
+ * @param {boolean} [props.disabled] - Whether the switch is disabled
+ * @param {string} [props.className] - Additional CSS classes to apply
+ *
  * @example
  * // Basic usage
  * <Switch />

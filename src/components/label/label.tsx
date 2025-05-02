@@ -4,6 +4,15 @@ import { forwardRef } from "react";
 
 export type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
+/**
+ * A label component that can be used to label form fields.
+ *
+ * @example
+ * ```tsx
+ * <Label htmlFor="email">Email</Label>
+ * <Input id="email" />
+ * ```
+ */
 const Label = forwardRef<HTMLLabelElement, LabelProps>(
 	({ className, ...props }, ref) => {
 		return (
