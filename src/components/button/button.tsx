@@ -39,8 +39,8 @@ const buttonStyles = getVariants({
 		},
 		size: {
 			small: "gap-2 px-2 py-1 text-sm",
-			medium: "gap-4 px-4 py-2 text-base",
-			large: "gap-6 px-6 py-3 text-lg",
+			medium: "gap-3 px-4 py-2 text-base",
+			large: "gap-4 px-6 py-3 text-lg",
 		},
 		disabled: {
 			true: "cursor-not-allowed opacity-50",

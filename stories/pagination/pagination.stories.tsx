@@ -8,7 +8,7 @@ import {
 } from "../../src/components/pagination/pagination";
 
 const meta = {
-	title: "Example/Pagination",
+	title: "Components/Pagination",
 	component: Pagination,
 	tags: ["autodocs"],
 	argTypes: {

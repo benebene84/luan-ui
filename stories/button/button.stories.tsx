@@ -5,7 +5,7 @@ import { Button } from "../../src/components/button/button";
 
 // Define the Meta type with the Button component props
 const meta = {
-	title: "Example/Button",
+	title: "Components/Button",
 	component: Button,
 	tags: ["autodocs"],
 	argTypes: {

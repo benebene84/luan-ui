@@ -10,7 +10,7 @@ import {
 import { accordionContents } from "./accordion.data";
 
 const meta = {
-	title: "Example/Accordion",
+	title: "Components/Accordion",
 	component: Accordion,
 	tags: ["autodocs"],
 	argTypes: {

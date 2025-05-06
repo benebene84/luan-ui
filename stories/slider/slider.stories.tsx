@@ -3,7 +3,7 @@ import type { Slider as SliderPrimitive } from "radix-ui";
 import { Slider } from "../../src/components/slider/slider";
 
 const meta: Meta<typeof Slider> = {
-	title: "Example/Slider",
+	title: "Components/Slider",
 	component: Slider,
 	tags: ["autodocs"],
 	argTypes: {

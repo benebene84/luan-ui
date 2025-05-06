@@ -5,7 +5,7 @@ import { Icon } from "../../src/components/icon/icon";
 
 // Define the Meta type with the Icon component props
 const meta = {
-	title: "Example/Icon",
+	title: "Components/Icon",
 	component: Icon,
 	tags: ["autodocs"],
 	argTypes: {

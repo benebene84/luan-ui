@@ -7,7 +7,7 @@ import {
 } from "../../src/components/popover/popover";
 
 const meta: Meta<typeof Popover> = {
-	title: "Example/Popover",
+	title: "Components/Popover",
 	component: Popover,
 	tags: ["autodocs"],
 	argTypes: {

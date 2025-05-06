@@ -9,7 +9,7 @@ import {
 } from "../../src/components/card/card";
 
 const meta = {
-	title: "Example/Card",
+	title: "Components/Card",
 	component: Card,
 	tags: ["autodocs"],
 	argTypes: {

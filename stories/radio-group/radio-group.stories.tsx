@@ -7,7 +7,7 @@ import {
 } from "../../src/components/radio-group/radio-group";
 
 const meta = {
-	title: "Example/RadioGroup",
+	title: "Components/RadioGroup",
 	component: RadioGroup,
 	tags: ["autodocs"],
 	argTypes: {

@@ -8,7 +8,7 @@ type LabelStoryProps = React.ComponentProps<typeof Label> & {
 };
 
 const meta = {
-	title: "Example/Label",
+	title: "Components/Label",
 	component: Label,
 	tags: ["autodocs"],
 	argTypes: {

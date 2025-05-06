@@ -3,7 +3,7 @@ import type { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { Checkbox } from "../../src/components/checkbox/checkbox";
 
 const meta = {
-	title: "Example/Checkbox",
+	title: "Components/Checkbox",
 	component: Checkbox,
 	tags: ["autodocs"],
 	argTypes: {

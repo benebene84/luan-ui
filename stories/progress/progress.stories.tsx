@@ -5,7 +5,7 @@ import { Progress } from "../../src/components/progress/progress";
 import type { Progress as ProgressPrimitive } from "radix-ui";
 
 const meta = {
-	title: "Example/Progress",
+	title: "Components/Progress",
 	component: Progress,
 	tags: ["autodocs"],
 	argTypes: {
