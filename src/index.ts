@@ -82,6 +82,7 @@ export {
 	SelectTrigger,
 	SelectValue,
 } from "@components/select/select";
+export { Skeleton } from "@components/skeleton/skeleton";
 export { Slider } from "@components/slider/slider";
 export type { SliderProps } from "@components/slider/slider";
 export { Switch } from "@components/switch/switch";
