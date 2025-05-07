@@ -88,6 +88,16 @@ export type { SliderProps } from "@components/slider/slider";
 export { Switch } from "@components/switch/switch";
 export type { SwitchProps } from "@components/switch/switch";
 export {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+	TableFooter,
+	TableCaption,
+} from "@components/table/table";
+export {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
