@@ -16,3 +16,7 @@ const ResizeObserverMock = vi.fn(() => ({
 
 // Stub the global ResizeObserver
 vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+
+// Mock the hasPointerCapture and scrollIntoView methods
+Element.prototype.hasPointerCapture = vi.fn();
+Element.prototype.scrollIntoView = vi.fn();

@@ -70,6 +70,18 @@ export {
 	RadioGroup,
 	RadioGroupItem,
 } from "@components/radio-group/radio-group";
+export {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectScrollDownButton,
+	SelectScrollUpButton,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
+} from "@components/select/select";
 export { Slider } from "@components/slider/slider";
 export type { SliderProps } from "@components/slider/slider";
 export { Switch } from "@components/switch/switch";
