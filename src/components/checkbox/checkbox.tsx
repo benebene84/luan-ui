@@ -1,3 +1,4 @@
+import { useFormContext } from "@components/form-field/form-field-context";
 import { Icon } from "@components/icon/icon";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { getVariants } from "@utilities/get-variants/get-variants";
@@ -71,21 +72,37 @@ const iconSizeMap = {
 export const Checkbox = forwardRef<
 	ComponentRef<typeof CheckboxPrimitive.Root>,
 	CheckboxProps
->(({ className, disabled, size = "medium", ...props }, ref) => {
-	const iconSize = mapResponsiveValue(size, (size) => iconSizeMap[size]);
-	return (
-		<CheckboxPrimitive.Root
-			className={checkboxStyles({ disabled, size, className })}
-			ref={ref}
-			disabled={disabled}
-			{...props}
-		>
-			<CheckboxPrimitive.Indicator>
-				<Icon asChild size={iconSize}>
-					<CheckIcon />
-				</Icon>
-			</CheckboxPrimitive.Indicator>
-		</CheckboxPrimitive.Root>
-	);
-});
+>(
+	(
+		{
+			className,
+			disabled: initialDisabled,
+			required: initialRequired,
+			size = "medium",
+			...props
+		},
+		ref,
+	) => {
+		const iconSize = mapResponsiveValue(size, (size) => iconSizeMap[size]);
+		const { disabled, required } = useFormContext({
+			disabled: initialDisabled,
+			required: initialRequired,
+		});
+		return (
+			<CheckboxPrimitive.Root
+				className={checkboxStyles({ disabled, size, className })}
+				ref={ref}
+				disabled={disabled}
+				required={required}
+				{...props}
+			>
+				<CheckboxPrimitive.Indicator>
+					<Icon asChild size={iconSize}>
+						<CheckIcon />
+					</Icon>
+				</CheckboxPrimitive.Indicator>
+			</CheckboxPrimitive.Root>
+		);
+	},
+);
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
