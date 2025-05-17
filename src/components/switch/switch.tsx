@@ -1,3 +1,4 @@
+import { useFormContext } from "@components/form-field/form-field-context";
 import { getVariants } from "@utilities/get-variants/get-variants";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { Switch as RadixSwitch } from "radix-ui";
@@ -5,6 +6,7 @@ import { type ComponentRef, forwardRef } from "react";
 
 export type SwitchProps = RadixSwitch.SwitchProps & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
+	error?: boolean;
 };
 
 const rootStyles = getVariants({
@@ -12,6 +14,9 @@ const rootStyles = getVariants({
 	variants: {
 		disabled: {
 			true: "cursor-not-allowed opacity-50",
+		},
+		error: {
+			true: "bg-red-600 data-[state=checked]:bg-red-600",
 		},
 		size: {
 			small: "h-5 w-10",
@@ -70,15 +75,30 @@ const thumbStyles = getVariants({
 export const Switch = forwardRef<
 	ComponentRef<typeof RadixSwitch.Root>,
 	SwitchProps
->(({ className, disabled, size = "medium", ...props }, ref) => {
-	return (
-		<RadixSwitch.Root
-			className={rootStyles({ disabled, size, className })}
-			disabled={disabled}
-			{...props}
-			ref={ref}
-		>
-			<RadixSwitch.Thumb className={thumbStyles({ disabled, size })} />
-		</RadixSwitch.Root>
-	);
-});
+>(
+	(
+		{
+			className,
+			disabled: initialDisabled,
+			size = "medium",
+			error: initialError,
+			...props
+		},
+		ref,
+	) => {
+		const { disabled, error } = useFormContext({
+			disabled: initialDisabled,
+			error: initialError,
+		});
+		return (
+			<RadixSwitch.Root
+				className={rootStyles({ disabled, size, error, className })}
+				disabled={disabled}
+				{...props}
+				ref={ref}
+			>
+				<RadixSwitch.Thumb className={thumbStyles({ disabled, size })} />
+			</RadixSwitch.Root>
+		);
+	},
+);
