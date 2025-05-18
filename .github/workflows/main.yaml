@@ -19,4 +19,13 @@ jobs:
       - run: pnpm check
       - run: pnpm test
       - run: pnpm build
+      - name: Build and publish Storybook
+        id: build-publish
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          checkout: false
+          install_command: pnpm install
+          build_command: pnpm build-storybook
+          path: storybook-static
+
       
