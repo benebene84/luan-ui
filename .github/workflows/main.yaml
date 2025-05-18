@@ -19,13 +19,25 @@ jobs:
       - run: pnpm check
       - run: pnpm test
       - run: pnpm build
-      - name: Build and publish Storybook
-        id: build-publish
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+      - run: pnpm build-storybook
+      - name: Upload Storybook
+        uses: actions/upload-pages-artifact@v3
         with:
-          checkout: false
-          install_command: pnpm install
-          build_command: pnpm build-storybook
           path: storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      
 
       
