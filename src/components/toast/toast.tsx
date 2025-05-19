@@ -1,0 +1,83 @@
+import { forwardRef } from "react";
+import {
+	Toaster as SonnerToaster,
+	type ToasterProps,
+	toast as sonnerToast,
+} from "sonner";
+import { Button } from "../button/button";
+
+export type ToastProps = {
+	id: string | number;
+	title: string;
+	description: string;
+	button: {
+		label: string;
+		onClick: () => void;
+	};
+} & ToasterProps;
+
+/**
+ * Creates a custom toast notification using the sonner toast library
+ * @param toast - The toast configuration object without an ID
+ * @param toast.title - The title text to display in the toast
+ * @param toast.description - The description text to display in the toast
+ * @param toast.button - Configuration for the toast's action button
+ * @param toast.button.label - The text label for the action button
+ * @param toast.button.onClick - Click handler function for the action button
+ * @returns A unique identifier for the created toast
+ */
+const toast = (toast: Omit<ToastProps, "id">) => {
+	const { title, description, button, ...toastOptions } = toast;
+	return sonnerToast.custom((id) => (
+		<Toast
+			id={id}
+			title={title}
+			description={description}
+			button={{
+				label: toast.button.label,
+				onClick: toast.button.onClick,
+			}}
+			{...toastOptions}
+		/>
+	));
+};
+
+const Toaster = SonnerToaster;
+
+Toaster.displayName = "Toaster";
+
+/** A fully custom toast built on top of sonner. */
+const Toast = forwardRef<HTMLDivElement, ToastProps>(
+	({ title, description, button, id }, ref) => {
+		return (
+			<div
+				className="flex w-full items-center gap-4 rounded-lg bg-white p-4 shadow-lg ring-1 ring-black/5 md:max-w-96"
+				ref={ref}
+			>
+				<div className="flex flex-1 items-center">
+					<div className="w-full gap-1">
+						<p className="font-medium text-gray-900 text-sm">{title}</p>
+						<p className="text-gray-500 text-sm">{description}</p>
+					</div>
+				</div>
+				<div className="shrink-0 rounded-md font-medium text-sm">
+					<Button
+						size="small"
+						type="button"
+						variant="secondary"
+						onClick={() => {
+							button.onClick();
+							sonnerToast.dismiss(id);
+						}}
+					>
+						{button.label}
+					</Button>
+				</div>
+			</div>
+		);
+	},
+);
+
+Toast.displayName = "Toast";
+
+export { toast, Toast, Toaster };

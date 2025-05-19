@@ -104,6 +104,12 @@ export {
 	TableCaption,
 } from "@components/table/table";
 export {
+	Toast,
+	Toaster,
+	toast,
+} from "@components/toast/toast";
+export type { ToastProps } from "@components/toast/toast";
+export {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
