@@ -45,4 +45,19 @@ describe("Tabs", () => {
 		expect(accountContent).not.toBeVisible();
 		expect(passwordContent).toBeVisible();
 	});
+
+	it("should not allow disabled tabs to be clicked", async () => {
+		const user = userEvent.setup();
+		render(<Default />);
+
+		const disabledTab = screen.getByRole("tab", { name: "Disabled" });
+		expect(disabledTab).toBeDisabled();
+
+		await user.click(disabledTab);
+
+		const accountContent = screen.getByText("Account settings content");
+		expect(accountContent).toBeVisible();
+
+		expect(disabledTab).toHaveAttribute("data-state", "inactive");
+	});
 });
