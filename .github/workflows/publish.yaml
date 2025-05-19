@@ -1,3 +1,4 @@
+name: Publish version
 on:
   workflow_dispatch:
     inputs:
