@@ -88,6 +88,12 @@ export type { SliderProps } from "@components/slider/slider";
 export { Switch } from "@components/switch/switch";
 export type { SwitchProps } from "@components/switch/switch";
 export {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@components/tabs/tabs";
+export {
 	Table,
 	TableBody,
 	TableCell,
