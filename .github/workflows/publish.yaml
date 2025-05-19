@@ -6,6 +6,10 @@ on:
         description: "The version to publish"
         required: true
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,13 +21,15 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
       - run: pnpm install
       - run: pnpm build
       - run: |
           npm version ${{ inputs.version }}
-          git add .
-          git commit -m "chore: update version ${{inputs.version}} [skip ci]"
           git push origin HEAD --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

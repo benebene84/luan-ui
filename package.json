@@ -5,6 +5,7 @@
 	"author": "benebene84 <benedikt.sperl@gmail.com> (https://github.com/benebene84)",
 	"main": "/dist/index.js",
 	"type": "module",
+	"files": ["dist", "README.md", "LICENSE"],
 	"scripts": {
 		"build": "rm -rf dist && tsc -p tsconfig.build.json",
 		"dev": "storybook dev -p 6006",
