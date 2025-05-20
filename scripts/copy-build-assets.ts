@@ -1,8 +1,6 @@
 import { cp, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 
-const timeStart = performance.now();
-
 // Source, destination, recursive
 const dirs: [string, string, boolean][] = [["src/styles", "dist/styles", true]];
 
@@ -27,10 +25,4 @@ Promise.all(
 			process.exit(1);
 		}
 	}),
-);
-
-const timeEnd = performance.now();
-
-console.log(
-	`All files copied in \x1b[34m${Math.round(timeEnd - timeStart)}ms\x1b[0m`,
 );

@@ -7,7 +7,7 @@
 	"type": "module",
 	"files": ["dist", "README.md", "LICENSE"],
 	"scripts": {
-		"build": "./scripts/build.sh",
+		"build": "node --experimental-strip-types scripts/build.ts",
 		"dev": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"check": "biome check",
