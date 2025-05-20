@@ -15,17 +15,19 @@ async function copyAssets(
 	await cp(source, destination, { recursive });
 }
 
-for (const [source, destination, recursive] of dirs) {
-	console.log(`Copying "${source}" to "${destination}"`);
-	try {
-		await copyAssets(source, destination, recursive);
-	} catch (error) {
-		console.error(
-			`\x1b[31mError copying "${source}" to "${destination}": ${error}\x1b[0m`,
-		);
-		process.exit(1);
-	}
-}
+Promise.all(
+	dirs.map(async ([source, destination, recursive]) => {
+		console.log(`Copying "${source}" to "${destination}"`);
+		try {
+			await copyAssets(source, destination, recursive);
+		} catch (error) {
+			console.error(
+				`\x1b[31mError copying "${source}" to "${destination}": ${error}\x1b[0m`,
+			);
+			process.exit(1);
+		}
+	}),
+);
 
 const timeEnd = performance.now();
 
