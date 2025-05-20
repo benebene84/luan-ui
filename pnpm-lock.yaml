@@ -11,9 +11,6 @@ importers:
       '@radix-ui/react-compose-refs':
         specifier: ^1.1.2
         version: 1.1.2(@types/react@19.1.4)(react@19.1.0)
-      '@types/node':
-        specifier: ^22.15.19
-        version: 22.15.19
       radix-ui:
         specifier: ^1.4.1
         version: 1.4.1(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -78,6 +75,9 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.0)
+      '@types/node':
+        specifier: ^22.15.19
+        version: 22.15.19
       '@types/react':
         specifier: ^19.1.4
         version: 19.1.4
