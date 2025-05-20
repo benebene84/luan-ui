@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@source "../components";
+@source "../utilities";
+
 @theme {
 	--animate-accordion-up: accordion-up 350ms ease;
 	--animate-accordion-down: accordion-down 350ms ease;
