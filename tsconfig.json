@@ -21,6 +21,8 @@
 		"module": "ES2020",
 		"outDir": "dist",
 		"sourceMap": true,
+		"sourceRoot": "/",
+		"inlineSources": true,
 
 		/* AND if you're building for a library: */
 		"declaration": true,
