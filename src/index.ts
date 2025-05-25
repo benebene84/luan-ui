@@ -36,6 +36,23 @@ export {
 	DialogTitle,
 	DialogTrigger,
 } from "@components/dialog/dialog";
+export {
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuCheckboxItem,
+	DropdownMenuRadioItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuShortcut,
+	DropdownMenuGroup,
+	DropdownMenuPortal,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
+	DropdownMenuRadioGroup,
+} from "@components/dropdown-menu/dropdown-menu";
 export { getVariants } from "@utilities/get-variants/get-variants";
 export type { ResponsiveValue } from "@utilities/responsive/responsive";
 export { Label } from "@components/label/label";

@@ -6,6 +6,8 @@
 @theme {
 	--animate-accordion-up: accordion-up 350ms ease;
 	--animate-accordion-down: accordion-down 350ms ease;
+	--animate-fade-in: fade-in 350ms ease;
+	--animate-fade-out: fade-out 350ms ease;
 }
 
 @keyframes accordion-up {
@@ -23,5 +25,23 @@
 	}
 	to {
 		height: var(--radix-accordion-content-height);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
 	}
 }
