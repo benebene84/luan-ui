@@ -10,6 +10,9 @@ export type {
 	AccordionProps,
 	AccordionTriggerProps,
 } from "@components/accordion/accordion";
+export { Avatar, AvatarFallback, AvatarImage } from "@components/avatar/avatar";
+export { AvatarGroup } from "@components/avatar/avatar-group";
+export type { AvatarGroupProps } from "@components/avatar/avatar-group";
 export { Button } from "@components/button/button";
 export type { ButtonProps } from "@components/button/button";
 export {
