@@ -13,6 +13,8 @@ export type {
 export { Avatar, AvatarFallback, AvatarImage } from "@components/avatar/avatar";
 export { AvatarGroup } from "@components/avatar/avatar-group";
 export type { AvatarGroupProps } from "@components/avatar/avatar-group";
+export { Badge } from "@components/badge/badge";
+export type { BadgeProps } from "@components/badge/badge";
 export { Button } from "@components/button/button";
 export type { ButtonProps } from "@components/button/button";
 export {
