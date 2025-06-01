@@ -1,5 +1,6 @@
 import { Select as SelectPrimitive } from "radix-ui";
 
+import { useFormContext } from "@components/form-field/form-field-context";
 import { Icon } from "@components/icon/icon";
 import {
 	CheckIcon,
@@ -17,7 +18,19 @@ import {
  * Select
  */
 
-const Select = SelectPrimitive.Root;
+const Select = ({
+	disabled: initialDisabled,
+	required: initialRequired,
+	...props
+}: ComponentPropsWithoutRef<typeof SelectPrimitive.Root>) => {
+	const { disabled, required } = useFormContext({
+		disabled: initialDisabled,
+		required: initialRequired,
+	});
+	return (
+		<SelectPrimitive.Root disabled={disabled} required={required} {...props} />
+	);
+};
 
 /**
  * SelectGroup
