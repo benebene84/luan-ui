@@ -1,3 +1,4 @@
+import { useFormContext } from "@components/form-field/form-field-context";
 import { cn } from "@utilities/cn/cn";
 import { RadioGroup as RadixRadioGroup } from "radix-ui";
 import {
@@ -38,13 +39,31 @@ import {
 const RadioGroup = forwardRef<
 	ComponentRef<typeof RadixRadioGroup.Root>,
 	ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>
->(({ className, ...props }, ref) => (
-	<RadixRadioGroup.Root
-		ref={ref}
-		className={cn("flex flex-col gap-2", className)}
-		{...props}
-	/>
-));
+>(
+	(
+		{
+			className,
+			disabled: initialDisabled,
+			required: initialRequired,
+			...props
+		},
+		ref,
+	) => {
+		const { disabled, required } = useFormContext({
+			disabled: initialDisabled,
+			required: initialRequired,
+		});
+		return (
+			<RadixRadioGroup.Root
+				ref={ref}
+				className={cn("flex flex-col gap-2", className)}
+				disabled={disabled}
+				required={required}
+				{...props}
+			/>
+		);
+	},
+);
 
 const RadioGroupItem = forwardRef<
 	ComponentRef<typeof RadixRadioGroup.Item>,

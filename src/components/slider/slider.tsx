@@ -6,6 +6,7 @@ import {
 	useState,
 } from "react";
 
+import { useFormContext } from "@components/form-field/form-field-context";
 import {
 	Tooltip,
 	TooltipContent,
@@ -44,8 +45,22 @@ export type SliderProps = ComponentPropsWithoutRef<typeof RadixSlider.Root> & {
  * @returns {JSX.Element} A slider component with optional tooltips and min/max display
  */
 const Slider = forwardRef<ComponentRef<typeof RadixSlider.Root>, SliderProps>(
-	({ className, defaultValue, min, max, showMinMax = true, ...props }, ref) => {
+	(
+		{
+			className,
+			defaultValue,
+			min,
+			max,
+			showMinMax = true,
+			disabled: initialDisabled,
+			...props
+		},
+		ref,
+	) => {
 		const [value, setValue] = useState<number[]>(defaultValue ?? []);
+		const { disabled } = useFormContext({
+			disabled: initialDisabled,
+		});
 
 		return (
 			<>
@@ -57,6 +72,7 @@ const Slider = forwardRef<ComponentRef<typeof RadixSlider.Root>, SliderProps>(
 						"relative flex w-full touch-none select-none items-center",
 						className,
 					)}
+					disabled={disabled}
 					{...props}
 				>
 					<RadixSlider.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-gray-700/20 data-[disabled]:opacity-50">
