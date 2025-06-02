@@ -10,6 +10,12 @@ export type {
 	AccordionProps,
 	AccordionTriggerProps,
 } from "@components/accordion/accordion";
+export { Alert, AlertDescription, AlertTitle } from "@components/alert/alert";
+export type {
+	AlertDescriptionProps,
+	AlertProps,
+	AlertTitleProps,
+} from "@components/alert/alert";
 export { Avatar, AvatarFallback, AvatarImage } from "@components/avatar/avatar";
 export { AvatarGroup } from "@components/avatar/avatar-group";
 export type { AvatarGroupProps } from "@components/avatar/avatar-group";
