@@ -87,7 +87,6 @@ const DrawerContent = forwardRef<
 	const { side = "right" } = useDrawerContext();
 	return (
 		<DrawerOverlay>
-			<DrawerOverlay />
 			<RadixDialog.Content
 				className={drawerContentStyles({ side })}
 				{...props}
