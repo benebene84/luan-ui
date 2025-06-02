@@ -42,11 +42,19 @@ export {
 	DialogTrigger,
 } from "@components/dialog/dialog";
 export {
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
+} from "@components/drawer/drawer";
+export {
 	DropdownMenu,
 	DropdownMenuTrigger,
 	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuCheckboxItem,
 	DropdownMenuRadioItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
