@@ -10,8 +10,7 @@
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab",
-		"ignore": ["package.json"]
+		"indentStyle": "tab"
 	},
 	"organizeImports": {
 		"enabled": true

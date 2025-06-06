@@ -1,5 +1,5 @@
 import { HeartIcon, HomeIcon, StarIcon } from "@radix-ui/react-icons";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 
 import { Icon } from "../../src/components/icon/icon";
 
