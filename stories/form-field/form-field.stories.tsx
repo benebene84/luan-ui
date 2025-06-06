@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 
 import { Checkbox } from "../../src/components/checkbox/checkbox";
 import { FormField } from "../../src/components/form-field/form-field";
