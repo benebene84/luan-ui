@@ -1,7 +1,9 @@
-export type Breakpoint = "initial" | "sm" | "md" | "lg" | "xl";
+export type Breakpoints = "sm" | "md" | "lg" | "xl";
 
-export type BreakpointsMap<V> = Partial<{
-	[breakpoint in Breakpoint]: V;
+export type BreakpointsMap<V> = {
+	initial: V;
+} & Partial<{
+	[breakpoint in Breakpoints]: V;
 }>;
 
 export type ResponsiveValue<T> = T | BreakpointsMap<T>;

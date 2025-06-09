@@ -74,15 +74,15 @@ export const getVariants =
 	}: ResponsiveClassesConfig<T>) =>
 	({ className, ...props }: VariantProps<T>) => {
 		const responsiveClasses = Object.entries(props)
-			.flatMap(([key, propValue]) => {
+			.map(([key, propValue]: [keyof T, VariantPropValue<T[keyof T]>]) => {
 				const variant = variants?.[key];
 				const value =
 					typeof propValue === "boolean" ? String(propValue) : propValue;
 
 				// Handle undefined values
-				if (!value) return;
+				if (!value) return undefined;
 
-				const variantValue = variant?.[value as keyof typeof variant];
+				const variantValue = variant?.[value as keyof VariantValue];
 
 				// Handle string values
 				if (typeof variantValue === "string") {
@@ -104,6 +104,7 @@ export const getVariants =
 					})
 					.join(" ");
 			})
+			.filter(Boolean)
 			.join(" ");
 
 		const compoundClasses = compoundVariants
