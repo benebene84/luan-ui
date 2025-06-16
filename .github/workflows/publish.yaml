@@ -27,6 +27,7 @@ jobs:
       - run: |
           npm version ${{ inputs.version }}
           git push origin HEAD --tags
+          gh release create ${{ inputs.version }} --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish --provenance --access public
