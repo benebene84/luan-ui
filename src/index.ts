@@ -16,6 +16,16 @@ export type {
 	AlertProps,
 	AlertTitleProps,
 } from "@components/alert/alert";
+export {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogOverlay,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@components/alert-dialog/alert-dialog";
 export { Avatar, AvatarFallback, AvatarImage } from "@components/avatar/avatar";
 export { AvatarGroup } from "@components/avatar/avatar-group";
 export type { AvatarGroupProps } from "@components/avatar/avatar-group";
