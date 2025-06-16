@@ -5,7 +5,7 @@ import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { forwardRef } from "react";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-	variant?: "primary" | "secondary";
+	variant?: "primary" | "secondary" | "destructive";
 	size?: ResponsiveValue<"small" | "medium" | "large">;
 	asChild?: boolean;
 	iconStart?: React.ReactNode;
@@ -34,8 +34,12 @@ const buttonStyles = getVariants({
 	base: "flex w-fit cursor-pointer items-center justify-center gap-2 rounded border font-semibold",
 	variants: {
 		variant: {
-			primary: "border-transparent bg-gray-700 text-white hover:bg-gray-800",
-			secondary: "border-gray-700 bg-white text-gray-700 hover:bg-gray-50",
+			primary:
+				"border-transparent bg-gray-700 text-white hover:bg-gray-800 active:bg-gray-900",
+			secondary:
+				"border-gray-700 bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100",
+			destructive:
+				"border-transparent bg-red-500 text-white hover:bg-red-600 active:bg-red-700",
 		},
 		size: {
 			small: "gap-2 px-2 py-1 text-sm",

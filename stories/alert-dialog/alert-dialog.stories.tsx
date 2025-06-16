@@ -28,7 +28,7 @@ export const Default: Story = {
 	render: () => (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<Button variant="primary">Delete Account</Button>
+				<Button variant="destructive">Delete Account</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -41,7 +41,7 @@ export const Default: Story = {
 						<Button variant="secondary">Cancel</Button>
 					</AlertDialogCancel>
 					<AlertDialogAction asChild>
-						<Button variant="primary">Delete Account</Button>
+						<Button variant="destructive">Delete Account</Button>
 					</AlertDialogAction>
 				</div>
 			</AlertDialogContent>

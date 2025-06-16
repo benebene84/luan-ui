@@ -11,7 +11,7 @@ const meta = {
 	argTypes: {
 		variant: {
 			control: "radio",
-			options: ["primary", "secondary"],
+			options: ["primary", "secondary", "destructive"],
 		},
 		size: {
 			control: "radio",
