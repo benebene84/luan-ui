@@ -1,5 +1,4 @@
 import { useFormContext } from "@components/form-field/form-field-context";
-import { cn } from "@utilities/cn/cn";
 import { getVariants } from "@utilities/get-variants/get-variants";
 import { forwardRef } from "react";
 
@@ -56,6 +55,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 				className={inputStyles({ disabled, error, className })}
 				disabled={disabled}
 				required={required}
+				aria-invalid={error}
 				{...props}
 				ref={ref}
 			/>
