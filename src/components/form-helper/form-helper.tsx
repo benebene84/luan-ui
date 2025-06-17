@@ -58,6 +58,7 @@ export const FormHelper = forwardRef<HTMLDivElement, FormHelperProps>(
 			<div
 				ref={ref}
 				className={formHelperStyles({ error, disabled, className })}
+				role={error ? "alert" : "status"}
 				{...props}
 			>
 				{children}

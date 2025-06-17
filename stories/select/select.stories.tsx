@@ -94,14 +94,9 @@ export const WithGroups: Story = {
 };
 
 export const WithFormField: Story = {
-	render: ({ disabled, required, error }) => (
+	render: ({ disabled, required }) => (
 		<form>
-			<FormField
-				orientation="vertical"
-				disabled={disabled}
-				required={required}
-				error={error}
-			>
+			<FormField orientation="vertical" disabled={disabled} required={required}>
 				<Label htmlFor="fruits">Select your favorite fruit</Label>
 				<Select>
 					<SelectTrigger className="w-[180px]" id="fruits">
@@ -126,9 +121,7 @@ export const WithFormField: Story = {
 						</SelectGroup>
 					</SelectContent>
 				</Select>
-				<FormHelper>
-					{error ? "There was an error on this field" : "This is a helper text"}
-				</FormHelper>
+				<FormHelper>This is a helper text</FormHelper>
 			</FormField>
 		</form>
 	),
