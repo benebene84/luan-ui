@@ -26,7 +26,6 @@ jobs:
       - run: pnpm build
       - run: |
           npm version ${{ inputs.version }}
-          pnpm format
           git push origin HEAD --tags
           gh release create ${{ inputs.version }} --generate-notes
         env:
