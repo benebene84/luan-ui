@@ -1,5 +1,3 @@
-import { Select as SelectPrimitive } from "radix-ui";
-
 import { useFormContext } from "@components/form-field/form-field-context";
 import { Icon } from "@components/icon/icon";
 import {
@@ -8,6 +6,7 @@ import {
 	ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
+import { Select as SelectPrimitive } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,

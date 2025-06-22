@@ -1,7 +1,6 @@
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "@radix-ui/react-icons";
-import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
-
 import { cn } from "@utilities/cn/cn";
+import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { Slider as SliderPrimitive } from "radix-ui";
 import { Slider } from "../../src/components/slider/slider";
 
 const meta: Meta<typeof Slider> = {

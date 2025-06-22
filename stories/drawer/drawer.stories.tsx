@@ -10,7 +10,6 @@ import {
 	DrawerTrigger,
 } from "@components/drawer/drawer";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { Dialog } from "radix-ui";
 
 const meta = {
 	title: "Components/Drawer",

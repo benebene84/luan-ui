@@ -1,11 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-
 import { Button } from "@components/button/button";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@components/tooltip/tooltip";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 type TooltipStoryProps = React.ComponentProps<typeof Tooltip> & {
 	children?: string;

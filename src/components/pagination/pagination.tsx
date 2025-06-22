@@ -5,9 +5,9 @@ import { getTruncatedElements } from "@utilities/pagination/get-truncated-elemen
 import { handleKeyboardNavigation } from "@utilities/pagination/keyboard-navigation";
 import clsx from "clsx";
 import {
-	type PropsWithChildren,
 	createContext,
 	forwardRef,
+	type PropsWithChildren,
 	useCallback,
 	useContext,
 	useEffect,

@@ -1,8 +1,7 @@
 import { composeStories } from "@storybook/react-vite";
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { describe, expect, it } from "vitest";
 import * as stories from "./popover.stories";
 
 const { Default } = composeStories(stories);

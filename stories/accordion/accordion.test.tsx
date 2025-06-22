@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import { accordionContents } from "./accordion.data";
 import * as stories from "./accordion.stories";
+
 const { Default, Multiple } = composeStories(stories);
 
 describe("Accordion", () => {

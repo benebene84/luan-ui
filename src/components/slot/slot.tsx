@@ -10,9 +10,9 @@ interface SlotProps {
 	children?: React.ReactNode;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: <We don't know anything about the ref>
 type AnyRef = ComponentRef<any>;
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: <We don't know anything about the ref>
 type AnyRefAttributes = React.RefAttributes<any>;
 
 const Slot = React.forwardRef<AnyRef, SlotProps>((props, forwardedRef) => {
@@ -89,7 +89,7 @@ const Slottable = ({ child, children }: SlottableProps) => {
 
 /* ---------------------------------------------------------------------------------------------- */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: <We don't know anything about the props>
 type AnyProps = Record<string, any>;
 
 function isSlottable(

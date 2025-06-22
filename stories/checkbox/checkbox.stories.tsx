@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { Checkbox } from "../../src/components/checkbox/checkbox";
 
 const meta = {

@@ -3,8 +3,8 @@ import { Icon } from "@components/icon/icon";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { getVariants } from "@utilities/get-variants/get-variants";
 import {
-	type ResponsiveValue,
 	mapResponsiveValue,
+	type ResponsiveValue,
 } from "@utilities/responsive/responsive";
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import {

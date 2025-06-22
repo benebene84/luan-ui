@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-
 import { Icon } from "@components/icon/icon";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
 	Alert,
 	AlertDescription,

@@ -1,7 +1,7 @@
 import { Slot } from "@components/slot/slot";
 import { getVariants } from "@utilities/get-variants/get-variants";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
-import { type ComponentRef, forwardRef } from "react";
+import { forwardRef } from "react";
 
 export type IconProps = React.SVGProps<SVGSVGElement> & {
 	asChild?: boolean;

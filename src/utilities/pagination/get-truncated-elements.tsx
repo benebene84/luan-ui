@@ -4,9 +4,9 @@ import {
 } from "@components/pagination/pagination";
 import {
 	Children,
+	isValidElement,
 	type ReactElement,
 	type ReactNode,
-	isValidElement,
 } from "react";
 
 type TruncatedElementsOptions = {
