@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Skeleton } from "../../src/components/skeleton/skeleton";
 
 const meta = {
