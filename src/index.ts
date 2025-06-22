@@ -147,6 +147,8 @@ export {
 	TabsList,
 	TabsTrigger,
 } from "@components/tabs/tabs";
+export type { TextareaProps } from "@components/text-area/text-area";
+export { Textarea } from "@components/text-area/text-area";
 export type { ToastProps } from "@components/toast/toast";
 export {
 	Toast,
