@@ -1,11 +1,3 @@
-import { Slider as RadixSlider } from "radix-ui";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-	useState,
-} from "react";
-
 import { useFormContext } from "@components/form-field/form-field-context";
 import {
 	Tooltip,
@@ -13,6 +5,13 @@ import {
 	TooltipTrigger,
 } from "@components/tooltip/tooltip";
 import { cn } from "@utilities/cn/cn";
+import { Slider as RadixSlider } from "radix-ui";
+import {
+	type ComponentPropsWithoutRef,
+	type ComponentRef,
+	forwardRef,
+	useState,
+} from "react";
 
 export type SliderProps = ComponentPropsWithoutRef<typeof RadixSlider.Root> & {
 	/**

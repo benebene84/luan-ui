@@ -1,9 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { Select as SelectPrimitive } from "radix-ui";
-
 import { FormField } from "@components/form-field/form-field";
 import { FormHelper } from "@components/form-helper/form-helper";
 import { Label } from "@components/label/label";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Select as SelectPrimitive } from "radix-ui";
 import {
 	Select,
 	SelectContent,

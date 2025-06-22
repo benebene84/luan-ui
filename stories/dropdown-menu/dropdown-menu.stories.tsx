@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 import { useState } from "react";
 import { Button } from "../../src/components/button/button";
 import {

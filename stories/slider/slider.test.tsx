@@ -6,7 +6,7 @@ import * as stories from "./slider.stories";
 
 describe("Slider", () => {
 	const user = userEvent.setup();
-	const { Default, Range, Disabled } = composeStories(stories);
+	const { Default, Range } = composeStories(stories);
 
 	it("renders with default value and shows tooltip", async () => {
 		await Default.run();

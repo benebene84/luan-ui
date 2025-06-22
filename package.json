@@ -6,7 +6,11 @@
 	"main": "/dist/index.js",
 	"type": "module",
 	"types": "./dist/index.d.ts",
-	"files": ["dist", "README.md", "LICENSE"],
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
 	"scripts": {
 		"build": "node --experimental-strip-types scripts/build.ts",
 		"dev": "storybook dev -p 6006",
@@ -29,7 +33,7 @@
 	},
 	"homepage": "https://github.com/benebene84/luan-ui#readme",
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "2.0.0",
 		"@chromatic-com/storybook": "^4.0.0",
 		"@storybook/addon-docs": "^9.0.12",
 		"@storybook/addon-onboarding": "^9.0.10",
@@ -46,7 +50,6 @@
 		"@vitejs/plugin-react": "^4.5.2",
 		"jsdom": "^26.1.0",
 		"lefthook": "^1.11.14",
-		"postcss": "^8.5.6",
 		"storybook": "^9.0.12",
 		"tailwindcss": "^4.1.10",
 		"tsc-alias": "^1.8.16",

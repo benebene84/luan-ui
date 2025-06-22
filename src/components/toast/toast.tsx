@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 import {
 	Toaster as SonnerToaster,
-	type ToasterProps,
 	toast as sonnerToast,
+	type ToasterProps,
 } from "sonner";
 import { Button } from "../button/button";
 
@@ -34,8 +34,8 @@ const toast = (toast: Omit<ToastProps, "id">) => {
 			title={title}
 			description={description}
 			button={{
-				label: toast.button.label,
-				onClick: toast.button.onClick,
+				label: button.label,
+				onClick: button.onClick,
 			}}
 			{...toastOptions}
 		/>

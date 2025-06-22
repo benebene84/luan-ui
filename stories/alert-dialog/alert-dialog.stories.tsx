@@ -4,13 +4,11 @@ import {
 	AlertDialogCancel,
 	AlertDialogContent,
 	AlertDialogDescription,
-	AlertDialogOverlay,
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@components/alert-dialog/alert-dialog";
 import { Button } from "@components/button/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { AlertDialog as RadixAlertDialog } from "radix-ui";
 
 const meta = {
 	title: "Components/AlertDialog",

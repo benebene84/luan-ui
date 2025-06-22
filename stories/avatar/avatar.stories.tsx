@@ -1,12 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-
 import {
 	Avatar,
 	AvatarFallback,
 	AvatarImage,
 } from "../../src/components/avatar/avatar";
-
-import type { Avatar as AvatarType } from "radix-ui";
 
 const meta = {
 	title: "Components/Avatar",

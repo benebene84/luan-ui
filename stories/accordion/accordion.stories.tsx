@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { Accordion as RadixAccordion } from "radix-ui";
 
 import {
 	Accordion,

@@ -1,6 +1,7 @@
 import { cp, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { color } from "./color.ts";
+
 // Source, destination, recursive
 const dirs: [string, string, boolean][] = [["src/styles", "dist/styles", true]];
 

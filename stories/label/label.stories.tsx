@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-
 import { Input } from "@components/input/input";
 import { Label } from "@components/label/label";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 type LabelStoryProps = React.ComponentProps<typeof Label> & {
 	disabled?: boolean;

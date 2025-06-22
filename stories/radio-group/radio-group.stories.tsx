@@ -1,7 +1,6 @@
 import { FormField } from "@components/form-field/form-field";
 import { FormHelper } from "@components/form-helper/form-helper";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { Label } from "../../src/components/label/label";
 import {
 	RadioGroup,

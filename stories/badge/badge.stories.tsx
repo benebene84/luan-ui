@@ -3,6 +3,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { mapResponsiveValue } from "@utilities/responsive/responsive";
 import { Badge } from "../../src/components/badge/badge";
+
 const meta = {
 	title: "Components/Badge",
 	component: Badge,
