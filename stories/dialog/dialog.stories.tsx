@@ -1,6 +1,6 @@
 import { Input } from "@components/input/input";
 import { Label } from "@components/label/label";
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "../../src/components/button/button";
 import {
 	Dialog,

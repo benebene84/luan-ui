@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Button } from "../../src/components/button/button";
 
@@ -23,7 +23,7 @@ const meta = {
 export default meta;
 
 // Use the inferred type from meta
-type Story = StoryObj<typeof meta>;
+export type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
