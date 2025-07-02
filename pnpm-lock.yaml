@@ -84,6 +84,9 @@ importers:
       lefthook:
         specifier: ^1.11.14
         version: 1.11.14
+      responsive-class-variants:
+        specifier: ^1.0.1
+        version: 1.0.1
       storybook:
         specifier: ^9.0.12
         version: 9.0.12(@testing-library/dom@10.4.0)
@@ -2414,6 +2417,9 @@ packages:
     resolution: {integrity: sha512-NPRy+/ncIMeDlTAsuqwKIiferiawhefFJtkNSW0qZJEqMEb+qBt/77B/jGeeek+F0uOeN05CDa6HXbbIgtVX4w==}
     engines: {node: '>= 0.4'}
     hasBin: true
+
+  responsive-class-variants@1.0.1:
+    resolution: {integrity: sha512-LH7TfwGqzw8UVroSQfJNt9Ht5vYwBGDYgmlLqneVJTfPR2t8JT2BPH/4SZh0Nff45DLtPQ0+UO3r94unbUSr4A==}
 
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
@@ -5092,6 +5098,8 @@ snapshots:
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+
+  responsive-class-variants@1.0.1: {}
 
   reusify@1.1.0: {}
 

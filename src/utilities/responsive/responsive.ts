@@ -1,12 +1,13 @@
+import type {
+	BreakpointsMap as RcvBreakpointsMap,
+	ResponsiveValue as RcvResponsiveValue,
+} from "responsive-class-variants";
+
 export type Breakpoints = "sm" | "md" | "lg" | "xl";
 
-export type BreakpointsMap<V> = {
-	initial: V;
-} & Partial<{
-	[breakpoint in Breakpoints]: V;
-}>;
+export type ResponsiveValue<T> = RcvResponsiveValue<T, Breakpoints>;
 
-export type ResponsiveValue<T> = T | BreakpointsMap<T>;
+export type BreakpointsMap<V> = RcvBreakpointsMap<V, Breakpoints>;
 
 const isSingularValue = <A>(value: ResponsiveValue<A>): value is A =>
 	!isBreakpointsMap(value);
