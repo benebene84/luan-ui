@@ -1,4 +1,4 @@
-import { getVariants } from "@utilities/get-variants/get-variants";
+import { getVariants } from "@utilities/responsive/responsive";
 import { type ComponentPropsWithoutRef, forwardRef } from "react";
 
 export type TextareaProps = ComponentPropsWithoutRef<"textarea"> & {

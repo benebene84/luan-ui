@@ -161,5 +161,3 @@ export {
 	TooltipContent,
 	TooltipTrigger,
 } from "@components/tooltip/tooltip";
-export { getVariants } from "@utilities/get-variants/get-variants";
-export type { ResponsiveValue } from "@utilities/responsive/responsive";

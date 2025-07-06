@@ -1,9 +1,15 @@
-import type {
-	BreakpointsMap as RcvBreakpointsMap,
-	ResponsiveValue as RcvResponsiveValue,
+import { cn } from "@utilities/cn/cn";
+import {
+	createRcv,
+	type BreakpointsMap as RcvBreakpointsMap,
+	type ResponsiveValue as RcvResponsiveValue,
 } from "responsive-class-variants";
 
-export type Breakpoints = "sm" | "md" | "lg" | "xl";
+export const breakpoints = ["sm", "md", "lg", "xl"] as const;
+
+export const getVariants = createRcv(breakpoints, (classes) => cn(classes));
+
+export type Breakpoints = (typeof breakpoints)[number];
 
 export type ResponsiveValue<T> = RcvResponsiveValue<T, Breakpoints>;
 
