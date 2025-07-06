@@ -1,6 +1,6 @@
 import { FormHelper } from "@components/form-helper/form-helper";
 import { Label } from "@components/label/label";
-import { getVariants } from "@utilities/get-variants/get-variants";
+import { getVariants } from "@utilities/responsive/responsive";
 import {
 	Children,
 	type ComponentPropsWithoutRef,

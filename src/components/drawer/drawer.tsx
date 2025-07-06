@@ -1,6 +1,6 @@
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import { getVariants } from "@utilities/get-variants/get-variants";
+import { getVariants } from "@utilities/responsive/responsive";
 import { Dialog as RadixDialog } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,

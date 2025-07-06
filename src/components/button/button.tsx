@@ -1,7 +1,7 @@
 import { Icon } from "@components/icon/icon";
 import { Slot, Slottable } from "@components/slot/slot";
-import { getVariants } from "@utilities/get-variants/get-variants";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
+import { getVariants } from "@utilities/responsive/responsive";
 import { forwardRef } from "react";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

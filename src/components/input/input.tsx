@@ -1,5 +1,5 @@
 import { useFormContext } from "@components/form-field/form-field-context";
-import { getVariants } from "@utilities/get-variants/get-variants";
+import { getVariants } from "@utilities/responsive/responsive";
 import { forwardRef } from "react";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {

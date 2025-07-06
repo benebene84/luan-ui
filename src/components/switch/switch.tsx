@@ -1,6 +1,6 @@
 import { useFormContext } from "@components/form-field/form-field-context";
-import { getVariants } from "@utilities/get-variants/get-variants";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
+import { getVariants } from "@utilities/responsive/responsive";
 import { Switch as RadixSwitch } from "radix-ui";
 import { type ComponentRef, forwardRef } from "react";
 
