@@ -159,5 +159,6 @@ export type { TooltipProps } from "@components/tooltip/tooltip";
 export {
 	Tooltip,
 	TooltipContent,
+	TooltipProvider,
 	TooltipTrigger,
 } from "@components/tooltip/tooltip";

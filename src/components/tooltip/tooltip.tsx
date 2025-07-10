@@ -1,5 +1,5 @@
+import { Tooltip as BaseTooltip } from "@base-ui-components/react";
 import { cn } from "@utilities/cn/cn";
-import { Tooltip as RadixTooltip } from "radix-ui";
 import { createContext, forwardRef, useContext, useMemo } from "react";
 
 /**
@@ -8,7 +8,7 @@ import { createContext, forwardRef, useContext, useMemo } from "react";
 
 type TooltipContextType = {
 	showArrow?: boolean;
-	side?: RadixTooltip.TooltipContentProps["side"];
+	side?: "top" | "right" | "bottom" | "left";
 };
 
 const TooltipContext = createContext<TooltipContextType | undefined>(undefined);
@@ -22,20 +22,35 @@ const useTooltipContext = () => {
 };
 
 /**
+ * Tooltip Provider
+ *
+ * Provides common configuration for all tooltips within its scope.
+ * Should be placed at the app root level.
+ *
+ * @example
+ * ```tsx
+ * <TooltipProvider delayDuration={500}>
+ *   <App />
+ * </TooltipProvider>
+ * ```
+ */
+const TooltipProvider = BaseTooltip.Provider;
+
+/**
  * Tooltip
  */
 
-export type TooltipProps = React.ComponentProps<typeof RadixTooltip.Root> & {
+export type TooltipProps = React.ComponentProps<typeof BaseTooltip.Root> & {
 	showArrow?: boolean;
-	side?: RadixTooltip.TooltipContentProps["side"];
+	side?: "top" | "right" | "bottom" | "left";
 };
 
 /**
- * A tooltip component built on top of Radix UI's tooltip primitive.
+ * A tooltip component built on top of Base UI's tooltip primitive.
  *
  * @param {TooltipProps} props - The props for the Tooltip component
  * @param {boolean} [props.showArrow=true] - Whether to show the arrow pointing to the trigger
- * @param {RadixTooltip.TooltipContentProps["side"]} [props.side] - The preferred side to show the tooltip
+ * @param {"top" | "right" | "bottom" | "left"} [props.side] - The preferred side to show the tooltip
  *
  * @example
  * ```tsx
@@ -48,7 +63,7 @@ export type TooltipProps = React.ComponentProps<typeof RadixTooltip.Root> & {
 const Tooltip = ({
 	children,
 	showArrow = true,
-	side,
+	side = "top",
 	...props
 }: TooltipProps) => {
 	const contextValue = useMemo(
@@ -60,9 +75,7 @@ const Tooltip = ({
 	);
 	return (
 		<TooltipContext.Provider value={contextValue}>
-			<RadixTooltip.Provider>
-				<RadixTooltip.Root {...props}>{children}</RadixTooltip.Root>
-			</RadixTooltip.Provider>
+			<BaseTooltip.Root {...props}>{children}</BaseTooltip.Root>
 		</TooltipContext.Provider>
 	);
 };
@@ -71,7 +84,7 @@ const Tooltip = ({
  * Tooltip Trigger
  */
 
-const TooltipTrigger = RadixTooltip.Trigger;
+const TooltipTrigger = BaseTooltip.Trigger;
 
 /**
  * Tooltip Content
@@ -79,28 +92,32 @@ const TooltipTrigger = RadixTooltip.Trigger;
 
 const TooltipContent = forwardRef<
 	HTMLDivElement,
-	React.ComponentPropsWithoutRef<typeof RadixTooltip.Content> & {
+	React.ComponentPropsWithoutRef<typeof BaseTooltip.Popup> & {
 		showArrow?: boolean;
+		sideOffset?: number;
 	}
 >(({ className, sideOffset = 4, children, ...props }, ref) => {
 	const { showArrow, side } = useTooltipContext();
 	return (
-		<RadixTooltip.Content
-			className={cn(
-				"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-2 text-sm text-white shadow-md",
-				className,
-			)}
-			sideOffset={sideOffset}
-			side={side}
-			{...props}
-			ref={ref}
-		>
-			{children}
-			{showArrow && <RadixTooltip.Arrow className="fill-gray-700" />}
-		</RadixTooltip.Content>
+		<BaseTooltip.Portal>
+			<BaseTooltip.Positioner side={side} sideOffset={sideOffset}>
+				<BaseTooltip.Popup
+					className={cn(
+						"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-2 text-sm text-white shadow-md",
+						className,
+					)}
+					role="tooltip"
+					{...props}
+					ref={ref}
+				>
+					{children}
+					{showArrow && <BaseTooltip.Arrow className="fill-gray-700" />}
+				</BaseTooltip.Popup>
+			</BaseTooltip.Positioner>
+		</BaseTooltip.Portal>
 	);
 });
 
-TooltipContent.displayName = RadixTooltip.Content.displayName;
+TooltipContent.displayName = BaseTooltip.Popup.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent };
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
