@@ -50,10 +50,10 @@ describe("Switch", () => {
 
 		const switchElement = screen.getByRole("switch");
 		await user.click(switchElement);
-		expect(onCheckedChangeMock).toHaveBeenCalledWith(true);
+		expect(onCheckedChangeMock).toHaveBeenCalledWith(true, expect.any(Object));
 
 		await user.click(switchElement);
-		expect(onCheckedChangeMock).toHaveBeenCalledWith(false);
+		expect(onCheckedChangeMock).toHaveBeenCalledWith(false, expect.any(Object));
 	});
 
 	it("has a checked prop that is checked when the switch is checked", async () => {
