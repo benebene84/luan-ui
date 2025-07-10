@@ -79,10 +79,12 @@ const Slider = forwardRef<ComponentRef<typeof RadixSlider.Root>, SliderProps>(
 					</RadixSlider.Track>
 					{value.map((thumbValue, index) => (
 						// biome-ignore lint/suspicious/noArrayIndexKey: <only index is available>
-						<Tooltip key={index} delayDuration={0}>
-							<TooltipTrigger asChild>
-								<RadixSlider.Thumb className="block h-4 w-4 rounded-full border border-gray-700 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-700 data-[disabled]:pointer-events-none" />
-							</TooltipTrigger>
+						<Tooltip key={index}>
+							<TooltipTrigger
+								render={
+									<RadixSlider.Thumb className="block h-4 w-4 rounded-full border border-gray-700 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-700 data-[disabled]:pointer-events-none" />
+								}
+							/>
 							<TooltipContent>
 								<p>{thumbValue}</p>
 							</TooltipContent>
