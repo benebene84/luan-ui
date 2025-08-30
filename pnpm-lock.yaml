@@ -85,8 +85,8 @@ importers:
         specifier: ^1.11.14
         version: 1.11.14
       responsive-class-variants:
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.1.1
+        version: 1.1.1
       storybook:
         specifier: ^9.0.12
         version: 9.0.12(@testing-library/dom@10.4.0)
@@ -2418,8 +2418,8 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
-  responsive-class-variants@1.0.1:
-    resolution: {integrity: sha512-LH7TfwGqzw8UVroSQfJNt9Ht5vYwBGDYgmlLqneVJTfPR2t8JT2BPH/4SZh0Nff45DLtPQ0+UO3r94unbUSr4A==}
+  responsive-class-variants@1.1.1:
+    resolution: {integrity: sha512-c6mBtcBkYMiO1LuU45+ZvtQPNMjKhq5lcA4G0+w1up0bAHrIOoDL7S0+evQYPEyPAvi2uHUE96p4trxhw27kmw==}
 
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
@@ -5099,7 +5099,7 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  responsive-class-variants@1.0.1: {}
+  responsive-class-variants@1.1.1: {}
 
   reusify@1.1.0: {}
 

@@ -1,5 +1,6 @@
 import { Icon } from "@components/icon/icon";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { cn } from "@utilities/cn/cn";
 import { getVariants } from "@utilities/responsive/responsive";
 import { Popover as RadixPopover } from "radix-ui";
 import {
@@ -84,11 +85,6 @@ export type PopoverContentProps = RadixPopover.PopoverContentProps & {
 	closeButtonAriaLabel?: string;
 };
 
-const popoverContentStyles = getVariants({
-	base: "relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-4 text-sm text-white shadow-md",
-	variants: {},
-});
-
 /**
  * Popover Content
  */
@@ -112,7 +108,10 @@ const PopoverContent = forwardRef<
 		usePopoverContext();
 	return (
 		<RadixPopover.Content
-			className={popoverContentStyles({ className })}
+			className={cn(
+				"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-4 text-sm text-white shadow-md",
+				className,
+			)}
 			sideOffset={sideOffset}
 			side={side}
 			{...props}

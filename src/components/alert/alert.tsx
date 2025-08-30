@@ -30,19 +30,39 @@ type AlertProps = ComponentPropsWithoutRef<"div"> & {
 };
 
 const alertStyles = getVariants({
-	base: "grid w-fit grid-cols-[0_1fr] items-start gap-1 rounded-md border border-transparent has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] [&>svg]:translate-y-1",
+	slots: {
+		root: "grid w-fit grid-cols-[0_1fr] items-start gap-1 rounded-md border border-transparent has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] [&>svg]:translate-y-1",
+		title: "col-start-2 font-bold",
+		description: "col-start-2",
+	},
 	variants: {
 		variant: {
-			primary: "bg-gray-700 text-white",
-			secondary: "border-gray-700 text-gray-700",
-			error: "bg-red-500 text-white",
+			primary: {
+				root: "bg-gray-700 text-white",
+			},
+			secondary: {
+				root: "border-gray-700 text-gray-700",
+			},
+			error: {
+				root: "bg-red-500 text-white",
+			},
 		},
 		size: {
-			small: "px-2 py-1 has-[>svg]:gap-x-2",
-			medium: "px-3 py-2 has-[>svg]:gap-x-3",
+			small: {
+				root: "px-2 py-1 has-[>svg]:gap-x-2",
+				title: "text-sm",
+				description: "text-xs",
+			},
+			medium: {
+				root: "px-3 py-2 has-[>svg]:gap-x-3",
+				title: "text-base",
+				description: "text-sm",
+			},
 		},
 	},
 });
+
+const { root, title, description } = alertStyles;
 
 export const SIZES = {
 	sm: {
@@ -73,7 +93,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(
 		return (
 			<AlertContext.Provider value={{ variant, size }}>
 				<Component
-					className={alertStyles({ variant, size, className })}
+					className={root({ variant, size, className })}
 					{...props}
 					ref={ref}
 				/>
@@ -87,16 +107,6 @@ Alert.displayName = "Alert";
 type AlertTitleProps = ComponentPropsWithoutRef<"div"> & {
 	asChild?: boolean;
 };
-
-const alertTitleStyles = getVariants({
-	base: "col-start-2 font-bold",
-	variants: {
-		size: {
-			small: "text-sm",
-			medium: "text-base",
-		},
-	},
-});
 
 export const TITLE_SIZES = {
 	sm: {
@@ -122,11 +132,7 @@ const AlertTitle = forwardRef<HTMLDivElement, AlertTitleProps>(
 		const { size } = useAlertContext();
 		const Component = asChild ? Slot : "div";
 		return (
-			<Component
-				ref={ref}
-				{...props}
-				className={alertTitleStyles({ size, className })}
-			/>
+			<Component ref={ref} {...props} className={title({ size, className })} />
 		);
 	},
 );
@@ -136,16 +142,6 @@ AlertTitle.displayName = "AlertTitle";
 type AlertDescriptionProps = ComponentPropsWithoutRef<"div"> & {
 	asChild?: boolean;
 };
-
-const alertDescriptionStyles = getVariants({
-	base: "col-start-2",
-	variants: {
-		size: {
-			small: "text-xs",
-			medium: "text-sm",
-		},
-	},
-});
 
 export const DESCRIPTION_SIZES = {
 	sm: {
@@ -174,7 +170,7 @@ const AlertDescription = forwardRef<HTMLDivElement, AlertDescriptionProps>(
 			<Component
 				ref={ref}
 				{...props}
-				className={alertDescriptionStyles({ size, className })}
+				className={description({ size, className })}
 			/>
 		);
 	},
