@@ -9,37 +9,47 @@ export type SwitchProps = RadixSwitch.SwitchProps & {
 	error?: boolean;
 };
 
-const rootStyles = getVariants({
-	base: "relative flex cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[state=checked]:bg-green-500",
+const thumbStyles = getVariants({
+	slots: {
+		root: "relative flex cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[state=checked]:bg-green-500",
+		thumb:
+			"absolute left-1 h-5 w-5 rounded-full transition-transform duration-500 ease-out data-[state=checked]:translate-x-[1.125rem]",
+	},
 	variants: {
 		disabled: {
-			true: "cursor-not-allowed opacity-50",
+			true: {
+				root: "cursor-not-allowed opacity-50",
+				thumb: "bg-gray-300",
+			},
+			false: {
+				root: "cursor-pointer opacity-100",
+				thumb: "bg-white",
+			},
 		},
 		error: {
-			true: "bg-red-600 data-[state=checked]:bg-red-600",
+			true: {
+				root: "bg-red-600 data-[state=checked]:bg-red-600",
+				thumb: "bg-red-600",
+			},
 		},
 		size: {
-			small: "h-5 w-10",
-			medium: "h-7 w-12",
-			large: "h-9 w-14",
+			small: {
+				root: "h-5 w-10",
+				thumb: "h-3 w-3",
+			},
+			medium: {
+				root: "h-7 w-12",
+				thumb: "h-5 w-5",
+			},
+			large: {
+				root: "h-9 w-14",
+				thumb: "h-7 w-7",
+			},
 		},
 	},
 });
 
-const thumbStyles = getVariants({
-	base: "absolute left-1 h-5 w-5 rounded-full transition-transform duration-500 ease-out data-[state=checked]:translate-x-[1.125rem]",
-	variants: {
-		disabled: {
-			true: "bg-gray-300",
-			false: "bg-white",
-		},
-		size: {
-			small: "h-3 w-3",
-			medium: "h-5 w-5",
-			large: "h-7 w-7",
-		},
-	},
-});
+const { root, thumb } = thumbStyles;
 
 /**
  * A switch component that toggles between on and off states.
@@ -92,13 +102,15 @@ export const Switch = forwardRef<
 		});
 		return (
 			<RadixSwitch.Root
-				className={rootStyles({ disabled, size, error, className })}
+				className={root({ disabled, size, error, className })}
 				disabled={disabled}
 				{...props}
 				ref={ref}
 			>
-				<RadixSwitch.Thumb className={thumbStyles({ disabled, size })} />
+				<RadixSwitch.Thumb className={thumb({ disabled, size })} />
 			</RadixSwitch.Root>
 		);
 	},
 );
+
+Switch.displayName = "Switch";

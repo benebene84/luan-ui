@@ -52,15 +52,37 @@ export const CARD_SIZES = {
 };
 
 const cardStyles = getVariants({
-	base: "flex flex-col rounded-lg border border-gray-200 bg-white shadow-md",
+	slots: {
+		root: "flex flex-col rounded-lg border border-gray-200 bg-white shadow-md",
+		header: "flex items-center justify-between border-gray-200 border-b",
+		content: "flex flex-col",
+		footer: "flex items-center justify-between border-gray-200 border-t",
+	},
 	variants: {
 		size: {
-			small: "gap-2 py-2",
-			medium: "gap-4 py-4",
-			large: "gap-6 py-6",
+			small: {
+				root: "gap-2 py-2",
+				header: "px-2 pb-2",
+				content: "gap-2 px-2",
+				footer: "px-2 pt-2",
+			},
+			medium: {
+				root: "gap-4 py-4",
+				header: "px-4 pb-4",
+				content: "gap-4 px-4",
+				footer: "px-4 pt-4",
+			},
+			large: {
+				root: "gap-6 py-6",
+				header: "px-6 pb-6",
+				content: "gap-6 px-6",
+				footer: "px-6 pt-6",
+			},
 		},
 	},
 });
+
+const { root, header, content, footer } = cardStyles;
 
 /**
  * Card component that provides a container with consistent styling and spacing.
@@ -80,11 +102,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 		const Component = asChild ? Slot : "div";
 		return (
 			<CardContext.Provider value={{ size }}>
-				<Component
-					ref={ref}
-					className={cardStyles({ className, size })}
-					{...props}
-				/>
+				<Component ref={ref} className={root({ className, size })} {...props} />
 			</CardContext.Provider>
 		);
 	},
@@ -124,17 +142,6 @@ export const CARD_HEADER_SIZES = {
 	},
 };
 
-const cardHeaderStyles = getVariants({
-	base: "flex items-center justify-between border-gray-200 border-b",
-	variants: {
-		size: {
-			small: "px-2 pb-2",
-			medium: "px-4 pb-4",
-			large: "px-6 pb-6",
-		},
-	},
-});
-
 /**
  * Card Header component that provides a consistent header section for the Card.
  * Inherits size from parent Card component.
@@ -154,11 +161,7 @@ export const CardHeader = forwardRef<
 	const { size } = useCardContext();
 	const Component = asChild ? Slot : "div";
 	return (
-		<Component
-			ref={ref}
-			className={cardHeaderStyles({ className, size })}
-			{...props}
-		/>
+		<Component ref={ref} className={header({ className, size })} {...props} />
 	);
 });
 
@@ -196,17 +199,6 @@ export const CARD_CONTENT_SIZES = {
 	},
 };
 
-const cardContentStyles = getVariants({
-	base: "flex flex-col",
-	variants: {
-		size: {
-			small: "gap-2 px-2",
-			medium: "gap-4 px-4",
-			large: "gap-6 px-6",
-		},
-	},
-});
-
 /**
  * Card Content component that provides the main content area for the Card.
  * Inherits size from parent Card component.
@@ -225,11 +217,7 @@ export const CardContent = forwardRef<
 	const { size } = useCardContext();
 	const Component = asChild ? Slot : "div";
 	return (
-		<Component
-			ref={ref}
-			className={cardContentStyles({ className, size })}
-			{...props}
-		/>
+		<Component ref={ref} className={content({ className, size })} {...props} />
 	);
 });
 
@@ -267,17 +255,6 @@ export const CARD_FOOTER_SIZES = {
 	},
 };
 
-const cardFooterStyles = getVariants({
-	base: "flex items-center justify-between border-gray-200 border-t",
-	variants: {
-		size: {
-			small: "px-2 pt-2",
-			medium: "px-4 pt-4",
-			large: "px-6 pt-6",
-		},
-	},
-});
-
 /**
  * Card Footer component that provides a consistent footer section for the Card.
  * Inherits size from parent Card component.
@@ -297,11 +274,7 @@ export const CardFooter = forwardRef<
 	const { size } = useCardContext();
 	const Component = asChild ? Slot : "div";
 	return (
-		<Component
-			ref={ref}
-			className={cardFooterStyles({ className, size })}
-			{...props}
-		/>
+		<Component ref={ref} className={footer({ className, size })} {...props} />
 	);
 });
 
