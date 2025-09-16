@@ -14,7 +14,7 @@ export type ToastProps = {
 		label: string;
 		onClick: () => void;
 	};
-} & ToasterProps;
+} & Omit<ToasterProps, "id">;
 
 /**
  * Creates a custom toast notification using the sonner toast library

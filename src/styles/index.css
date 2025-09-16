@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noUnknownAtRules: <tailwind specific syntax included> */
 @import "tailwindcss";
 
 @source "../components";
