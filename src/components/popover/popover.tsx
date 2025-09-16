@@ -1,7 +1,6 @@
 import { Icon } from "@components/icon/icon";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import { getVariants } from "@utilities/responsive/responsive";
 import { Popover as RadixPopover } from "radix-ui";
 import {
 	type ComponentRef,

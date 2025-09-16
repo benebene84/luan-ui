@@ -11,7 +11,7 @@ describe("Button", () => {
 		await Default.run();
 
 		const buttonElement = screen.getByRole("button", {
-			name: "ArrowLeftIcon Button ArrowRightIcon",
+			name: "ArrowLeftIconButtonArrowRightIcon",
 		});
 
 		const iconStart = screen.getByLabelText("ArrowLeftIcon");

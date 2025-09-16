@@ -17,8 +17,8 @@ describe("DropdownMenu", () => {
 
 			// Open menu
 			await user.click(screen.getByRole("button", { name: "Open Menu" }));
-			const profile = screen.getByRole("menuitem", { name: "Profile ⇧⌘P" });
-			const settings = screen.getByRole("menuitem", { name: "Settings ⌘S" });
+			const profile = screen.getByRole("menuitem", { name: "Profile⇧⌘P" });
+			const settings = screen.getByRole("menuitem", { name: "Settings⌘S" });
 			expect(profile).toBeInTheDocument();
 			expect(settings).toBeInTheDocument();
 
@@ -39,12 +39,12 @@ describe("DropdownMenu", () => {
 			await user.keyboard("{ArrowDown}");
 
 			// Focus first item
-			const profile = screen.getByRole("menuitem", { name: "Profile ⇧⌘P" });
+			const profile = screen.getByRole("menuitem", { name: "Profile⇧⌘P" });
 			expect(profile).toHaveFocus();
 
 			// Navigate to second item
 			await user.keyboard("{ArrowDown}");
-			const settings = screen.getByRole("menuitem", { name: "Settings ⌘S" });
+			const settings = screen.getByRole("menuitem", { name: "Settings⌘S" });
 			expect(settings).toHaveFocus();
 
 			// Navigate back to first item
