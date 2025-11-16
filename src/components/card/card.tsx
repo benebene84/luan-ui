@@ -82,7 +82,7 @@ const cardStyles = getVariants({
 	},
 });
 
-const { root, header, content, footer } = cardStyles;
+const { root, header, content, footer } = cardStyles();
 
 /**
  * Card component that provides a container with consistent styling and spacing.

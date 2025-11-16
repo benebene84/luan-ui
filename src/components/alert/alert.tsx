@@ -62,7 +62,7 @@ const alertStyles = getVariants({
 	},
 });
 
-const { root, title, description } = alertStyles;
+const { root, title, description } = alertStyles();
 
 export const SIZES = {
 	sm: {

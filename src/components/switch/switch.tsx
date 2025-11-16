@@ -49,7 +49,7 @@ const thumbStyles = getVariants({
 	},
 });
 
-const { root, thumb } = thumbStyles;
+const { root, thumb } = thumbStyles();
 
 /**
  * A switch component that toggles between on and off states.
