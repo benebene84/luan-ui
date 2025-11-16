@@ -50,7 +50,7 @@
 		"@vitejs/plugin-react": "^5.0.2",
 		"jsdom": "^27.0.0",
 		"lefthook": "^1.13.0",
-		"responsive-class-variants": "^1.1.1",
+		"responsive-class-variants": "^1.2.3",
 		"storybook": "^9.1.6",
 		"tailwindcss": "^4.1.13",
 		"tsc-alias": "^1.8.16",
