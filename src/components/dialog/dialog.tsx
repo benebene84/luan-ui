@@ -37,7 +37,7 @@ const DialogContent = forwardRef<
 			<DialogOverlay />
 			<RadixDialog.Content
 				className={cn(
-					"-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl flex-col gap-4 rounded-lg bg-white p-4",
+					"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-4",
 					className,
 				)}
 				{...props}
