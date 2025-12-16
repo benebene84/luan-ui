@@ -12,7 +12,7 @@ const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
 
 		return (
 			<div
-				className="[&>*]:-mr-4 hover:[&>*]:-mr-1 group flex w-fit flex-row-reverse items-center [&>*]:transition-all [&>*]:duration-500 [&>*]:ease-in-out"
+				className="group flex w-fit flex-row-reverse items-center [&>*]:-mr-4 [&>*]:transition-all [&>*]:duration-500 [&>*]:ease-in-out hover:[&>*]:-mr-1"
 				{...props}
 				ref={ref}
 			>
