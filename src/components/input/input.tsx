@@ -1,9 +1,10 @@
 import { useFormContext } from "@components/form-field/form-field-context";
 import { getVariants } from "@utilities/responsive/responsive";
-import { forwardRef } from "react";
+import type { ComponentProps, Ref } from "react";
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = ComponentProps<"input"> & {
 	error?: boolean;
+	ref?: Ref<HTMLInputElement>;
 };
 
 const inputStyles = getVariants({
@@ -34,34 +35,29 @@ const inputStyles = getVariants({
  * <Input placeholder="Enter your email" id="email" />
  * ```
  */
-const Input = forwardRef<HTMLInputElement, InputProps>(
-	(
-		{
-			className,
-			disabled: initialDisabled,
-			required: initialRequired,
-			error: initialError,
-			...props
-		},
-		ref,
-	) => {
-		const { disabled, required, error } = useFormContext({
-			disabled: initialDisabled,
-			required: initialRequired,
-			error: initialError,
-		});
-		return (
-			<input
-				className={inputStyles({ disabled, error, className })}
-				disabled={disabled}
-				required={required}
-				aria-invalid={error}
-				{...props}
-				ref={ref}
-			/>
-		);
-	},
-);
-Input.displayName = "Input";
+function Input({
+	className,
+	disabled: initialDisabled,
+	required: initialRequired,
+	error: initialError,
+	ref,
+	...props
+}: InputProps) {
+	const { disabled, required, error } = useFormContext({
+		disabled: initialDisabled,
+		required: initialRequired,
+		error: initialError,
+	});
+	return (
+		<input
+			className={inputStyles({ disabled, error, className })}
+			disabled={disabled}
+			required={required}
+			aria-invalid={error}
+			{...props}
+			ref={ref}
+		/>
+	);
+}
 
 export { Input };

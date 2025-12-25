@@ -37,7 +37,7 @@ describe("Select", () => {
 		const option = screen.getByText("Apple");
 		await userEvent.click(option);
 
-		// Check if the selected value is displayed
+		// Check if the selected value is displayed (with items prop, shows label)
 		await waitFor(() => {
 			expect(trigger).toHaveTextContent("Apple");
 		});

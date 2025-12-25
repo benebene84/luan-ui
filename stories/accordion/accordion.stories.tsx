@@ -13,11 +13,7 @@ const meta = {
 	component: Accordion,
 	tags: ["autodocs"],
 	argTypes: {
-		type: {
-			control: "radio",
-			options: ["single", "multiple"],
-		},
-		collapsible: {
+		multiple: {
 			control: "boolean",
 		},
 	},
@@ -29,8 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		type: "single",
-		collapsible: true,
+		multiple: false,
 	},
 	render: (args) => (
 		<Accordion {...args} className="w-full">
@@ -64,7 +59,7 @@ export const Default: Story = {
 
 export const Multiple: Story = {
 	args: {
-		type: "multiple",
+		multiple: true,
 	},
 	render: (args) => (
 		<Accordion {...args} className="w-full">

@@ -1,7 +1,8 @@
-import { Slot } from "@components/slot/slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import { createContext, forwardRef, useContext } from "react";
+import { createContext, useContext } from "react";
 
 /**
  * Card Context
@@ -23,9 +24,9 @@ const useCardContext = () => {
  * Card
  */
 
-export type CardProps = React.HTMLAttributes<HTMLDivElement> & {
+export type CardProps = useRender.ComponentProps<"div"> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
-	asChild?: boolean;
+	className?: string;
 };
 
 export const CARD_SIZES = {
@@ -86,7 +87,7 @@ const { root, header, content, footer } = cardStyles();
 
 /**
  * Card component that provides a container with consistent styling and spacing.
- * Supports different sizes and can be used with asChild prop for composition.
+ * Supports different sizes and can be used with render prop for composition.
  *
  * @example
  * ```tsx
@@ -96,17 +97,33 @@ const { root, header, content, footer } = cardStyles();
  *   <CardFooter>Footer</CardFooter>
  * </Card>
  * ```
+ *
+ * @example
+ * // With render prop to change the element
+ * ```tsx
+ * <Card render={<article />}>Content</Card>
+ * ```
  */
-export const Card = forwardRef<HTMLDivElement, CardProps>(
-	({ className, size = "medium", asChild, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
-		return (
-			<CardContext.Provider value={{ size }}>
-				<Component ref={ref} className={root({ className, size })} {...props} />
-			</CardContext.Provider>
-		);
-	},
-);
+export function Card({
+	className,
+	size = "medium",
+	render,
+	children,
+	...props
+}: CardProps) {
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: root({ className, size }),
+		children: (
+			<CardContext.Provider value={{ size }}>{children}</CardContext.Provider>
+		),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 Card.displayName = "Card";
 
@@ -114,9 +131,8 @@ Card.displayName = "Card";
  * Card Header
  */
 
-export type CardHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
-	size?: ResponsiveValue<"small" | "medium" | "large">;
-	asChild?: boolean;
+export type CardHeaderProps = useRender.ComponentProps<"div"> & {
+	className?: string;
 };
 
 export const CARD_HEADER_SIZES = {
@@ -154,16 +170,19 @@ export const CARD_HEADER_SIZES = {
  * </CardHeader>
  * ```
  */
-export const CardHeader = forwardRef<
-	HTMLDivElement,
-	Omit<CardHeaderProps, "size">
->(({ className, asChild, ...props }, ref) => {
+export function CardHeader({ className, render, ...props }: CardHeaderProps) {
 	const { size } = useCardContext();
-	const Component = asChild ? Slot : "div";
-	return (
-		<Component ref={ref} className={header({ className, size })} {...props} />
-	);
-});
+
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: header({ className, size }),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 CardHeader.displayName = "CardHeader";
 
@@ -171,9 +190,8 @@ CardHeader.displayName = "CardHeader";
  * Card Content
  */
 
-export type CardContentProps = React.HTMLAttributes<HTMLDivElement> & {
-	size?: ResponsiveValue<"small" | "medium" | "large">;
-	asChild?: boolean;
+export type CardContentProps = useRender.ComponentProps<"div"> & {
+	className?: string;
 };
 
 export const CARD_CONTENT_SIZES = {
@@ -210,16 +228,19 @@ export const CARD_CONTENT_SIZES = {
  * </CardContent>
  * ```
  */
-export const CardContent = forwardRef<
-	HTMLDivElement,
-	Omit<CardContentProps, "size">
->(({ className, asChild, ...props }, ref) => {
+export function CardContent({ className, render, ...props }: CardContentProps) {
 	const { size } = useCardContext();
-	const Component = asChild ? Slot : "div";
-	return (
-		<Component ref={ref} className={content({ className, size })} {...props} />
-	);
-});
+
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: content({ className, size }),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 CardContent.displayName = "CardContent";
 
@@ -227,9 +248,8 @@ CardContent.displayName = "CardContent";
  * Card Footer
  */
 
-export type CardFooterProps = React.HTMLAttributes<HTMLDivElement> & {
-	size?: ResponsiveValue<"small" | "medium" | "large">;
-	asChild?: boolean;
+export type CardFooterProps = useRender.ComponentProps<"div"> & {
+	className?: string;
 };
 
 export const CARD_FOOTER_SIZES = {
@@ -267,15 +287,18 @@ export const CARD_FOOTER_SIZES = {
  * </CardFooter>
  * ```
  */
-export const CardFooter = forwardRef<
-	HTMLDivElement,
-	Omit<CardFooterProps, "size">
->(({ className, asChild, ...props }, ref) => {
+export function CardFooter({ className, render, ...props }: CardFooterProps) {
 	const { size } = useCardContext();
-	const Component = asChild ? Slot : "div";
-	return (
-		<Component ref={ref} className={footer({ className, size })} {...props} />
-	);
-});
+
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: footer({ className, size }),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 CardFooter.displayName = "CardFooter";

@@ -25,9 +25,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: () => (
 		<AlertDialog>
-			<AlertDialogTrigger asChild>
-				<Button variant="destructive">Delete Account</Button>
-			</AlertDialogTrigger>
+			<AlertDialogTrigger
+				render={(props) => (
+					<Button {...props} variant="destructive">
+						Delete Account
+					</Button>
+				)}
+			/>
 			<AlertDialogContent>
 				<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 				<AlertDialogDescription>
@@ -35,12 +39,20 @@ export const Default: Story = {
 					account and remove your data from our servers.
 				</AlertDialogDescription>
 				<div className="flex justify-end gap-4">
-					<AlertDialogCancel asChild>
-						<Button variant="secondary">Cancel</Button>
-					</AlertDialogCancel>
-					<AlertDialogAction asChild>
-						<Button variant="destructive">Delete Account</Button>
-					</AlertDialogAction>
+					<AlertDialogCancel
+						render={(props) => (
+							<Button {...props} variant="secondary">
+								Cancel
+							</Button>
+						)}
+					/>
+					<AlertDialogAction
+						render={(props) => (
+							<Button {...props} variant="destructive">
+								Delete Account
+							</Button>
+						)}
+					/>
 				</div>
 			</AlertDialogContent>
 		</AlertDialog>

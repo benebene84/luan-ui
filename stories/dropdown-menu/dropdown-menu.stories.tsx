@@ -30,9 +30,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: () => (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button>Open Menu</Button>
-			</DropdownMenuTrigger>
+			<DropdownMenuTrigger render={<Button />}>Open Menu</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>
 				<DropdownMenuSeparator />
@@ -62,8 +60,8 @@ export const WithCheckboxItems: Story = {
 		const [showSidebar, setShowSidebar] = useState(false);
 		return (
 			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button>View Options</Button>
+				<DropdownMenuTrigger render={<Button />}>
+					View Options
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="w-48">
 					<DropdownMenuLabel>View Options</DropdownMenuLabel>
@@ -98,8 +96,8 @@ export const WithCheckboxItems: Story = {
 export const WithSubmenu: Story = {
 	render: () => (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button>More Actions</Button>
+			<DropdownMenuTrigger render={<Button />}>
+				More Actions
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuItem>

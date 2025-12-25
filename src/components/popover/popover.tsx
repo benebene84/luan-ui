@@ -1,20 +1,25 @@
+import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { Icon } from "@components/icon/icon";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import { Popover as RadixPopover } from "radix-ui";
-import {
-	type ComponentRef,
-	createContext,
-	forwardRef,
-	useContext,
-	useMemo,
-} from "react";
+import type { ComponentProps } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 /**
  * Popover Context
  */
 
-const PopoverContext = createContext<PopoverProps | undefined>(undefined);
+type PopoverContextValue = {
+	showArrow?: boolean;
+	closeButtonAriaLabel?: string;
+	showCloseButton?: boolean;
+	side?: "top" | "right" | "bottom" | "left";
+	sideOffset?: number;
+};
+
+const PopoverContext = createContext<PopoverContextValue | undefined>(
+	undefined,
+);
 
 const usePopoverContext = () => {
 	const context = useContext(PopoverContext);
@@ -32,8 +37,10 @@ export type PopoverProps = {
 	showArrow?: boolean;
 	closeButtonAriaLabel?: string;
 	showCloseButton?: boolean;
-} & RadixPopover.PopoverProps &
-	Pick<RadixPopover.PopoverContentProps, "side">;
+	side?: "top" | "right" | "bottom" | "left";
+	sideOffset?: number;
+	children?: React.ReactNode;
+} & ComponentProps<typeof PopoverPrimitive.Root>;
 
 /**
  * Popover component that provides a popover container with a trigger and content.
@@ -41,7 +48,8 @@ export type PopoverProps = {
  * @param {boolean} [props.showArrow=true] - Whether to show the arrow pointing to the trigger
  * @param {string} [props.closeButtonAriaLabel="Close"] - Aria label for the close button
  * @param {boolean} [props.showCloseButton=true] - Whether to show the close button
- * @param {RadixPopover.PopoverContentProps["side"]} [props.side] - The preferred side to show the popover
+ * @param {"top" | "right" | "bottom" | "left"} [props.side] - The preferred side to show the popover
+ * @param {number} [props.sideOffset=4] - The offset from the trigger
  *
  * @example
  * ```tsx
@@ -53,35 +61,48 @@ export type PopoverProps = {
  * </Popover>
  * ```
  */
-const Popover = ({
+function Popover({
 	children,
 	showArrow = true,
 	closeButtonAriaLabel = "Close",
 	showCloseButton = true,
 	side,
+	sideOffset = 10,
 	...props
-}: PopoverProps) => {
+}: PopoverProps) {
 	const contextValue = useMemo(
 		() => ({
 			showArrow,
 			closeButtonAriaLabel,
 			side,
 			showCloseButton,
+			sideOffset,
 		}),
-		[showArrow, closeButtonAriaLabel, side, showCloseButton],
+		[showArrow, closeButtonAriaLabel, side, showCloseButton, sideOffset],
 	);
 	return (
 		<PopoverContext.Provider value={contextValue}>
-			<RadixPopover.Root {...props}>{children}</RadixPopover.Root>
+			<PopoverPrimitive.Root {...props}>{children}</PopoverPrimitive.Root>
 		</PopoverContext.Provider>
 	);
-};
+}
 
-const PopoverTrigger = RadixPopover.Trigger;
+export type PopoverTriggerProps = ComponentProps<
+	typeof PopoverPrimitive.Trigger
+>;
 
-export type PopoverContentProps = RadixPopover.PopoverContentProps & {
+function PopoverTrigger({ className, ref, ...props }: PopoverTriggerProps) {
+	return (
+		<PopoverPrimitive.Trigger ref={ref} className={className} {...props} />
+	);
+}
+
+export type PopoverContentProps = ComponentProps<
+	typeof PopoverPrimitive.Popup
+> & {
 	showArrow?: boolean;
 	closeButtonAriaLabel?: string;
+	sideOffset?: number;
 };
 
 /**
@@ -99,56 +120,98 @@ export type PopoverContentProps = RadixPopover.PopoverContentProps & {
  * </PopoverContent>
  * ```
  */
-const PopoverContent = forwardRef<
-	ComponentRef<typeof RadixPopover.Content>,
-	PopoverContentProps
->(({ children, className, sideOffset = 4, ...props }, ref) => {
-	const { showArrow, closeButtonAriaLabel, side, showCloseButton } =
-		usePopoverContext();
+function PopoverContent({
+	children,
+	className,
+	sideOffset: sideOffsetProp,
+	ref,
+	...props
+}: PopoverContentProps) {
+	const {
+		showArrow,
+		closeButtonAriaLabel,
+		side,
+		showCloseButton,
+		sideOffset: sideOffsetContext,
+	} = usePopoverContext();
+	const sideOffset = sideOffsetProp ?? sideOffsetContext ?? 10;
+
 	return (
-		<RadixPopover.Content
-			className={cn(
-				"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-4 text-sm text-white shadow-md",
-				className,
-			)}
-			sideOffset={sideOffset}
-			side={side}
-			{...props}
-			ref={ref}
-		>
-			{showCloseButton && (
-				<PopoverClose
-					className="absolute top-4 right-4"
-					aria-label={closeButtonAriaLabel}
+		<PopoverPrimitive.Portal>
+			<PopoverPrimitive.Positioner side={side} sideOffset={sideOffset}>
+				<PopoverPrimitive.Popup
+					className={cn(
+						"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-4 text-sm text-white shadow-md",
+						className,
+					)}
+					{...props}
+					ref={ref}
 				>
-					<Icon asChild size="small">
-						<Cross1Icon />
-					</Icon>
-				</PopoverClose>
-			)}
-			{children}
-			{showArrow && <RadixPopover.Arrow className="fill-gray-700" />}
-		</RadixPopover.Content>
+					{showCloseButton && (
+						<PopoverClose
+							className="absolute top-4 right-4"
+							aria-label={closeButtonAriaLabel}
+						>
+							<Icon render={<Cross1Icon />} size="small" />
+						</PopoverClose>
+					)}
+					{children}
+					{showArrow && (
+						<PopoverPrimitive.Arrow className="data-[side=bottom]:-top-1.25 data-[side=left]:-right-1.25 data-[side=top]:-bottom-1.25 data-[side=right]:-left-1.25">
+							<div className="h-2.5 w-2.5 rotate-45 bg-gray-700" />
+						</PopoverPrimitive.Arrow>
+					)}
+				</PopoverPrimitive.Popup>
+			</PopoverPrimitive.Positioner>
+		</PopoverPrimitive.Portal>
 	);
-});
+}
 
 /**
  * Popover Close
  */
 
-const PopoverClose = RadixPopover.Close;
+export type PopoverCloseProps = ComponentProps<typeof PopoverPrimitive.Close>;
+
+function PopoverClose({ className, ref, ...props }: PopoverCloseProps) {
+	return <PopoverPrimitive.Close ref={ref} className={className} {...props} />;
+}
 
 /**
  * Popover Portal
  */
 
-const PopoverPortal = RadixPopover.Portal;
+const PopoverPortal = PopoverPrimitive.Portal;
 
 /**
  * Popover Anchor
  */
 
-const PopoverAnchor = RadixPopover.Anchor;
+export type PopoverAnchorProps = ComponentProps<
+	typeof PopoverPrimitive.Positioner
+> & {
+	children?: React.ReactNode;
+};
+
+function PopoverAnchor({ children, ref, ...props }: PopoverAnchorProps) {
+	return (
+		<PopoverPrimitive.Positioner ref={ref} {...props}>
+			{children}
+		</PopoverPrimitive.Positioner>
+	);
+}
+
+/**
+ * Popover Title
+ */
+
+const PopoverTitle = PopoverPrimitive.Title;
+
+/**
+ * Popover Description
+ */
+
+const PopoverDescription = PopoverPrimitive.Description;
 
 export {
 	Popover,
@@ -157,4 +220,6 @@ export {
 	PopoverClose,
 	PopoverPortal,
 	PopoverAnchor,
+	PopoverTitle,
+	PopoverDescription,
 };

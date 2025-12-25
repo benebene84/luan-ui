@@ -32,9 +32,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: ({ side }) => (
 		<Drawer side={side}>
-			<DrawerTrigger asChild>
-				<Button>Open Drawer</Button>
-			</DrawerTrigger>
+			<DrawerTrigger
+				render={(props) => <Button {...props}>Open Drawer</Button>}
+			/>
 			<DrawerContent>
 				<DrawerHeader>
 					<DrawerTitle>Drawer Title</DrawerTitle>
@@ -46,9 +46,13 @@ export const Default: Story = {
 					<p>This is the main content of the drawer.</p>
 				</div>
 				<DrawerFooter>
-					<DrawerClose asChild>
-						<Button variant="secondary">Cancel</Button>
-					</DrawerClose>
+					<DrawerClose
+						render={(props) => (
+							<Button {...props} variant="secondary">
+								Cancel
+							</Button>
+						)}
+					/>
 					<Button>Save changes</Button>
 				</DrawerFooter>
 			</DrawerContent>

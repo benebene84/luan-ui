@@ -43,8 +43,8 @@ export const Default: Story = {
 	],
 	render: ({ children, showArrow, side }) => (
 		<Tooltip showArrow={showArrow} side={side}>
-			<TooltipTrigger asChild>
-				<Button variant="secondary">Hover me</Button>
+			<TooltipTrigger render={<Button variant="secondary" />}>
+				Hover me
 			</TooltipTrigger>
 			<TooltipContent>
 				<p>{children}</p>

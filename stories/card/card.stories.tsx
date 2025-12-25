@@ -83,7 +83,7 @@ export const Responsive: Story = {
 
 export const CustomStyles: Story = {
 	render: () => (
-		<Card className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 text-white">
+		<Card className="bg-linear-to-r from-purple-500 to-pink-500 p-6 text-white">
 			<CardHeader className="border-white/20 border-b pb-4">
 				<h3 className="font-bold text-xl">Custom Styled Card</h3>
 			</CardHeader>

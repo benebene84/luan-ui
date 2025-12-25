@@ -1,10 +1,9 @@
-import { Slot } from "@components/slot/slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import { forwardRef } from "react";
 
-export type IconProps = React.SVGProps<SVGSVGElement> & {
-	asChild?: boolean;
+export type IconProps = useRender.ComponentProps<"svg"> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
 };
 
@@ -44,35 +43,41 @@ const iconStyles = getVariants({
 
 /**
  * A flexible icon component that serves as a wrapper for SVG icons.
- * Must be used with asChild={true} to render the actual icon component.
+ * Use the render prop to render the actual icon component.
  *
  * @example
- * // Correct usage
- * <Icon asChild size="medium">
- *   <HomeIcon />
- * </Icon>
+ * // Basic usage with render prop
+ * <Icon render={<HomeIcon />} size="medium" />
  *
  * @example
  * // With different sizes
- * <Icon asChild size="small">
- *   <UserIcon />
- * </Icon>
+ * <Icon render={<UserIcon />} size="small" />
  *
  * @example
  * // With custom className
- * <Icon asChild className="text-blue-500">
- *   <SettingsIcon />
- * </Icon>
+ * <Icon render={<SettingsIcon />} className="text-blue-500" />
  *
- * @param {boolean} [props.asChild] - Should always be true when using this component
+ * @param {React.ReactElement | ((props, state) => React.ReactElement)} [props.render] - The icon element or render function
  * @param {ResponsiveValue<"small" | "medium" | "large">} [props.size="medium"] - The size of the icon
  * @param {string} [props.className] - Additional CSS classes to apply
  */
-export const Icon = forwardRef<SVGSVGElement, IconProps>(
-	({ className, size = "medium", asChild, ...props }, ref) => {
-		const Comp = asChild ? Slot : "svg";
-		return (
-			<Comp ref={ref} className={iconStyles({ size, className })} {...props} />
-		);
-	},
-);
+export function Icon({
+	className,
+	size = "medium",
+	render,
+	ref,
+	...props
+}: IconProps) {
+	const defaultProps: useRender.ElementProps<"svg"> = {
+		className: iconStyles({ size, className }),
+	};
+
+	const element = useRender({
+		defaultTagName: "svg",
+		render,
+		ref,
+		props: mergeProps<"svg">(defaultProps, props),
+	});
+
+	return element;
+}

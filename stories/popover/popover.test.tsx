@@ -1,5 +1,5 @@
 import { composeStories } from "@storybook/react-vite";
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import * as stories from "./popover.stories";
@@ -17,7 +17,8 @@ describe("Popover", () => {
 
 		await user.click(button);
 
-		const popover = screen.getByRole("dialog");
+		// Wait for popover to open
+		const popover = await screen.findByRole("dialog");
 		expect(popover).toBeInTheDocument();
 
 		const closeButton = screen.getByRole("button", { name: "Close" });
@@ -25,6 +26,9 @@ describe("Popover", () => {
 
 		await user.click(closeButton);
 
-		expect(popover).not.toBeInTheDocument();
+		// Wait for popover to close
+		await waitFor(() => {
+			expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+		});
 	});
 });

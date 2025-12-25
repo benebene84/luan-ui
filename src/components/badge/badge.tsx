@@ -1,22 +1,23 @@
-import { Slot } from "@components/slot/slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
 import type { ComponentProps } from "react";
-import { forwardRef } from "react";
 
 /**
  * Props for the Badge component
  * @interface BadgeProps
- * @extends {ComponentProps<"div">}
+ * @extends {useRender.ComponentProps<"div">}
  */
-export type BadgeProps = ComponentProps<"div"> & {
-	/** Whether to render the badge as a child component */
-	asChild?: boolean;
-	/** The visual style variant of the badge */
-	variant?: "primary" | "secondary" | "destructive" | "outline";
-	/** The size of the badge, can be responsive */
-	size?: ResponsiveValue<"small" | "medium" | "large">;
-};
+export type BadgeProps = Omit<ComponentProps<"div">, "className"> &
+	useRender.ComponentProps<"div"> & {
+		/** The visual style variant of the badge */
+		variant?: "primary" | "secondary" | "destructive" | "outline";
+		/** The size of the badge, can be responsive */
+		size?: ResponsiveValue<"small" | "medium" | "large">;
+		/** Additional CSS classes to apply */
+		className?: string;
+	};
 
 const badgeStyles = getVariants({
 	base: "flex w-fit items-center justify-center rounded-full font-medium",
@@ -42,21 +43,29 @@ const badgeStyles = getVariants({
  * ```tsx
  * <Badge variant="primary" size="medium">New</Badge>
  * ```
+ *
+ * @example
+ * // With render prop to change the element
+ * ```tsx
+ * <Badge render={<a href="/link" />}>Link Badge</Badge>
+ * ```
  */
-const Badge = forwardRef<HTMLDivElement, BadgeProps>(
-	(
-		{ className, asChild, variant = "primary", size = "medium", ...props },
-		ref,
-	) => {
-		const Component = asChild ? Slot : "div";
-		return (
-			<Component
-				className={badgeStyles({ className, variant, size })}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+function Badge({
+	className,
+	variant = "primary",
+	size = "medium",
+	render,
+	...props
+}: BadgeProps) {
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: badgeStyles({ className, variant, size }),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 export { Badge };

@@ -23,13 +23,13 @@ describe("Tabs", () => {
 		const accountTab = screen.getByRole("tab", { name: "Account" });
 		const passwordTab = screen.getByRole("tab", { name: "Password" });
 
-		expect(accountTab).toHaveAttribute("data-state", "active");
-		expect(passwordTab).toHaveAttribute("data-state", "inactive");
+		expect(accountTab).toHaveAttribute("data-active");
+		expect(passwordTab).not.toHaveAttribute("data-active");
 
 		await user.click(passwordTab);
 
-		expect(accountTab).toHaveAttribute("data-state", "inactive");
-		expect(passwordTab).toHaveAttribute("data-state", "active");
+		expect(accountTab).not.toHaveAttribute("data-active");
+		expect(passwordTab).toHaveAttribute("data-active");
 	});
 
 	it("should show correct content for selected tab", async () => {
@@ -51,13 +51,13 @@ describe("Tabs", () => {
 		render(<Default />);
 
 		const disabledTab = screen.getByRole("tab", { name: "Disabled" });
-		expect(disabledTab).toBeDisabled();
+		expect(disabledTab).toHaveAttribute("aria-disabled", "true");
 
 		await user.click(disabledTab);
 
 		const accountContent = screen.getByText("Account settings content");
 		expect(accountContent).toBeVisible();
 
-		expect(disabledTab).toHaveAttribute("data-state", "inactive");
+		expect(disabledTab).not.toHaveAttribute("data-active");
 	});
 });

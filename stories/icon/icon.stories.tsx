@@ -26,8 +26,7 @@ StarIcon.displayName = "StarIcon";
 export const Default: Story = {
 	args: {
 		size: "small",
-		asChild: true,
-		children: <StarIcon data-testid="StarIcon" />,
+		render: <StarIcon data-testid="StarIcon" />,
 	},
 };
 
@@ -38,7 +37,6 @@ export const Responsive: Story = {
 			sm: "medium",
 			md: "large",
 		},
-		asChild: true,
-		children: <StarIcon data-testid="StarIcon" />,
+		render: <StarIcon data-testid="StarIcon" />,
 	},
 };

@@ -17,16 +17,24 @@ describe("DropdownMenu", () => {
 
 			// Open menu
 			await user.click(screen.getByRole("button", { name: "Open Menu" }));
-			const profile = screen.getByRole("menuitem", { name: "Profile⇧⌘P" });
+
+			// Wait for menu to open
+			const profile = await screen.findByRole("menuitem", {
+				name: "Profile⇧⌘P",
+			});
 			const settings = screen.getByRole("menuitem", { name: "Settings⌘S" });
 			expect(profile).toBeInTheDocument();
 			expect(settings).toBeInTheDocument();
 
-			// Close menu by clicking outside
+			// Close menu by pressing Escape
 			await user.keyboard("{Escape}");
 			await waitFor(() => {
-				expect(profile).not.toBeInTheDocument();
-				expect(settings).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole("menuitem", { name: "Profile⇧⌘P" }),
+				).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole("menuitem", { name: "Settings⌘S" }),
+				).not.toBeInTheDocument();
 			});
 		});
 
@@ -36,20 +44,24 @@ describe("DropdownMenu", () => {
 
 			// Open menu
 			await user.click(screen.getByRole("button", { name: "Open Menu" }));
+
+			// Wait for menu to open
+			await screen.findByRole("menuitem", { name: "Profile⇧⌘P" });
+
 			await user.keyboard("{ArrowDown}");
 
 			// Focus first item
 			const profile = screen.getByRole("menuitem", { name: "Profile⇧⌘P" });
-			expect(profile).toHaveFocus();
+			expect(profile).toHaveAttribute("data-highlighted");
 
 			// Navigate to second item
 			await user.keyboard("{ArrowDown}");
 			const settings = screen.getByRole("menuitem", { name: "Settings⌘S" });
-			expect(settings).toHaveFocus();
+			expect(settings).toHaveAttribute("data-highlighted");
 
 			// Navigate back to first item
 			await user.keyboard("{ArrowUp}");
-			expect(profile).toHaveFocus();
+			expect(profile).toHaveAttribute("data-highlighted");
 		});
 	});
 
@@ -62,29 +74,30 @@ describe("DropdownMenu", () => {
 			const menuButton = screen.getByRole("button", { name: "View Options" });
 			await user.click(menuButton);
 
-			// Click checkbox item
-
-			const showToolbar = screen.getByRole("menuitemcheckbox", {
+			// Wait for menu to open
+			const showToolbar = await screen.findByRole("menuitemcheckbox", {
 				name: /Show Toolbar/,
 			});
 
-			expect(showToolbar).toHaveAttribute("data-state", "checked");
-			await user.click(showToolbar);
-			await user.click(menuButton);
+			// Initial state - toolbar is checked
+			expect(showToolbar).toHaveAttribute("data-checked");
 
-			expect(showToolbar).toHaveAttribute("data-state", "unchecked");
+			// Click to uncheck - menu stays open in Base UI
+			await user.click(showToolbar);
+
+			// Verify it's now unchecked (menu is still open)
+			expect(showToolbar).toHaveAttribute("data-unchecked");
 
 			// Click another checkbox item
 			const showStatusbar = screen.getByRole("menuitemcheckbox", {
 				name: /Show Statusbar/,
 			});
 
-			expect(showStatusbar).toHaveAttribute("data-state", "unchecked");
+			expect(showStatusbar).toHaveAttribute("data-unchecked");
 			await user.click(showStatusbar);
 
-			await user.click(menuButton);
-
-			expect(showStatusbar).toHaveAttribute("data-state", "checked");
+			// Verify it's now checked
+			expect(showStatusbar).toHaveAttribute("data-checked");
 		});
 	});
 });

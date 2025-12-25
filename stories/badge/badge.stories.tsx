@@ -46,24 +46,21 @@ export const WithIcon: Story = {
 	render: ({ ...args }) => (
 		<Badge {...args}>
 			<Icon
-				asChild
+				render={<ArrowRightIcon />}
 				size={mapResponsiveValue(
 					args.size,
 					(size) => badgeSizeToIconSize[size ?? "small"],
 				)}
-			>
-				<ArrowRightIcon />
-			</Icon>
+			/>
 			<span>Badge</span>
 		</Badge>
 	),
 };
 
-export const AsChild: Story = {
+export const AsLink: Story = {
 	render: () => (
-		<Badge asChild>
-			<a href="https://www.google.com">Link Badge</a>
-		</Badge>
+		// biome-ignore lint/a11y/useAnchorContent: <just a demo>
+		<Badge render={<a href="https://www.google.com" />}>Link Badge</Badge>
 	),
 };
 
