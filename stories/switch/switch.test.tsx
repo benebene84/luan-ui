@@ -21,13 +21,13 @@ describe("Switch", () => {
 		await Default.run();
 
 		const switchElement = screen.getByRole("switch");
-		expect(switchElement).not.toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "false");
 
 		await user.click(switchElement);
-		expect(switchElement).toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "true");
 
 		await user.click(switchElement);
-		expect(switchElement).not.toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "false");
 	});
 
 	it("can be disabled", async () => {
@@ -36,10 +36,10 @@ describe("Switch", () => {
 		await Default.run({ args: { disabled: true } });
 
 		const switchElement = screen.getByRole("switch");
-		expect(switchElement).toBeDisabled();
+		expect(switchElement).toHaveAttribute("aria-disabled", "true");
 
 		await user.click(switchElement);
-		expect(switchElement).not.toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "false");
 	});
 
 	it("has an onCheckedChange prop that is called when the switch is clicked", async () => {
@@ -50,17 +50,23 @@ describe("Switch", () => {
 
 		const switchElement = screen.getByRole("switch");
 		await user.click(switchElement);
-		expect(onCheckedChangeMock).toHaveBeenCalledWith(true);
+		expect(onCheckedChangeMock).toHaveBeenCalledWith(
+			true,
+			expect.objectContaining({ reason: expect.any(String) }),
+		);
 
 		await user.click(switchElement);
-		expect(onCheckedChangeMock).toHaveBeenCalledWith(false);
+		expect(onCheckedChangeMock).toHaveBeenCalledWith(
+			false,
+			expect.objectContaining({ reason: expect.any(String) }),
+		);
 	});
 
 	it("has a checked prop that is checked when the switch is checked", async () => {
 		await Default.run({ args: { checked: true } });
 
 		const switchElement = screen.getByRole("switch");
-		expect(switchElement).toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "true");
 	});
 
 	it("can be navigated with the keyboard", async () => {
@@ -72,9 +78,9 @@ describe("Switch", () => {
 		await user.keyboard("{Tab}");
 		expect(switchElement).toHaveFocus();
 		await user.keyboard("{Enter}");
-		expect(switchElement).toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "true");
 
 		await user.keyboard(" ");
-		expect(switchElement).not.toBeChecked();
+		expect(switchElement).toHaveAttribute("aria-checked", "false");
 	});
 });

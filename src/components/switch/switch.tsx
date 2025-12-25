@@ -1,19 +1,20 @@
+import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { useFormContext } from "@components/form-field/form-field-context";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import { Switch as RadixSwitch } from "radix-ui";
 import { type ComponentRef, forwardRef } from "react";
 
-export type SwitchProps = RadixSwitch.SwitchProps & {
+export type SwitchProps = Omit<SwitchPrimitive.Root.Props, "className"> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
 	error?: boolean;
+	className?: string;
 };
 
 const thumbStyles = getVariants({
 	slots: {
-		root: "relative flex cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[state=checked]:bg-green-500",
+		root: "relative flex cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[checked]:bg-green-500",
 		thumb:
-			"absolute left-1 h-5 w-5 rounded-full transition-transform duration-500 ease-out data-[state=checked]:translate-x-[1.125rem]",
+			"absolute left-1 h-5 w-5 rounded-full transition-transform duration-500 ease-out data-[checked]:translate-x-[1.125rem]",
 	},
 	variants: {
 		disabled: {
@@ -28,7 +29,7 @@ const thumbStyles = getVariants({
 		},
 		error: {
 			true: {
-				root: "bg-red-600 data-[state=checked]:bg-red-600",
+				root: "bg-red-600 data-[checked]:bg-red-600",
 				thumb: "bg-red-600",
 			},
 		},
@@ -53,7 +54,7 @@ const { root, thumb } = thumbStyles();
 
 /**
  * A switch component that toggles between on and off states.
- * Built on top of Radix UI's Switch primitive.
+ * Built on top of Base UI's Switch primitive.
  *
  * @param {SwitchProps} props - The props for the Switch component
  * @param {ResponsiveValue<"small" | "medium" | "large">} [props.size="medium"] - The size of the switch
@@ -83,7 +84,7 @@ const { root, thumb } = thumbStyles();
  * @param {string} [props.className] - Additional CSS classes to apply
  */
 export const Switch = forwardRef<
-	ComponentRef<typeof RadixSwitch.Root>,
+	ComponentRef<typeof SwitchPrimitive.Root>,
 	SwitchProps
 >(
 	(
@@ -101,14 +102,14 @@ export const Switch = forwardRef<
 			error: initialError,
 		});
 		return (
-			<RadixSwitch.Root
+			<SwitchPrimitive.Root
 				className={root({ disabled, size, error, className })}
 				disabled={disabled}
 				{...props}
 				ref={ref}
 			>
-				<RadixSwitch.Thumb className={thumb({ disabled, size })} />
-			</RadixSwitch.Root>
+				<SwitchPrimitive.Thumb className={thumb({ disabled, size })} />
+			</SwitchPrimitive.Root>
 		);
 	},
 );
