@@ -1,6 +1,5 @@
 import { useFormContext } from "@components/form-field/form-field-context";
 import { cn } from "@utilities/cn/cn";
-import { Label as RadixLabel } from "radix-ui";
 import { forwardRef } from "react";
 
 export type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
@@ -22,7 +21,8 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
 			required: initialRequired,
 		});
 		return (
-			<RadixLabel.Root
+			// biome-ignore lint/a11y/noLabelWithoutControl: htmlFor is passed via props at runtime
+			<label
 				className={cn(
 					"font-medium text-gray-900 text-md peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
 					className,
@@ -32,11 +32,11 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
 			>
 				{children}
 				{required && <span>*</span>}
-			</RadixLabel.Root>
+			</label>
 		);
 	},
 );
 
-Label.displayName = RadixLabel.Root.displayName;
+Label.displayName = "Label";
 
 export { Label };
