@@ -1,7 +1,7 @@
+import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
 import { getVariants } from "@utilities/responsive/responsive";
-import { Dialog as RadixDialog } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
@@ -29,11 +29,10 @@ const useDrawerContext = () => {
 	return context;
 };
 
-const Drawer = ({
-	children,
-	side,
-	...props
-}: RadixDialog.DialogProps & DrawerContextValue) => {
+type DrawerProps = ComponentPropsWithoutRef<typeof BaseDialog.Root> &
+	DrawerContextValue;
+
+const Drawer = ({ children, side, ...props }: DrawerProps) => {
 	const contextValue = useMemo(
 		() => ({
 			side,
@@ -42,66 +41,79 @@ const Drawer = ({
 	);
 	return (
 		<DrawerContext.Provider value={contextValue}>
-			<RadixDialog.Root {...props}>{children}</RadixDialog.Root>
+			<BaseDialog.Root {...props}>{children}</BaseDialog.Root>
 		</DrawerContext.Provider>
 	);
 };
 
-const DrawerTrigger = RadixDialog.Trigger;
+const DrawerTrigger = BaseDialog.Trigger;
 
-const DrawerClose = RadixDialog.Close;
+const DrawerClose = BaseDialog.Close;
+
+const DrawerPortal = BaseDialog.Portal;
+
+export type DrawerOverlayProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Backdrop
+>;
 
 const DrawerOverlay = forwardRef<
-	ComponentRef<typeof RadixDialog.Overlay>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Overlay>
+	ComponentRef<typeof BaseDialog.Backdrop>,
+	DrawerOverlayProps
 >(({ className, ...props }, ref) => (
-	<RadixDialog.Overlay
+	<BaseDialog.Backdrop
 		ref={ref}
 		className={cn(
-			"fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-fade-out data-[state=closed]:animate-out data-[state=open]:animate-fade-in data-[state=open]:animate-in",
+			"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
 			className,
 		)}
 		{...props}
 	/>
 ));
-DrawerOverlay.displayName = RadixDialog.Overlay.displayName;
+DrawerOverlay.displayName = "DrawerOverlay";
 
 const drawerContentStyles = getVariants({
-	base: "fixed z-50 flex flex-col gap-4 bg-white p-4",
+	base: "fixed z-50 flex flex-col gap-4 bg-white p-4 transition-transform duration-300",
 	variants: {
 		side: {
-			left: "left-0 h-screen w-fit rounded-r-lg data-[state=closed]:animate-slide-out-left data-[state=open]:animate-slide-in-left",
+			left: "top-0 left-0 h-screen w-fit rounded-r-lg data-ending-style:-translate-x-full data-starting-style:-translate-x-full",
 			right:
-				"right-0 h-screen w-fit rounded-l-lg data-[state=closed]:animate-slide-out-right data-[state=open]:animate-slide-in-right",
-			top: "top-0 h-fit w-screen rounded-b-lg data-[state=closed]:animate-slide-out-top data-[state=open]:animate-slide-in-top",
+				"top-0 right-0 h-screen w-fit rounded-l-lg data-ending-style:translate-x-full data-starting-style:translate-x-full",
+			top: "top-0 left-0 h-fit w-screen rounded-b-lg data-ending-style:-translate-y-full data-starting-style:-translate-y-full",
 			bottom:
-				"bottom-0 h-fit w-screen rounded-t-lg data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
+				"bottom-0 left-0 h-fit w-screen rounded-t-lg data-ending-style:translate-y-full data-starting-style:translate-y-full",
 		},
 	},
 });
 
+export type DrawerContentProps = Omit<
+	ComponentPropsWithoutRef<typeof BaseDialog.Popup>,
+	"className"
+> & {
+	className?: string;
+};
+
 const DrawerContent = forwardRef<
-	ComponentRef<typeof RadixDialog.Content>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Content>
+	ComponentRef<typeof BaseDialog.Popup>,
+	DrawerContentProps
 >(({ children, className, ...props }, ref) => {
 	const { side = "right" } = useDrawerContext();
 	return (
-		<DrawerOverlay>
-			<RadixDialog.Content
-				className={drawerContentStyles({ side })}
+		<DrawerPortal>
+			<DrawerOverlay />
+			<BaseDialog.Popup
+				className={drawerContentStyles({ side, className })}
 				{...props}
 				ref={ref}
 			>
-				<DrawerClose asChild>
-					<button type="button" className="absolute top-4 right-4">
-						<Cross1Icon className="h-4 w-4" />
-					</button>
+				<DrawerClose className="absolute top-4 right-4">
+					<Cross1Icon className="h-4 w-4" />
 				</DrawerClose>
 				{children}
-			</RadixDialog.Content>
-		</DrawerOverlay>
+			</BaseDialog.Popup>
+		</DrawerPortal>
 	);
 });
+DrawerContent.displayName = "DrawerContent";
 
 const DrawerHeader = forwardRef<
 	HTMLDivElement,
@@ -112,11 +124,15 @@ const DrawerHeader = forwardRef<
 
 DrawerHeader.displayName = "DrawerHeader";
 
+export type DrawerTitleProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Title
+>;
+
 const DrawerTitle = forwardRef<
-	ComponentRef<typeof RadixDialog.Title>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Title>
+	ComponentRef<typeof BaseDialog.Title>,
+	DrawerTitleProps
 >(({ className, ...props }, ref) => (
-	<RadixDialog.Title
+	<BaseDialog.Title
 		ref={ref}
 		className={cn("font-semibold text-lg", className)}
 		{...props}
@@ -125,11 +141,15 @@ const DrawerTitle = forwardRef<
 
 DrawerTitle.displayName = "DrawerTitle";
 
+export type DrawerDescriptionProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Description
+>;
+
 const DrawerDescription = forwardRef<
-	ComponentRef<typeof RadixDialog.Description>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Description>
+	ComponentRef<typeof BaseDialog.Description>,
+	DrawerDescriptionProps
 >(({ className, ...props }, ref) => (
-	<RadixDialog.Description
+	<BaseDialog.Description
 		ref={ref}
 		className={cn("text-gray-500 text-sm", className)}
 		{...props}
