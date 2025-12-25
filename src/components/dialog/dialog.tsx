@@ -1,58 +1,67 @@
+import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import { Dialog as RadixDialog } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
 	forwardRef,
 } from "react";
 
-const Dialog = RadixDialog.Root;
+const Dialog = BaseDialog.Root;
 
-const DialogTrigger = RadixDialog.Trigger;
+const DialogTrigger = BaseDialog.Trigger;
 
-const DialogClose = RadixDialog.Close;
+const DialogClose = BaseDialog.Close;
+
+const DialogPortal = BaseDialog.Portal;
+
+export type DialogOverlayProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Backdrop
+>;
 
 const DialogOverlay = forwardRef<
-	ComponentRef<typeof RadixDialog.Overlay>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Overlay>
+	ComponentRef<typeof BaseDialog.Backdrop>,
+	DialogOverlayProps
 >(({ className, ...props }, ref) => (
-	<RadixDialog.Overlay
+	<BaseDialog.Backdrop
 		ref={ref}
 		className={cn(
-			"fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-fade-out data-[state=closed]:animate-out data-[state=open]:animate-fade-in data-[state=open]:animate-in",
+			"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
 			className,
 		)}
 		{...props}
 	/>
 ));
-DialogOverlay.displayName = RadixDialog.Overlay.displayName;
+DialogOverlay.displayName = "DialogOverlay";
+
+export type DialogContentProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Popup
+>;
 
 const DialogContent = forwardRef<
-	ComponentRef<typeof RadixDialog.Content>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Content>
+	ComponentRef<typeof BaseDialog.Popup>,
+	DialogContentProps
 >(({ children, className, ...props }, ref) => {
 	return (
-		<DialogOverlay>
+		<DialogPortal>
 			<DialogOverlay />
-			<RadixDialog.Content
+			<BaseDialog.Popup
 				className={cn(
-					"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-4",
+					"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-4 transition-all duration-150 data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0",
 					className,
 				)}
 				{...props}
 				ref={ref}
 			>
-				<DialogClose asChild>
-					<button type="button" className="absolute top-4 right-4">
-						<Cross1Icon className="h-4 w-4" />
-					</button>
+				<DialogClose className="absolute top-4 right-4">
+					<Cross1Icon className="h-4 w-4" />
 				</DialogClose>
 				{children}
-			</RadixDialog.Content>
-		</DialogOverlay>
+			</BaseDialog.Popup>
+		</DialogPortal>
 	);
 });
+DialogContent.displayName = "DialogContent";
 
 const DialogHeader = forwardRef<
 	HTMLDivElement,
@@ -63,11 +72,15 @@ const DialogHeader = forwardRef<
 
 DialogHeader.displayName = "DialogHeader";
 
+export type DialogTitleProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Title
+>;
+
 const DialogTitle = forwardRef<
-	ComponentRef<typeof RadixDialog.Title>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Title>
+	ComponentRef<typeof BaseDialog.Title>,
+	DialogTitleProps
 >(({ className, ...props }, ref) => (
-	<RadixDialog.Title
+	<BaseDialog.Title
 		ref={ref}
 		className={cn("font-semibold text-lg", className)}
 		{...props}
@@ -76,11 +89,15 @@ const DialogTitle = forwardRef<
 
 DialogTitle.displayName = "DialogTitle";
 
+export type DialogDescriptionProps = ComponentPropsWithoutRef<
+	typeof BaseDialog.Description
+>;
+
 const DialogDescription = forwardRef<
-	ComponentRef<typeof RadixDialog.Description>,
-	ComponentPropsWithoutRef<typeof RadixDialog.Description>
+	ComponentRef<typeof BaseDialog.Description>,
+	DialogDescriptionProps
 >(({ className, ...props }, ref) => (
-	<RadixDialog.Description
+	<BaseDialog.Description
 		ref={ref}
 		className={cn("text-gray-500 text-sm", className)}
 		{...props}
@@ -101,6 +118,7 @@ const DialogFooter = forwardRef<
 ));
 
 DialogFooter.displayName = "DialogFooter";
+
 export {
 	Dialog,
 	DialogClose,

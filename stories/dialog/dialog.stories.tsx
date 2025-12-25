@@ -25,14 +25,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: () => (
 		<Dialog>
-			<DialogTrigger asChild>
-				<Button variant="secondary">Open Dialog</Button>
-			</DialogTrigger>
+			<DialogTrigger
+				render={(props) => (
+					<Button {...props} variant="secondary">
+						Open Dialog
+					</Button>
+				)}
+			/>
 			<DialogContent className="w-11/12 md:min-w-md">
 				<DialogHeader>
-					<DialogTitle asChild>
-						<div>Dialog Title</div>
-					</DialogTitle>
+					<DialogTitle>Dialog Title</DialogTitle>
 					<DialogDescription>This is a dialog description.</DialogDescription>
 				</DialogHeader>
 				<form className="flex flex-col gap-4">
@@ -46,9 +48,13 @@ export const Default: Story = {
 					</div>
 				</form>
 				<DialogFooter>
-					<DialogClose asChild>
-						<Button variant="secondary">Close</Button>
-					</DialogClose>
+					<DialogClose
+						render={(props) => (
+							<Button {...props} variant="secondary">
+								Close
+							</Button>
+						)}
+					/>
 					<Button variant="primary" onClick={() => alert("Save")}>
 						Save
 					</Button>
