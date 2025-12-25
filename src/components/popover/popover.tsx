@@ -150,9 +150,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
 								className="absolute top-4 right-4"
 								aria-label={closeButtonAriaLabel}
 							>
-								<Icon asChild size="small">
-									<Cross1Icon />
-								</Icon>
+								<Icon render={<Cross1Icon />} size="small" />
 							</PopoverClose>
 						)}
 						{children}

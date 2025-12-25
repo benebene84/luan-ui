@@ -27,22 +27,14 @@ describe("Card", () => {
 		);
 	});
 
-	it("allows rendering Card and its components as custom elements via asChild", () => {
+	it("allows rendering Card and its components as custom elements via render prop", () => {
 		render(
-			<Card asChild>
-				<article>
-					<CardHeader asChild>
-						<header>
-							<h1>Custom Header</h1>
-						</header>
-					</CardHeader>
-					<CardContent asChild>
-						<main>Content</main>
-					</CardContent>
-					<CardFooter asChild>
-						<footer>Footer</footer>
-					</CardFooter>
-				</article>
+			<Card render={<article />}>
+				<CardHeader render={<header />}>
+					<h1>Custom Header</h1>
+				</CardHeader>
+				<CardContent render={<main />}>Content</CardContent>
+				<CardFooter render={<footer />}>Footer</CardFooter>
 			</Card>,
 		);
 

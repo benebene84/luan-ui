@@ -1,3 +1,4 @@
+import { Icon } from "@components/icon/icon";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -29,10 +30,28 @@ export const Default: Story = {
 	args: {
 		variant: "primary",
 		size: "medium",
-		children: "Button",
 		disabled: false,
-		iconStart: <ArrowLeftIcon aria-label="ArrowLeftIcon" />,
-		iconEnd: <ArrowRightIcon aria-label="ArrowRightIcon" />,
+	},
+	render: (args) => (
+		<Button {...args}>
+			<Icon
+				render={<ArrowLeftIcon aria-label="ArrowLeftIcon" />}
+				size="small"
+			/>
+			Button
+			<Icon
+				render={<ArrowRightIcon aria-label="ArrowRightIcon" />}
+				size="small"
+			/>
+		</Button>
+	),
+};
+
+export const WithoutIcons: Story = {
+	args: {
+		variant: "primary",
+		size: "medium",
+		children: "Button",
 	},
 };
 
@@ -44,16 +63,23 @@ export const Responsive: Story = {
 			sm: "medium",
 			md: "large",
 		},
-		children: "Button",
-		iconStart: <ArrowLeftIcon />,
-		iconEnd: <ArrowRightIcon />,
 	},
+	render: (args) => (
+		<Button {...args}>
+			<Icon render={<ArrowLeftIcon />} size={args.size} />
+			Button
+			<Icon render={<ArrowRightIcon />} size={args.size} />
+		</Button>
+	),
 };
 
-export const AsChild: Story = {
+export const AsLink: Story = {
 	render: () => (
-		<Button asChild iconStart={<ArrowLeftIcon />} iconEnd={<ArrowRightIcon />}>
-			<a href="https://www.google.com">Test</a>
+		// biome-ignore lint/a11y/useAnchorContent: <just a demo>
+		<Button render={<a href="https://www.google.com" />}>
+			<Icon render={<ArrowLeftIcon />} size="small" />
+			Link Button
+			<Icon render={<ArrowRightIcon />} size="small" />
 		</Button>
 	),
 };

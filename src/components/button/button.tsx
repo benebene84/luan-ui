@@ -1,16 +1,14 @@
-import { Icon } from "@components/icon/icon";
-import { Slot, Slottable } from "@components/slot/slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import { forwardRef } from "react";
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-	variant?: "primary" | "secondary" | "destructive";
-	size?: ResponsiveValue<"small" | "medium" | "large">;
-	asChild?: boolean;
-	iconStart?: React.ReactNode;
-	iconEnd?: React.ReactNode;
-};
+export type ButtonProps = useRender.ComponentProps<"button"> &
+	Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className"> & {
+		variant?: "primary" | "secondary" | "destructive";
+		size?: ResponsiveValue<"small" | "medium" | "large">;
+		className?: string;
+	};
 
 export const SIZES = {
 	sm: {
@@ -60,75 +58,62 @@ const buttonStyles = getVariants({
 });
 
 /**
- * A flexible button component that supports variants, sizes, and icons
+ * A flexible button component that supports variants and sizes.
+ * Icons should be rendered by the consumer as part of children.
+ *
  * @param {Object} props - The props for the Button component
- * @param {'primary' | 'secondary'} [props.variant='primary'] - The visual style variant of the button
+ * @param {'primary' | 'secondary' | 'destructive'} [props.variant='primary'] - The visual style variant of the button
  * @param {'small' | 'medium' | 'large'} [props.size='medium'] - The size of the button
- * @param {boolean} [props.asChild] - Whether to render the button as a child component using Radix Slot
- * @param {React.ReactNode} [props.iconStart] - Icon element to display before the button content
- * @param {React.ReactNode} [props.iconEnd] - Icon element to display after the button content
+ * @param {React.ReactElement | ((props, state) => React.ReactElement)} [props.render] - Custom element to render instead of button
  * @param {string} [props.className] - Additional CSS classes to apply
  * @param {boolean} [props.disabled] - Whether the button is disabled
  * @returns {React.ReactElement} The Button component
+ *
  * @example
  * // Basic usage
  * <Button>Click me</Button>
  *
+ * @example
  * // With variants and size
  * <Button variant="secondary" size="large">
  *   Large Secondary Button
  * </Button>
  *
- * // With icons
- * <Button iconStart={<SearchIcon />} iconEnd={<ArrowRightIcon />}>
+ * @example
+ * // With icons (rendered by consumer)
+ * <Button>
+ *   <Icon render={<SearchIcon />} size="small" />
  *   Search
+ *   <Icon render={<ArrowRightIcon />} size="small" />
  * </Button>
  *
+ * @example
+ * // As a link using render prop
+ * <Button render={<a href="/contact" />}>Contact Us</Button>
+ *
+ * @example
  * // Disabled state
  * <Button disabled>Disabled Button</Button>
  */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	(
-		{
-			asChild,
-			children,
-			variant = "primary",
-			size = "medium",
-			className,
-			disabled,
-			iconStart,
-			iconEnd,
-			...props
-		},
-		ref,
-	) => {
-		const Component = asChild ? Slot : "button";
-		return (
-			<Component
-				ref={ref}
-				className={buttonStyles({ variant, size, disabled, className })}
-				{...props}
-			>
-				<Slottable child={children}>
-					{(child) => (
-						<>
-							{iconStart && (
-								<Icon size={size} asChild>
-									{iconStart}
-								</Icon>
-							)}
-							{child}
-							{iconEnd && (
-								<Icon size={size} asChild>
-									{iconEnd}
-								</Icon>
-							)}
-						</>
-					)}
-				</Slottable>
-			</Component>
-		);
-	},
-);
+export function Button({
+	children,
+	variant = "primary",
+	size = "medium",
+	className,
+	disabled,
+	render,
+	...props
+}: ButtonProps) {
+	const defaultProps: useRender.ElementProps<"button"> = {
+		className: buttonStyles({ variant, size, disabled, className }),
+		children,
+	};
+
+	return useRender({
+		defaultTagName: "button",
+		render,
+		props: mergeProps<"button">(defaultProps, props),
+	});
+}
 
 Button.displayName = "Button";

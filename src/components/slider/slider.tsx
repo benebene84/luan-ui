@@ -96,12 +96,14 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 							{value.map((thumbValue, index) => (
 								// biome-ignore lint/suspicious/noArrayIndexKey: index is the only stable identifier for thumbs
 								<Tooltip key={index} delayDuration={0}>
-									<TooltipTrigger asChild>
-										<SliderPrimitive.Thumb
-											index={index}
-											className="block h-4 w-4 rounded-full border border-gray-700 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-700 data-disabled:pointer-events-none"
-										/>
-									</TooltipTrigger>
+									<TooltipTrigger
+										render={
+											<SliderPrimitive.Thumb
+												index={index}
+												className="block h-4 w-4 rounded-full border border-gray-700 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-700 data-disabled:pointer-events-none"
+											/>
+										}
+									/>
 									<TooltipContent>
 										<p>{thumbValue}</p>
 									</TooltipContent>

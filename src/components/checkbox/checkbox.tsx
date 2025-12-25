@@ -100,9 +100,7 @@ export const Checkbox = forwardRef<
 				{...props}
 			>
 				<CheckboxPrimitive.Indicator>
-					<Icon asChild size={iconSize}>
-						<CheckIcon />
-					</Icon>
+					<Icon render={<CheckIcon />} size={iconSize} />
 				</CheckboxPrimitive.Indicator>
 			</CheckboxPrimitive.Root>
 		);

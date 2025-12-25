@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import * as stories from "./button.stories";
 
-const { Default, AsChild } = composeStories(stories);
+const { Default, AsLink } = composeStories(stories);
 
 describe("Button", () => {
 	it("checks if the button is valid", async () => {
@@ -22,14 +22,14 @@ describe("Button", () => {
 		expect(iconEnd).toBeInTheDocument();
 	});
 
-	it("checks if the button can be rendered as a different element", async () => {
-		await AsChild.run();
+	it("checks if the button can be rendered as a different element using render prop", async () => {
+		await AsLink.run();
 
-		const buttonElement = screen.getByRole("link", {
-			name: "Test",
+		const linkElement = screen.getByRole("link", {
+			name: "Link Button",
 		});
 
-		expect(buttonElement).toBeInTheDocument();
-		expect(buttonElement).toHaveAttribute("href", "https://www.google.com");
+		expect(linkElement).toBeInTheDocument();
+		expect(linkElement).toHaveAttribute("href", "https://www.google.com");
 	});
 });

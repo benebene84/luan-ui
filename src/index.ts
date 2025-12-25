@@ -120,8 +120,6 @@ export {
 	SelectGroup,
 	SelectItem,
 	SelectLabel,
-	SelectScrollDownButton,
-	SelectScrollUpButton,
 	SelectSeparator,
 	SelectTrigger,
 	SelectValue,
@@ -150,11 +148,7 @@ export {
 export type { TextareaProps } from "@components/text-area/text-area";
 export { Textarea } from "@components/text-area/text-area";
 export type { ToastProps } from "@components/toast/toast";
-export {
-	Toast,
-	Toaster,
-	toast,
-} from "@components/toast/toast";
+export { Toast, Toaster, toast } from "@components/toast/toast";
 export type { TooltipProps } from "@components/tooltip/tooltip";
 export {
 	Tooltip,

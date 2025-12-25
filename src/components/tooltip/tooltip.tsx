@@ -84,18 +84,16 @@ const Tooltip = ({
 type TooltipTriggerProps = React.ComponentProps<
 	typeof TooltipPrimitive.Trigger
 > & {
-	asChild?: boolean;
+	render?: React.ReactElement;
 };
 
 const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(
-	({ asChild, children, ...props }, ref) => {
-		if (asChild && children) {
+	({ render, children, ...props }, ref) => {
+		if (render) {
 			return (
-				<TooltipPrimitive.Trigger
-					ref={ref}
-					render={children as React.ReactElement}
-					{...props}
-				/>
+				<TooltipPrimitive.Trigger ref={ref} render={render} {...props}>
+					{children}
+				</TooltipPrimitive.Trigger>
 			);
 		}
 		return (

@@ -71,9 +71,12 @@ const AccordionTrigger = forwardRef<
 			{...props}
 		>
 			{children}
-			<Icon asChild size="small">
-				<ChevronDownIcon className="shrink-0 cursor-pointer text-gray-500 transition-transform duration-350" />
-			</Icon>
+			<Icon
+				render={
+					<ChevronDownIcon className="shrink-0 cursor-pointer text-gray-500 transition-transform duration-350" />
+				}
+				size="small"
+			/>
 		</BaseAccordion.Trigger>
 	</BaseAccordion.Header>
 ));

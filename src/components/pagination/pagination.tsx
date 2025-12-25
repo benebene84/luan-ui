@@ -1,4 +1,5 @@
-import { Slot } from "@components/slot/slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { cn } from "@utilities/cn/cn";
 import { mergeRefs } from "@utilities/merge-refs/merge-refs";
 import { getTruncatedElements } from "@utilities/pagination/get-truncated-elements";
@@ -45,13 +46,13 @@ const usePaginationContext = () => {
  * Pagination
  */
 
-export type PaginationProps = {
+export type PaginationProps = useRender.ComponentProps<"nav"> & {
 	children?: React.ReactNode;
 	page: number;
 	totalPages: number;
 	onPageChange: (page: number) => void;
-	asChild?: boolean;
-} & React.HTMLAttributes<HTMLElement>;
+	className?: string;
+};
 
 /**
  * Pagination component that provides navigation controls for a set of pages.
@@ -59,7 +60,7 @@ export type PaginationProps = {
  * @param {number} props.page - The current active page number
  * @param {number} props.totalPages - The total number of pages
  * @param {(page: number) => void} props.onPageChange - Callback function called when page changes
- * @param {boolean} [props.asChild] - Whether to render the root element as a child component
+ * @param {React.ReactElement | ((props, state) => React.ReactElement)} [props.render] - Custom element to render instead of nav
  * @param {React.ReactNode} [props.children] - The content to render within the pagination component
  * @param {string} [props.className] - Additional CSS classes to apply
  *
@@ -72,95 +73,101 @@ export type PaginationProps = {
  *   <PaginationNext>Next</PaginationNext>
  * </Pagination>
  * ```
+ *
+ * @example
+ * // With render prop to change the element
+ * ```tsx
+ * <Pagination render={<div />} page={1} totalPages={10} onPageChange={handleChange}>
+ *   ...
+ * </Pagination>
+ * ```
  */
-const Pagination = forwardRef<HTMLElement, PaginationProps>(
-	(
-		{
-			children,
-			page: initialPage,
-			totalPages: initialTotalPages,
-			onPageChange,
-			className,
-			asChild,
-			...props
-		},
-		ref,
-	) => {
-		const [page, setPage] = useState(initialPage);
-		const [totalPages, setTotalPages] = useState(initialTotalPages);
-		const [hasNextPage, setHasNextPage] = useState(page < totalPages);
-		const [hasPreviousPage, setHasPreviousPage] = useState(page > 1);
+function Pagination({
+	children,
+	page: initialPage,
+	totalPages: initialTotalPages,
+	onPageChange,
+	className,
+	render,
+	...props
+}: PaginationProps) {
+	const [page, setPage] = useState(initialPage);
+	const [totalPages, setTotalPages] = useState(initialTotalPages);
+	const [hasNextPage, setHasNextPage] = useState(page < totalPages);
+	const [hasPreviousPage, setHasPreviousPage] = useState(page > 1);
 
-		const refs = useRef(new Map<number, HTMLButtonElement>());
+	const refs = useRef(new Map<number, HTMLButtonElement>());
 
-		const handleKeyDown = useCallback(
-			(e: KeyboardEvent) =>
-				handleKeyboardNavigation(e, { current: refs.current }, totalPages),
-			[totalPages],
-		);
+	const handleKeyDown = useCallback(
+		(e: KeyboardEvent) =>
+			handleKeyboardNavigation(e, { current: refs.current }, totalPages),
+		[totalPages],
+	);
 
-		const registerRefWrapper = useCallback(
-			(index: number, element: HTMLButtonElement | null) => {
-				if (element) {
-					refs.current.set(index, element);
-				} else {
-					refs.current.delete(index);
-				}
-			},
-			[],
-		);
-
-		useEffect(() => {
-			document.addEventListener("keydown", handleKeyDown);
-			return () => {
-				document.removeEventListener("keydown", handleKeyDown);
-			};
-		}, [handleKeyDown]);
-
-		useEffect(() => {
-			setHasNextPage(page < totalPages);
-			setHasPreviousPage(page > 1);
-		}, [page, totalPages]);
-
-		useEffect(() => {
-			setPage(initialPage);
-			setTotalPages(initialTotalPages);
-		}, [initialPage, initialTotalPages]);
-
-		useEffect(() => {
-			if (onPageChange) {
-				onPageChange(page);
+	const registerRefWrapper = useCallback(
+		(index: number, element: HTMLButtonElement | null) => {
+			if (element) {
+				refs.current.set(index, element);
+			} else {
+				refs.current.delete(index);
 			}
-		}, [page, onPageChange]);
+		},
+		[],
+	);
 
-		const memoContextValue = useMemo(
-			() => ({
-				page,
-				setPage,
-				totalPages,
-				hasNextPage,
-				hasPreviousPage,
-				registerRef: registerRefWrapper,
-			}),
-			[page, totalPages, hasNextPage, hasPreviousPage, registerRefWrapper],
-		);
+	useEffect(() => {
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [handleKeyDown]);
 
-		const Component = asChild ? Slot : "nav";
+	useEffect(() => {
+		setHasNextPage(page < totalPages);
+		setHasPreviousPage(page > 1);
+	}, [page, totalPages]);
 
-		return (
-			<Component
-				aria-label="Pagination"
-				className={clsx("flex items-center gap-1", className)}
-				{...props}
-				ref={ref}
-			>
-				<PaginationContext.Provider value={memoContextValue}>
-					{getTruncatedElements({ page, children })}
-				</PaginationContext.Provider>
-			</Component>
-		);
-	},
-);
+	useEffect(() => {
+		setPage(initialPage);
+		setTotalPages(initialTotalPages);
+	}, [initialPage, initialTotalPages]);
+
+	useEffect(() => {
+		if (onPageChange) {
+			onPageChange(page);
+		}
+	}, [page, onPageChange]);
+
+	const memoContextValue = useMemo(
+		() => ({
+			page,
+			setPage,
+			totalPages,
+			hasNextPage,
+			hasPreviousPage,
+			registerRef: registerRefWrapper,
+		}),
+		[page, totalPages, hasNextPage, hasPreviousPage, registerRefWrapper],
+	);
+
+	const defaultProps: useRender.ElementProps<"nav"> = {
+		"aria-label": "Pagination",
+		className: clsx("flex items-center gap-1", className),
+		children: (
+			<PaginationContext.Provider value={memoContextValue}>
+				{getTruncatedElements({ page, children })}
+			</PaginationContext.Provider>
+		),
+	};
+
+	return useRender({
+		defaultTagName: "nav",
+		render,
+		props: mergeProps<"nav">(defaultProps, props),
+	});
+}
+
+Pagination.displayName = "Pagination";
 
 /**
  * Pagination Item
@@ -210,6 +217,8 @@ const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>(
 	},
 );
 
+PaginationItem.displayName = "PaginationItem";
+
 /**
  * Pagination Prev
  */
@@ -247,6 +256,8 @@ const PaginationPrev = forwardRef<
 	);
 });
 
+PaginationPrev.displayName = "PaginationPrev";
+
 /**
  * Pagination Next
  */
@@ -282,5 +293,7 @@ const PaginationNext = forwardRef<
 		</button>
 	);
 });
+
+PaginationNext.displayName = "PaginationNext";
 
 export { Pagination, PaginationItem, PaginationPrev, PaginationNext };

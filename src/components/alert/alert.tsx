@@ -1,12 +1,8 @@
-import { Slot } from "@components/slot/slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import {
-	type ComponentPropsWithoutRef,
-	createContext,
-	forwardRef,
-	useContext,
-} from "react";
+import { createContext, useContext } from "react";
 
 type AlertContextType = {
 	variant: "primary" | "secondary" | "error";
@@ -23,10 +19,10 @@ const useAlertContext = () => {
 	return context;
 };
 
-type AlertProps = ComponentPropsWithoutRef<"div"> & {
+type AlertProps = useRender.ComponentProps<"div"> & {
 	variant?: "primary" | "secondary" | "error";
-	asChild?: boolean;
 	size?: ResponsiveValue<"small" | "medium">;
+	className?: string;
 };
 
 const alertStyles = getVariants({
@@ -83,29 +79,34 @@ export const SIZES = {
 	},
 };
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(
-	(
-		{ variant = "primary", size = "medium", className, asChild, ...props },
-		ref,
-	) => {
-		const Component = asChild ? Slot : "div";
-
-		return (
+function Alert({
+	variant = "primary",
+	size = "medium",
+	className,
+	render,
+	children,
+	...props
+}: AlertProps) {
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: root({ variant, size, className }),
+		children: (
 			<AlertContext.Provider value={{ variant, size }}>
-				<Component
-					className={root({ variant, size, className })}
-					{...props}
-					ref={ref}
-				/>
+				{children}
 			</AlertContext.Provider>
-		);
-	},
-);
+		),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 Alert.displayName = "Alert";
 
-type AlertTitleProps = ComponentPropsWithoutRef<"div"> & {
-	asChild?: boolean;
+type AlertTitleProps = useRender.ComponentProps<"div"> & {
+	className?: string;
 };
 
 export const TITLE_SIZES = {
@@ -127,20 +128,24 @@ export const TITLE_SIZES = {
 	},
 };
 
-const AlertTitle = forwardRef<HTMLDivElement, AlertTitleProps>(
-	({ className, asChild, ...props }, ref) => {
-		const { size } = useAlertContext();
-		const Component = asChild ? Slot : "div";
-		return (
-			<Component ref={ref} {...props} className={title({ size, className })} />
-		);
-	},
-);
+function AlertTitle({ className, render, ...props }: AlertTitleProps) {
+	const { size } = useAlertContext();
+
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: title({ size, className }),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 AlertTitle.displayName = "AlertTitle";
 
-type AlertDescriptionProps = ComponentPropsWithoutRef<"div"> & {
-	asChild?: boolean;
+type AlertDescriptionProps = useRender.ComponentProps<"div"> & {
+	className?: string;
 };
 
 export const DESCRIPTION_SIZES = {
@@ -162,19 +167,23 @@ export const DESCRIPTION_SIZES = {
 	},
 };
 
-const AlertDescription = forwardRef<HTMLDivElement, AlertDescriptionProps>(
-	({ className, asChild, ...props }, ref) => {
-		const { size } = useAlertContext();
-		const Component = asChild ? Slot : "div";
-		return (
-			<Component
-				ref={ref}
-				{...props}
-				className={description({ size, className })}
-			/>
-		);
-	},
-);
+function AlertDescription({
+	className,
+	render,
+	...props
+}: AlertDescriptionProps) {
+	const { size } = useAlertContext();
+
+	const defaultProps: useRender.ElementProps<"div"> = {
+		className: description({ size, className }),
+	};
+
+	return useRender({
+		defaultTagName: "div",
+		render,
+		props: mergeProps<"div">(defaultProps, props),
+	});
+}
 
 AlertDescription.displayName = "AlertDescription";
 

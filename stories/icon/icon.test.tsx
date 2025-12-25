@@ -20,7 +20,7 @@ describe("Icon", () => {
 		expect(icon).toHaveClass("h-4", "w-4"); // small size classes
 	});
 
-	it("renders middle icon correctly", async () => {
+	it("renders medium icon correctly", async () => {
 		await Default.run({
 			args: {
 				...Default.args,
@@ -30,7 +30,7 @@ describe("Icon", () => {
 
 		const icon = screen.getByTestId("StarIcon");
 		expect(icon).toBeInTheDocument();
-		expect(icon).toHaveClass("h-6", "w-6"); // middle size classes
+		expect(icon).toHaveClass("h-6", "w-6"); // medium size classes
 	});
 
 	it("renders large icon correctly", async () => {

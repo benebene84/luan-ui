@@ -30,28 +30,27 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: ({ variant = "primary", size = "medium" }) => (
 		<Alert variant={variant} size={size}>
-			<Icon size="small" asChild>
-				<CheckCircledIcon />
-			</Icon>
-			<AlertTitle asChild>
-				<h4>Information</h4>
-			</AlertTitle>
-			<AlertDescription asChild>
-				<p>This is an informational alert message.</p>
-			</AlertDescription>
+			<Icon render={<CheckCircledIcon />} size="small" />
+			<AlertTitle render={(props) => <h4 {...props}>Information</h4>} />
+			<AlertDescription
+				render={<p>This is an informational alert message.</p>}
+			/>
 		</Alert>
 	),
 };
 
-export const AsChild: Story = {
+export const WithRenderProp: Story = {
 	render: ({ variant = "primary", size = "medium" }) => (
-		<Alert asChild variant={variant} size={size}>
-			<a href="https://example.com">
-				<AlertTitle>Clickable Alert</AlertTitle>
-				<AlertDescription>
-					This alert is clickable and acts as a link.
-				</AlertDescription>
-			</a>
+		<Alert
+			// biome-ignore lint/a11y/useAnchorContent: <just a demo>
+			render={<a href="https://example.com" />}
+			variant={variant}
+			size={size}
+		>
+			<AlertTitle>Clickable Alert</AlertTitle>
+			<AlertDescription>
+				This alert is clickable and acts as a link.
+			</AlertDescription>
 		</Alert>
 	),
 };
@@ -59,9 +58,7 @@ export const AsChild: Story = {
 export const Responsive: Story = {
 	render: ({ variant = "primary" }) => (
 		<Alert variant={variant} size={{ initial: "small", md: "medium" }}>
-			<Icon size="small" asChild>
-				<CheckCircledIcon />
-			</Icon>
+			<Icon render={<CheckCircledIcon />} size="small" />
 			<AlertTitle>Responsive Alert</AlertTitle>
 			<AlertDescription>
 				This is an informational alert message.
