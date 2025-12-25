@@ -43,8 +43,8 @@ export const Default: Story = {
 	],
 	render: (args) => (
 		<Popover {...args}>
-			<PopoverTrigger asChild>
-				<Button variant="secondary">Open Popover</Button>
+			<PopoverTrigger render={<Button variant="secondary" />}>
+				Open Popover
 			</PopoverTrigger>
 			<PopoverContent>
 				<div className="flex flex-col gap-2">
