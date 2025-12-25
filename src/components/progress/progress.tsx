@@ -1,10 +1,6 @@
+import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { cn } from "@utilities/cn/cn";
-import { Progress as ProgressPrimitive } from "radix-ui";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-} from "react";
+import { type ComponentPropsWithoutRef, forwardRef } from "react";
 
 export type ProgressProps = ComponentPropsWithoutRef<
 	typeof ProgressPrimitive.Root
@@ -21,30 +17,33 @@ export type ProgressProps = ComponentPropsWithoutRef<
  * @param {boolean} props.showLabel - Whether to show the label.
  */
 
-const Progress = forwardRef<
-	ComponentRef<typeof ProgressPrimitive.Root>,
-	ProgressProps
->(({ className, value, showLabel = true, max = 100, ...props }, ref) => (
-	<div className="flex items-center gap-4">
+const Progress = forwardRef<HTMLDivElement, ProgressProps>(
+	({ className, value, showLabel = true, max = 100, ...props }, ref) => (
 		<ProgressPrimitive.Root
-			className={cn(
-				"relative h-2 w-full overflow-hidden rounded-full bg-gray-200/80",
-				className,
-			)}
+			className="flex items-center gap-4"
+			value={value}
 			max={max}
-			{...props}
 			ref={ref}
+			{...props}
 		>
-			<ProgressPrimitive.Indicator
-				className="h-full w-full flex-1 bg-gray-700/80 transition-all"
-				style={{
-					transform: `translateX(-${100 - ((value || 0) / max) * 100}%)`,
-				}}
-			/>
+			<ProgressPrimitive.Track
+				className={cn(
+					"relative h-2 w-full overflow-hidden rounded-full bg-gray-200/80",
+					className,
+				)}
+			>
+				<ProgressPrimitive.Indicator className="h-full bg-gray-700/80 transition-all" />
+			</ProgressPrimitive.Track>
+			{showLabel && (
+				<ProgressPrimitive.Value className="text-gray-500 text-sm">
+					{(_formattedValue: string | null, rawValue: number | null) =>
+						`${rawValue}%`
+					}
+				</ProgressPrimitive.Value>
+			)}
 		</ProgressPrimitive.Root>
-		{showLabel && <div className="text-gray-500 text-sm">{value}%</div>}
-	</div>
-));
-Progress.displayName = ProgressPrimitive.Root.displayName;
+	),
+);
+Progress.displayName = "Progress";
 
 export { Progress };
