@@ -1,5 +1,5 @@
+import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cn } from "@utilities/cn/cn";
-import { Tabs as TabsPrimitive } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
@@ -21,28 +21,28 @@ const TabsList = forwardRef<
 		{...props}
 	/>
 ));
-TabsList.displayName = TabsPrimitive.List.displayName;
+TabsList.displayName = "TabsList";
 
 const TabsTrigger = forwardRef<
-	ComponentRef<typeof TabsPrimitive.Trigger>,
-	ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+	ComponentRef<typeof TabsPrimitive.Tab>,
+	ComponentPropsWithoutRef<typeof TabsPrimitive.Tab>
 >(({ className, ...props }, ref) => (
-	<TabsPrimitive.Trigger
+	<TabsPrimitive.Tab
 		ref={ref}
 		className={cn(
-			"inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:shadow-sm",
+			"inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white data-[active]:shadow-sm",
 			className,
 		)}
 		{...props}
 	/>
 ));
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
+TabsTrigger.displayName = "TabsTrigger";
 
 const TabsContent = forwardRef<
-	ComponentRef<typeof TabsPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
+	ComponentRef<typeof TabsPrimitive.Panel>,
+	ComponentPropsWithoutRef<typeof TabsPrimitive.Panel>
 >(({ className, ...props }, ref) => (
-	<TabsPrimitive.Content
+	<TabsPrimitive.Panel
 		ref={ref}
 		className={cn(
 			"mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2",
@@ -51,6 +51,6 @@ const TabsContent = forwardRef<
 		{...props}
 	/>
 ));
-TabsContent.displayName = TabsPrimitive.Content.displayName;
+TabsContent.displayName = "TabsContent";
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };
