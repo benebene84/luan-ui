@@ -1,75 +1,95 @@
+import { AlertDialog as BaseAlertDialog } from "@base-ui/react/alert-dialog";
 import { cn } from "@utilities/cn/cn";
-import { AlertDialog as RadixAlertDialog } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
 	forwardRef,
 } from "react";
 
-const AlertDialog = RadixAlertDialog.Root;
+const AlertDialog = BaseAlertDialog.Root;
 
-const AlertDialogTrigger = RadixAlertDialog.Trigger;
+const AlertDialogTrigger = BaseAlertDialog.Trigger;
+
+const AlertDialogPortal = BaseAlertDialog.Portal;
+
+export type AlertDialogOverlayProps = ComponentPropsWithoutRef<
+	typeof BaseAlertDialog.Backdrop
+>;
 
 const AlertDialogOverlay = forwardRef<
-	ComponentRef<typeof RadixAlertDialog.Overlay>,
-	ComponentPropsWithoutRef<typeof RadixAlertDialog.Overlay>
+	ComponentRef<typeof BaseAlertDialog.Backdrop>,
+	AlertDialogOverlayProps
 >(({ className, ...props }, ref) => (
-	<RadixAlertDialog.Overlay
+	<BaseAlertDialog.Backdrop
 		ref={ref}
 		className={cn(
-			"fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-fade-out data-[state=closed]:animate-out data-[state=open]:animate-fade-in data-[state=open]:animate-in",
+			"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
 			className,
 		)}
 		{...props}
 	/>
 ));
-AlertDialogOverlay.displayName = RadixAlertDialog.Overlay.displayName;
+AlertDialogOverlay.displayName = "AlertDialogOverlay";
+
+export type AlertDialogContentProps = ComponentPropsWithoutRef<
+	typeof BaseAlertDialog.Popup
+>;
 
 const AlertDialogContent = forwardRef<
-	ComponentRef<typeof RadixAlertDialog.Content>,
-	ComponentPropsWithoutRef<typeof RadixAlertDialog.Content>
+	ComponentRef<typeof BaseAlertDialog.Popup>,
+	AlertDialogContentProps
 >(({ className, ...props }, ref) => (
-	<>
+	<AlertDialogPortal>
 		<AlertDialogOverlay />
-		<RadixAlertDialog.Content
+		<BaseAlertDialog.Popup
 			ref={ref}
 			className={cn(
-				"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-4",
+				"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-4 transition-all duration-150 data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0",
 				className,
 			)}
 			{...props}
 		/>
-	</>
+	</AlertDialogPortal>
 ));
-AlertDialogContent.displayName = RadixAlertDialog.Content.displayName;
+AlertDialogContent.displayName = "AlertDialogContent";
+
+export type AlertDialogTitleProps = ComponentPropsWithoutRef<
+	typeof BaseAlertDialog.Title
+>;
 
 const AlertDialogTitle = forwardRef<
-	ComponentRef<typeof RadixAlertDialog.Title>,
-	ComponentPropsWithoutRef<typeof RadixAlertDialog.Title>
+	ComponentRef<typeof BaseAlertDialog.Title>,
+	AlertDialogTitleProps
 >(({ className, ...props }, ref) => (
-	<RadixAlertDialog.Title
+	<BaseAlertDialog.Title
 		ref={ref}
 		className={cn("font-medium text-lg", className)}
 		{...props}
 	/>
 ));
-AlertDialogTitle.displayName = RadixAlertDialog.Title.displayName;
+AlertDialogTitle.displayName = "AlertDialogTitle";
+
+export type AlertDialogDescriptionProps = ComponentPropsWithoutRef<
+	typeof BaseAlertDialog.Description
+>;
 
 const AlertDialogDescription = forwardRef<
-	ComponentRef<typeof RadixAlertDialog.Description>,
-	ComponentPropsWithoutRef<typeof RadixAlertDialog.Description>
+	ComponentRef<typeof BaseAlertDialog.Description>,
+	AlertDialogDescriptionProps
 >(({ className, ...props }, ref) => (
-	<RadixAlertDialog.Description
+	<BaseAlertDialog.Description
 		ref={ref}
 		className={cn("text-gray-500 text-sm", className)}
 		{...props}
 	/>
 ));
-AlertDialogDescription.displayName = RadixAlertDialog.Description.displayName;
+AlertDialogDescription.displayName = "AlertDialogDescription";
 
-const AlertDialogAction = RadixAlertDialog.Action;
+// Base UI doesn't have separate Action/Cancel components - both use Close
+// We export Close as both Action and Cancel for API compatibility
+const AlertDialogAction = BaseAlertDialog.Close;
 
-const AlertDialogCancel = RadixAlertDialog.Cancel;
+const AlertDialogCancel = BaseAlertDialog.Close;
 
 export {
 	AlertDialog,
