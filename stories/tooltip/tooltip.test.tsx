@@ -18,7 +18,7 @@ describe("Tooltip", () => {
 
 		await userEvent.hover(buttonElement);
 
-		const tooltipContent = await screen.findByRole("tooltip");
+		const tooltipContent = await screen.findByText("This is a tooltip");
 		expect(tooltipContent).toBeInTheDocument();
 	});
 });
