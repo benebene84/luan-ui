@@ -1,3 +1,4 @@
+import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { useFormContext } from "@components/form-field/form-field-context";
 import { Icon } from "@components/icon/icon";
 import { CheckIcon } from "@radix-ui/react-icons";
@@ -6,17 +7,18 @@ import {
 	mapResponsiveValue,
 	type ResponsiveValue,
 } from "@utilities/responsive/responsive";
-import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
 	forwardRef,
 } from "react";
 
-export type CheckboxProps = ComponentPropsWithoutRef<
-	typeof CheckboxPrimitive.Root
+export type CheckboxProps = Omit<
+	ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
+	"className"
 > & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
+	className?: string;
 };
 
 export const SIZES = {
@@ -41,8 +43,9 @@ export const SIZES = {
 		large: "xl:h-6 xl:w-6",
 	},
 };
+
 const checkboxStyles = getVariants({
-	base: "peer flex h-4 w-4 items-center justify-center rounded-sm border border-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-700 data-[state=checked]:bg-gray-700 data-[state=checked]:text-gray-100",
+	base: "peer flex h-4 w-4 items-center justify-center rounded-sm border border-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-700 data-[checked]:bg-gray-700 data-[checked]:text-gray-100",
 	variants: {
 		disabled: {
 			true: "cursor-not-allowed bg-gray-400 opacity-50",
@@ -62,7 +65,7 @@ const iconSizeMap = {
 } as const;
 
 /**
- * A checkbox component built on top of Radix UI's checkbox primitive.
+ * A checkbox component built on top of Base UI's checkbox primitive.
  *
  * @example
  * ```tsx
@@ -105,4 +108,4 @@ export const Checkbox = forwardRef<
 		);
 	},
 );
-Checkbox.displayName = CheckboxPrimitive.Root.displayName;
+Checkbox.displayName = "Checkbox";

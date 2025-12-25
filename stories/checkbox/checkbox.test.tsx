@@ -18,14 +18,14 @@ describe("Checkbox", () => {
 	it("renders disabled checkbox when disabled prop is true", async () => {
 		await Default.run({ args: { disabled: true } });
 		const checkbox = screen.getByRole("checkbox");
-		expect(checkbox).toBeDisabled();
+		expect(checkbox).toHaveAttribute("aria-disabled", "true");
 	});
 
 	it("renders checked and disabled checkbox when both props are true", async () => {
 		await Default.run({ args: { checked: true, disabled: true } });
 		const checkbox = screen.getByRole("checkbox");
 		expect(checkbox).toBeChecked();
-		expect(checkbox).toBeDisabled();
+		expect(checkbox).toHaveAttribute("aria-disabled", "true");
 	});
 
 	it("toggles checkbox state when clicked", async () => {
