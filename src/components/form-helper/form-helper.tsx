@@ -1,10 +1,11 @@
 import { useFormContext } from "@components/form-field/form-field-context";
 import { getVariants } from "@utilities/responsive/responsive";
-import { type ComponentPropsWithoutRef, forwardRef } from "react";
+import type { ComponentProps, Ref } from "react";
 
-export type FormHelperProps = ComponentPropsWithoutRef<"div"> & {
+export type FormHelperProps = ComponentProps<"div"> & {
 	error?: boolean;
 	disabled?: boolean;
+	ref?: Ref<HTMLDivElement>;
 };
 
 const formHelperStyles = getVariants({
@@ -38,31 +39,27 @@ const formHelperStyles = getVariants({
  * </FormField>
  * ```
  */
-export const FormHelper = forwardRef<HTMLDivElement, FormHelperProps>(
-	(
-		{
-			className,
-			children,
-			error: initialError,
-			disabled: initialDisabled,
-			...props
-		},
-		ref,
-	) => {
-		const { error, disabled } = useFormContext({
-			error: initialError,
-			disabled: initialDisabled,
-		});
+export function FormHelper({
+	className,
+	children,
+	error: initialError,
+	disabled: initialDisabled,
+	ref,
+	...props
+}: FormHelperProps) {
+	const { error, disabled } = useFormContext({
+		error: initialError,
+		disabled: initialDisabled,
+	});
 
-		return (
-			<div
-				ref={ref}
-				className={formHelperStyles({ error, disabled, className })}
-				role={error ? "alert" : "status"}
-				{...props}
-			>
-				{children}
-			</div>
-		);
-	},
-);
+	return (
+		<div
+			ref={ref}
+			className={formHelperStyles({ error, disabled, className })}
+			role={error ? "alert" : "status"}
+			{...props}
+		>
+			{children}
+		</div>
+	);
+}

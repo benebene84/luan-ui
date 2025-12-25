@@ -1,7 +1,7 @@
 import { getVariants } from "@utilities/responsive/responsive";
-import { type ComponentPropsWithoutRef, forwardRef } from "react";
+import type { ComponentProps } from "react";
 
-export type TextareaProps = ComponentPropsWithoutRef<"textarea"> & {
+export type TextareaProps = ComponentProps<"textarea"> & {
 	error?: boolean;
 };
 
@@ -25,21 +25,23 @@ const textAreaStyles = getVariants({
 	],
 });
 
-export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-	({ className, error, disabled, ...props }, ref) => {
-		return (
-			<textarea
-				ref={ref}
-				className={textAreaStyles({
-					className,
-					error,
-					disabled,
-				})}
-				disabled={disabled}
-				{...props}
-			/>
-		);
-	},
-);
-
-Textarea.displayName = "Textarea";
+export function Textarea({
+	className,
+	error,
+	disabled,
+	ref,
+	...props
+}: TextareaProps) {
+	return (
+		<textarea
+			ref={ref}
+			className={textAreaStyles({
+				className,
+				error,
+				disabled,
+			})}
+			disabled={disabled}
+			{...props}
+		/>
+	);
+}

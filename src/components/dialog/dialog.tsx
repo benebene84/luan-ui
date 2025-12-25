@@ -1,11 +1,7 @@
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-} from "react";
+import type { ComponentProps } from "react";
 
 const Dialog = BaseDialog.Root;
 
@@ -15,33 +11,29 @@ const DialogClose = BaseDialog.Close;
 
 const DialogPortal = BaseDialog.Portal;
 
-export type DialogOverlayProps = ComponentPropsWithoutRef<
-	typeof BaseDialog.Backdrop
->;
+export type DialogOverlayProps = ComponentProps<typeof BaseDialog.Backdrop>;
 
-const DialogOverlay = forwardRef<
-	ComponentRef<typeof BaseDialog.Backdrop>,
-	DialogOverlayProps
->(({ className, ...props }, ref) => (
-	<BaseDialog.Backdrop
-		ref={ref}
-		className={cn(
-			"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
-			className,
-		)}
-		{...props}
-	/>
-));
-DialogOverlay.displayName = "DialogOverlay";
+function DialogOverlay({ className, ref, ...props }: DialogOverlayProps) {
+	return (
+		<BaseDialog.Backdrop
+			ref={ref}
+			className={cn(
+				"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 
-export type DialogContentProps = ComponentPropsWithoutRef<
-	typeof BaseDialog.Popup
->;
+export type DialogContentProps = ComponentProps<typeof BaseDialog.Popup>;
 
-const DialogContent = forwardRef<
-	ComponentRef<typeof BaseDialog.Popup>,
-	DialogContentProps
->(({ children, className, ...props }, ref) => {
+function DialogContent({
+	children,
+	className,
+	ref,
+	...props
+}: DialogContentProps) {
 	return (
 		<DialogPortal>
 			<DialogOverlay />
@@ -60,64 +52,61 @@ const DialogContent = forwardRef<
 			</BaseDialog.Popup>
 		</DialogPortal>
 	);
-});
-DialogContent.displayName = "DialogContent";
+}
 
-const DialogHeader = forwardRef<
-	HTMLDivElement,
-	ComponentPropsWithoutRef<"div">
->(({ className, ...props }, ref) => (
-	<div ref={ref} className={cn("flex flex-col gap-1", className)} {...props} />
-));
+export type DialogHeaderProps = ComponentProps<"div">;
 
-DialogHeader.displayName = "DialogHeader";
+function DialogHeader({ className, ref, ...props }: DialogHeaderProps) {
+	return (
+		<div
+			ref={ref}
+			className={cn("flex flex-col gap-1", className)}
+			{...props}
+		/>
+	);
+}
 
-export type DialogTitleProps = ComponentPropsWithoutRef<
-	typeof BaseDialog.Title
->;
+export type DialogTitleProps = ComponentProps<typeof BaseDialog.Title>;
 
-const DialogTitle = forwardRef<
-	ComponentRef<typeof BaseDialog.Title>,
-	DialogTitleProps
->(({ className, ...props }, ref) => (
-	<BaseDialog.Title
-		ref={ref}
-		className={cn("font-semibold text-lg", className)}
-		{...props}
-	/>
-));
+function DialogTitle({ className, ref, ...props }: DialogTitleProps) {
+	return (
+		<BaseDialog.Title
+			ref={ref}
+			className={cn("font-semibold text-lg", className)}
+			{...props}
+		/>
+	);
+}
 
-DialogTitle.displayName = "DialogTitle";
-
-export type DialogDescriptionProps = ComponentPropsWithoutRef<
+export type DialogDescriptionProps = ComponentProps<
 	typeof BaseDialog.Description
 >;
 
-const DialogDescription = forwardRef<
-	ComponentRef<typeof BaseDialog.Description>,
-	DialogDescriptionProps
->(({ className, ...props }, ref) => (
-	<BaseDialog.Description
-		ref={ref}
-		className={cn("text-gray-500 text-sm", className)}
-		{...props}
-	/>
-));
+function DialogDescription({
+	className,
+	ref,
+	...props
+}: DialogDescriptionProps) {
+	return (
+		<BaseDialog.Description
+			ref={ref}
+			className={cn("text-gray-500 text-sm", className)}
+			{...props}
+		/>
+	);
+}
 
-DialogDescription.displayName = "DialogDescription";
+export type DialogFooterProps = ComponentProps<"div">;
 
-const DialogFooter = forwardRef<
-	HTMLDivElement,
-	ComponentPropsWithoutRef<"div">
->(({ className, ...props }, ref) => (
-	<div
-		ref={ref}
-		className={cn("flex justify-end gap-2", className)}
-		{...props}
-	/>
-));
-
-DialogFooter.displayName = "DialogFooter";
+function DialogFooter({ className, ref, ...props }: DialogFooterProps) {
+	return (
+		<div
+			ref={ref}
+			className={cn("flex justify-end gap-2", className)}
+			{...props}
+		/>
+	);
+}
 
 export {
 	Dialog,

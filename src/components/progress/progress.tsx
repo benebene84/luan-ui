@@ -1,10 +1,8 @@
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { cn } from "@utilities/cn/cn";
-import { type ComponentPropsWithoutRef, forwardRef } from "react";
+import type { ComponentProps } from "react";
 
-export type ProgressProps = ComponentPropsWithoutRef<
-	typeof ProgressPrimitive.Root
-> & {
+export type ProgressProps = ComponentProps<typeof ProgressPrimitive.Root> & {
 	showLabel?: boolean;
 };
 
@@ -17,8 +15,15 @@ export type ProgressProps = ComponentPropsWithoutRef<
  * @param {boolean} props.showLabel - Whether to show the label.
  */
 
-const Progress = forwardRef<HTMLDivElement, ProgressProps>(
-	({ className, value, showLabel = true, max = 100, ...props }, ref) => (
+function Progress({
+	className,
+	value,
+	showLabel = true,
+	max = 100,
+	ref,
+	...props
+}: ProgressProps) {
+	return (
 		<ProgressPrimitive.Root
 			className="flex items-center gap-4"
 			value={value}
@@ -42,8 +47,7 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>(
 				</ProgressPrimitive.Value>
 			)}
 		</ProgressPrimitive.Root>
-	),
-);
-Progress.displayName = "Progress";
+	);
+}
 
 export { Progress };

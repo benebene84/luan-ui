@@ -7,8 +7,8 @@ import { handleKeyboardNavigation } from "@utilities/pagination/keyboard-navigat
 import clsx from "clsx";
 import {
 	createContext,
-	forwardRef,
 	type PropsWithChildren,
+	type Ref,
 	useCallback,
 	useContext,
 	useEffect,
@@ -167,8 +167,6 @@ function Pagination({
 	});
 }
 
-Pagination.displayName = "Pagination";
-
 /**
  * Pagination Item
  */
@@ -176,6 +174,7 @@ Pagination.displayName = "Pagination";
 export type PaginationItemProps = {
 	children?: React.ReactNode;
 	index?: number;
+	ref?: Ref<HTMLButtonElement>;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 /**
@@ -185,43 +184,51 @@ export type PaginationItemProps = {
  * ```tsx
  * <PaginationItem index={1}>1</PaginationItem>
  */
-const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>(
-	({ index, children, className, ...props }, ref) => {
-		const { registerRef, page, setPage } = usePaginationContext();
+function PaginationItem({
+	index,
+	children,
+	className,
+	ref,
+	...props
+}: PaginationItemProps) {
+	const { registerRef, page, setPage } = usePaginationContext();
 
-		const isActive = page === index;
-		const handleClick = () => {
-			if (index !== undefined) {
-				setPage(index);
-			}
-		};
+	const isActive = page === index;
+	const handleClick = () => {
+		if (index !== undefined) {
+			setPage(index);
+		}
+	};
 
-		return (
-			<button
-				type="button"
-				onClick={handleClick}
-				ref={mergeRefs(ref, (el) => registerRef(index ?? 0, el))}
-				className={cn(
-					"flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200",
-					{
-						"bg-gray-700 text-white hover:bg-gray-800": isActive,
-					},
-					className,
-				)}
-				aria-current={isActive ? "page" : undefined}
-				{...props}
-			>
-				{children ?? index}
-			</button>
-		);
-	},
-);
-
-PaginationItem.displayName = "PaginationItem";
+	return (
+		<button
+			type="button"
+			onClick={handleClick}
+			ref={mergeRefs(ref, (el) => registerRef(index ?? 0, el))}
+			className={cn(
+				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200",
+				{
+					"bg-gray-700 text-white hover:bg-gray-800": isActive,
+				},
+				className,
+			)}
+			aria-current={isActive ? "page" : undefined}
+			{...props}
+		>
+			{children ?? index}
+		</button>
+	);
+}
 
 /**
  * Pagination Prev
  */
+
+export type PaginationPrevProps = PropsWithChildren<
+	React.HTMLAttributes<HTMLButtonElement>
+> & {
+	ref?: Ref<HTMLButtonElement>;
+};
 
 /**
  * Previous page button component for the Pagination.
@@ -232,10 +239,12 @@ PaginationItem.displayName = "PaginationItem";
  * <PaginationPrev>Previous</PaginationPrev>
  * ```
  */
-const PaginationPrev = forwardRef<
-	HTMLButtonElement,
-	PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
->(({ children, className, ...props }, ref) => {
+function PaginationPrev({
+	children,
+	className,
+	ref,
+	...props
+}: PaginationPrevProps) {
 	const { registerRef, page, setPage, hasPreviousPage } =
 		usePaginationContext();
 
@@ -254,13 +263,17 @@ const PaginationPrev = forwardRef<
 			{children}
 		</button>
 	);
-});
-
-PaginationPrev.displayName = "PaginationPrev";
+}
 
 /**
  * Pagination Next
  */
+
+export type PaginationNextProps = PropsWithChildren<
+	React.HTMLAttributes<HTMLButtonElement>
+> & {
+	ref?: Ref<HTMLButtonElement>;
+};
 
 /**
  * Next page button component for the Pagination.
@@ -271,10 +284,12 @@ PaginationPrev.displayName = "PaginationPrev";
  * <PaginationNext>Next</PaginationNext>
  * ```
  */
-const PaginationNext = forwardRef<
-	HTMLButtonElement,
-	PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
->(({ children, className, ...props }, ref) => {
+function PaginationNext({
+	children,
+	className,
+	ref,
+	...props
+}: PaginationNextProps) {
 	const { page, setPage, hasNextPage, registerRef, totalPages } =
 		usePaginationContext();
 	return (
@@ -292,8 +307,6 @@ const PaginationNext = forwardRef<
 			{children}
 		</button>
 	);
-});
-
-PaginationNext.displayName = "PaginationNext";
+}
 
 export { Pagination, PaginationItem, PaginationPrev, PaginationNext };

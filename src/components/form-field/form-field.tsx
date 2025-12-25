@@ -1,19 +1,15 @@
 import { FormHelper } from "@components/form-helper/form-helper";
 import { Label } from "@components/label/label";
 import { getVariants } from "@utilities/responsive/responsive";
-import {
-	Children,
-	type ComponentPropsWithoutRef,
-	forwardRef,
-	isValidElement,
-} from "react";
+import { Children, type ComponentProps, isValidElement, type Ref } from "react";
 import { FormFieldProvider } from "./form-field-context";
 
-export type FormFieldProps = ComponentPropsWithoutRef<"div"> & {
+export type FormFieldProps = ComponentProps<"div"> & {
 	orientation?: "horizontal" | "vertical";
 	disabled?: boolean;
 	required?: boolean;
 	error?: boolean;
+	ref?: Ref<HTMLDivElement>;
 };
 
 const formFieldStyles = getVariants({
@@ -38,72 +34,66 @@ const formFieldStyles = getVariants({
  * </FormField>
  * ```
  */
-export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
-	(
-		{
-			className,
-			children,
-			orientation = "vertical",
-			disabled,
-			required,
-			error,
-			...props
-		},
-		ref,
-	) => {
-		const childElements = Children.toArray(children);
-		const label = childElements.find(
-			(child) => isValidElement(child) && child.type === Label,
-		);
-		const helperText = childElements.find(
-			(child) => isValidElement(child) && child.type === FormHelper,
-		);
-		const input = childElements.find(
-			(child) =>
-				isValidElement(child) &&
-				child.type !== Label &&
-				child.type !== FormHelper,
-		);
+export function FormField({
+	className,
+	children,
+	orientation = "vertical",
+	disabled,
+	required,
+	error,
+	ref,
+	...props
+}: FormFieldProps) {
+	const childElements = Children.toArray(children);
+	const label = childElements.find(
+		(child) => isValidElement(child) && child.type === Label,
+	);
+	const helperText = childElements.find(
+		(child) => isValidElement(child) && child.type === FormHelper,
+	);
+	const input = childElements.find(
+		(child) =>
+			isValidElement(child) &&
+			child.type !== Label &&
+			child.type !== FormHelper,
+	);
 
-		if (!label || !input) {
-			console.warn(
-				"FormField requires both Label and Input components as children",
-			);
-			return null;
-		}
+	if (!label || !input) {
+		console.warn(
+			"FormField requires both Label and Input components as children",
+		);
+		return null;
+	}
 
-		return (
-			<FormFieldProvider
-				value={{
-					disabled,
-					required,
-					error,
-				}}
+	return (
+		<FormFieldProvider
+			value={{
+				disabled,
+				required,
+				error,
+			}}
+		>
+			<div
+				ref={ref}
+				className={formFieldStyles({ orientation, className })}
+				{...props}
 			>
-				<div
-					ref={ref}
-					className={formFieldStyles({ orientation, className })}
-					{...props}
-				>
-					{orientation === "horizontal" ? (
-						<>
-							{input}
-							<div className="flex flex-col">
-								{label}
-								{helperText}
-							</div>
-						</>
-					) : (
-						<>
+				{orientation === "horizontal" ? (
+					<>
+						{input}
+						<div className="flex flex-col">
 							{label}
-							{input}
 							{helperText}
-						</>
-					)}
-				</div>
-			</FormFieldProvider>
-		);
-	},
-);
-
-FormField.displayName = "FormField";
+						</div>
+					</>
+				) : (
+					<>
+						{label}
+						{input}
+						{helperText}
+					</>
+				)}
+			</div>
+		</FormFieldProvider>
+	);
+}

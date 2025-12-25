@@ -2,13 +2,8 @@ import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { Icon } from "@components/icon/icon";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import {
-	type ComponentPropsWithoutRef,
-	createContext,
-	forwardRef,
-	useContext,
-	useMemo,
-} from "react";
+import type { ComponentProps } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 /**
  * Popover Context
@@ -45,7 +40,7 @@ export type PopoverProps = {
 	side?: "top" | "right" | "bottom" | "left";
 	sideOffset?: number;
 	children?: React.ReactNode;
-} & ComponentPropsWithoutRef<typeof PopoverPrimitive.Root>;
+} & ComponentProps<typeof PopoverPrimitive.Root>;
 
 /**
  * Popover component that provides a popover container with a trigger and content.
@@ -66,7 +61,7 @@ export type PopoverProps = {
  * </Popover>
  * ```
  */
-const Popover = ({
+function Popover({
 	children,
 	showArrow = true,
 	closeButtonAriaLabel = "Close",
@@ -74,7 +69,7 @@ const Popover = ({
 	side,
 	sideOffset = 10,
 	...props
-}: PopoverProps) => {
+}: PopoverProps) {
 	const contextValue = useMemo(
 		() => ({
 			showArrow,
@@ -90,17 +85,19 @@ const Popover = ({
 			<PopoverPrimitive.Root {...props}>{children}</PopoverPrimitive.Root>
 		</PopoverContext.Provider>
 	);
-};
+}
 
-const PopoverTrigger = forwardRef<
-	HTMLButtonElement,
-	ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-	<PopoverPrimitive.Trigger ref={ref} className={className} {...props} />
-));
-PopoverTrigger.displayName = "PopoverTrigger";
+export type PopoverTriggerProps = ComponentProps<
+	typeof PopoverPrimitive.Trigger
+>;
 
-export type PopoverContentProps = ComponentPropsWithoutRef<
+function PopoverTrigger({ className, ref, ...props }: PopoverTriggerProps) {
+	return (
+		<PopoverPrimitive.Trigger ref={ref} className={className} {...props} />
+	);
+}
+
+export type PopoverContentProps = ComponentProps<
 	typeof PopoverPrimitive.Popup
 > & {
 	showArrow?: boolean;
@@ -123,61 +120,62 @@ export type PopoverContentProps = ComponentPropsWithoutRef<
  * </PopoverContent>
  * ```
  */
-const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
-	({ children, className, sideOffset: sideOffsetProp, ...props }, ref) => {
-		const {
-			showArrow,
-			closeButtonAriaLabel,
-			side,
-			showCloseButton,
-			sideOffset: sideOffsetContext,
-		} = usePopoverContext();
-		const sideOffset = sideOffsetProp ?? sideOffsetContext ?? 10;
+function PopoverContent({
+	children,
+	className,
+	sideOffset: sideOffsetProp,
+	ref,
+	...props
+}: PopoverContentProps) {
+	const {
+		showArrow,
+		closeButtonAriaLabel,
+		side,
+		showCloseButton,
+		sideOffset: sideOffsetContext,
+	} = usePopoverContext();
+	const sideOffset = sideOffsetProp ?? sideOffsetContext ?? 10;
 
-		return (
-			<PopoverPrimitive.Portal>
-				<PopoverPrimitive.Positioner side={side} sideOffset={sideOffset}>
-					<PopoverPrimitive.Popup
-						className={cn(
-							"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-4 text-sm text-white shadow-md",
-							className,
-						)}
-						{...props}
-						ref={ref}
-					>
-						{showCloseButton && (
-							<PopoverClose
-								className="absolute top-4 right-4"
-								aria-label={closeButtonAriaLabel}
-							>
-								<Icon render={<Cross1Icon />} size="small" />
-							</PopoverClose>
-						)}
-						{children}
-						{showArrow && (
-							<PopoverPrimitive.Arrow className="data-[side=bottom]:-top-1.25 data-[side=left]:-right-1.25 data-[side=top]:-bottom-1.25 data-[side=right]:-left-1.25">
-								<div className="h-2.5 w-2.5 rotate-45 bg-gray-700" />
-							</PopoverPrimitive.Arrow>
-						)}
-					</PopoverPrimitive.Popup>
-				</PopoverPrimitive.Positioner>
-			</PopoverPrimitive.Portal>
-		);
-	},
-);
-PopoverContent.displayName = "PopoverContent";
+	return (
+		<PopoverPrimitive.Portal>
+			<PopoverPrimitive.Positioner side={side} sideOffset={sideOffset}>
+				<PopoverPrimitive.Popup
+					className={cn(
+						"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-4 text-sm text-white shadow-md",
+						className,
+					)}
+					{...props}
+					ref={ref}
+				>
+					{showCloseButton && (
+						<PopoverClose
+							className="absolute top-4 right-4"
+							aria-label={closeButtonAriaLabel}
+						>
+							<Icon render={<Cross1Icon />} size="small" />
+						</PopoverClose>
+					)}
+					{children}
+					{showArrow && (
+						<PopoverPrimitive.Arrow className="data-[side=bottom]:-top-1.25 data-[side=left]:-right-1.25 data-[side=top]:-bottom-1.25 data-[side=right]:-left-1.25">
+							<div className="h-2.5 w-2.5 rotate-45 bg-gray-700" />
+						</PopoverPrimitive.Arrow>
+					)}
+				</PopoverPrimitive.Popup>
+			</PopoverPrimitive.Positioner>
+		</PopoverPrimitive.Portal>
+	);
+}
 
 /**
  * Popover Close
  */
 
-const PopoverClose = forwardRef<
-	HTMLButtonElement,
-	ComponentPropsWithoutRef<typeof PopoverPrimitive.Close>
->(({ className, ...props }, ref) => (
-	<PopoverPrimitive.Close ref={ref} className={className} {...props} />
-));
-PopoverClose.displayName = "PopoverClose";
+export type PopoverCloseProps = ComponentProps<typeof PopoverPrimitive.Close>;
+
+function PopoverClose({ className, ref, ...props }: PopoverCloseProps) {
+	return <PopoverPrimitive.Close ref={ref} className={className} {...props} />;
+}
 
 /**
  * Popover Portal
@@ -189,17 +187,19 @@ const PopoverPortal = PopoverPrimitive.Portal;
  * Popover Anchor
  */
 
-const PopoverAnchor = forwardRef<
-	HTMLDivElement,
-	ComponentPropsWithoutRef<typeof PopoverPrimitive.Positioner> & {
-		children?: React.ReactNode;
-	}
->(({ children, ...props }, ref) => (
-	<PopoverPrimitive.Positioner ref={ref} {...props}>
-		{children}
-	</PopoverPrimitive.Positioner>
-));
-PopoverAnchor.displayName = "PopoverAnchor";
+export type PopoverAnchorProps = ComponentProps<
+	typeof PopoverPrimitive.Positioner
+> & {
+	children?: React.ReactNode;
+};
+
+function PopoverAnchor({ children, ref, ...props }: PopoverAnchorProps) {
+	return (
+		<PopoverPrimitive.Positioner ref={ref} {...props}>
+			{children}
+		</PopoverPrimitive.Positioner>
+	);
+}
 
 /**
  * Popover Title

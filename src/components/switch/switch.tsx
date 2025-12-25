@@ -2,12 +2,13 @@ import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { useFormContext } from "@components/form-field/form-field-context";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import { type ComponentRef, forwardRef } from "react";
+import type { Ref } from "react";
 
 export type SwitchProps = Omit<SwitchPrimitive.Root.Props, "className"> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
 	error?: boolean;
 	className?: string;
+	ref?: Ref<HTMLButtonElement>;
 };
 
 const thumbStyles = getVariants({
@@ -83,35 +84,26 @@ const { root, thumb } = thumbStyles();
  * @param {boolean} [props.disabled] - Whether the switch is disabled
  * @param {string} [props.className] - Additional CSS classes to apply
  */
-export const Switch = forwardRef<
-	ComponentRef<typeof SwitchPrimitive.Root>,
-	SwitchProps
->(
-	(
-		{
-			className,
-			disabled: initialDisabled,
-			size = "medium",
-			error: initialError,
-			...props
-		},
-		ref,
-	) => {
-		const { disabled, error } = useFormContext({
-			disabled: initialDisabled,
-			error: initialError,
-		});
-		return (
-			<SwitchPrimitive.Root
-				className={root({ disabled, size, error, className })}
-				disabled={disabled}
-				{...props}
-				ref={ref}
-			>
-				<SwitchPrimitive.Thumb className={thumb({ disabled, size })} />
-			</SwitchPrimitive.Root>
-		);
-	},
-);
-
-Switch.displayName = "Switch";
+export function Switch({
+	className,
+	disabled: initialDisabled,
+	size = "medium",
+	error: initialError,
+	ref,
+	...props
+}: SwitchProps) {
+	const { disabled, error } = useFormContext({
+		disabled: initialDisabled,
+		error: initialError,
+	});
+	return (
+		<SwitchPrimitive.Root
+			className={root({ disabled, size, error, className })}
+			disabled={disabled}
+			{...props}
+			ref={ref}
+		>
+			<SwitchPrimitive.Thumb className={thumb({ disabled, size })} />
+		</SwitchPrimitive.Root>
+	);
+}

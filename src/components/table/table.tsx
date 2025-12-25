@@ -1,85 +1,86 @@
 import { cn } from "@utilities/cn/cn";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
-import { forwardRef } from "react";
+import type { ComponentProps } from "react";
 
 /**
  * Table
  */
 
-const Table = forwardRef<
-	ComponentRef<"table">,
-	ComponentPropsWithoutRef<"table">
->(({ className, ...props }, ref) => (
-	<div className="relative w-full overflow-auto">
-		<table
-			ref={ref}
-			className={cn("w-full caption-bottom text-sm", className)}
-			{...props}
-		/>
-	</div>
-));
-Table.displayName = "Table";
+export type TableProps = ComponentProps<"table">;
+
+function Table({ className, ref, ...props }: TableProps) {
+	return (
+		<div className="relative w-full overflow-auto">
+			<table
+				ref={ref}
+				className={cn("w-full caption-bottom text-sm", className)}
+				{...props}
+			/>
+		</div>
+	);
+}
 
 /**
  * TableHeader
  */
 
-const TableHeader = forwardRef<
-	ComponentRef<"thead">,
-	ComponentPropsWithoutRef<"thead">
->(({ className, ...props }, ref) => (
-	<thead
-		ref={ref}
-		className={cn(
-			"[&_tr]:border-b [&_tr]:bg-gray-700! [&_tr]:text-white [&_tr]:hover:bg-gray-700! [&_tr]:hover:text-white!",
-			className,
-		)}
-		{...props}
-	/>
-));
-TableHeader.displayName = "TableHeader";
+export type TableHeaderProps = ComponentProps<"thead">;
+
+function TableHeader({ className, ref, ...props }: TableHeaderProps) {
+	return (
+		<thead
+			ref={ref}
+			className={cn(
+				"[&_tr]:border-b [&_tr]:bg-gray-700! [&_tr]:text-white [&_tr]:hover:bg-gray-700! [&_tr]:hover:text-white!",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 
 /**
  * TableBody
  */
 
-const TableBody = forwardRef<
-	ComponentRef<"tbody">,
-	ComponentPropsWithoutRef<"tbody">
->(({ className, ...props }, ref) => (
-	<tbody
-		ref={ref}
-		className={cn("[&_tr:last-child]:border-0", className)}
-		{...props}
-	/>
-));
-TableBody.displayName = "TableBody";
+export type TableBodyProps = ComponentProps<"tbody">;
+
+function TableBody({ className, ref, ...props }: TableBodyProps) {
+	return (
+		<tbody
+			ref={ref}
+			className={cn("[&_tr:last-child]:border-0", className)}
+			{...props}
+		/>
+	);
+}
 
 /**
  * TableFooter
  */
 
-const TableFooter = forwardRef<
-	ComponentRef<"tfoot">,
-	ComponentPropsWithoutRef<"tfoot">
->(({ className, ...props }, ref) => (
-	<tfoot
-		ref={ref}
-		className={cn(
-			"border-t bg-gray-100 font-medium [&>tr]:bg-gray-100! [&>tr]:text-gray-700! [&>tr]:last:border-b-0",
-			className,
-		)}
-		{...props}
-	/>
-));
-TableFooter.displayName = "TableFooter";
+export type TableFooterProps = ComponentProps<"tfoot">;
+
+function TableFooter({ className, ref, ...props }: TableFooterProps) {
+	return (
+		<tfoot
+			ref={ref}
+			className={cn(
+				"border-t bg-gray-100 font-medium [&>tr]:bg-gray-100! [&>tr]:text-gray-700! [&>tr]:last:border-b-0",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 
 /**
  * TableRow
  */
 
-const TableRow = forwardRef<ComponentRef<"tr">, ComponentPropsWithoutRef<"tr">>(
-	({ className, ...props }, ref) => (
+export type TableRowProps = ComponentProps<"tr">;
+
+function TableRow({ className, ref, ...props }: TableRowProps) {
+	return (
 		<tr
 			ref={ref}
 			className={cn(
@@ -88,63 +89,62 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentPropsWithoutRef<"tr">>(
 			)}
 			{...props}
 		/>
-	),
-);
-TableRow.displayName = "TableRow";
+	);
+}
 
 /**
  * TableHead
  */
 
-const TableHead = forwardRef<
-	ComponentRef<"th">,
-	ComponentPropsWithoutRef<"th">
->(({ className, ...props }, ref) => (
-	<th
-		ref={ref}
-		className={cn(
-			"h-10 px-2 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-			className,
-		)}
-		{...props}
-	/>
-));
-TableHead.displayName = "TableHead";
+export type TableHeadProps = ComponentProps<"th">;
+
+function TableHead({ className, ref, ...props }: TableHeadProps) {
+	return (
+		<th
+			ref={ref}
+			className={cn(
+				"h-10 px-2 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 
 /**
  * TableCell
  */
 
-const TableCell = forwardRef<
-	ComponentRef<"td">,
-	ComponentPropsWithoutRef<"td">
->(({ className, ...props }, ref) => (
-	<td
-		ref={ref}
-		className={cn(
-			"p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-			className,
-		)}
-		{...props}
-	/>
-));
-TableCell.displayName = "TableCell";
+export type TableCellProps = ComponentProps<"td">;
+
+function TableCell({ className, ref, ...props }: TableCellProps) {
+	return (
+		<td
+			ref={ref}
+			className={cn(
+				"p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 
 /**
  * TableCaption
  */
 
-const TableCaption = forwardRef<
-	ComponentRef<"caption">,
-	ComponentPropsWithoutRef<"caption">
->(({ className, ...props }, ref) => (
-	<caption
-		ref={ref}
-		className={cn("mt-4 text-start text-gray-500 text-sm", className)}
-		{...props}
-	/>
-));
-TableCaption.displayName = "TableCaption";
+export type TableCaptionProps = ComponentProps<"caption">;
+
+function TableCaption({ className, ref, ...props }: TableCaptionProps) {
+	return (
+		<caption
+			ref={ref}
+			className={cn("mt-4 text-start text-gray-500 text-sm", className)}
+			{...props}
+		/>
+	);
+}
 
 export {
 	Table,

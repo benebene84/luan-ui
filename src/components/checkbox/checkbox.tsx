@@ -7,14 +7,10 @@ import {
 	mapResponsiveValue,
 	type ResponsiveValue,
 } from "@utilities/responsive/responsive";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-} from "react";
+import type { ComponentProps } from "react";
 
 export type CheckboxProps = Omit<
-	ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
+	ComponentProps<typeof CheckboxPrimitive.Root>,
 	"className"
 > & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
@@ -72,38 +68,30 @@ const iconSizeMap = {
  * <Checkbox id="checkbox" onCheckedChange={(checked) => console.log(checked)} />
  * ```
  */
-export const Checkbox = forwardRef<
-	ComponentRef<typeof CheckboxPrimitive.Root>,
-	CheckboxProps
->(
-	(
-		{
-			className,
-			disabled: initialDisabled,
-			required: initialRequired,
-			size = "medium",
-			...props
-		},
-		ref,
-	) => {
-		const iconSize = mapResponsiveValue(size, (size) => iconSizeMap[size]);
-		const { disabled, required } = useFormContext({
-			disabled: initialDisabled,
-			required: initialRequired,
-		});
-		return (
-			<CheckboxPrimitive.Root
-				className={checkboxStyles({ disabled, size, className })}
-				ref={ref}
-				disabled={disabled}
-				required={required}
-				{...props}
-			>
-				<CheckboxPrimitive.Indicator>
-					<Icon render={<CheckIcon />} size={iconSize} />
-				</CheckboxPrimitive.Indicator>
-			</CheckboxPrimitive.Root>
-		);
-	},
-);
-Checkbox.displayName = "Checkbox";
+export function Checkbox({
+	className,
+	disabled: initialDisabled,
+	required: initialRequired,
+	size = "medium",
+	ref,
+	...props
+}: CheckboxProps) {
+	const iconSize = mapResponsiveValue(size, (size) => iconSizeMap[size]);
+	const { disabled, required } = useFormContext({
+		disabled: initialDisabled,
+		required: initialRequired,
+	});
+	return (
+		<CheckboxPrimitive.Root
+			className={checkboxStyles({ disabled, size, className })}
+			ref={ref}
+			disabled={disabled}
+			required={required}
+			{...props}
+		>
+			<CheckboxPrimitive.Indicator>
+				<Icon render={<CheckIcon />} size={iconSize} />
+			</CheckboxPrimitive.Indicator>
+		</CheckboxPrimitive.Root>
+	);
+}

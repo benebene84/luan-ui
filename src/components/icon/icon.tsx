@@ -2,7 +2,6 @@ import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import type { ResponsiveValue } from "@utilities/responsive/responsive";
 import { getVariants } from "@utilities/responsive/responsive";
-import { forwardRef } from "react";
 
 export type IconProps = useRender.ComponentProps<"svg"> & {
 	size?: ResponsiveValue<"small" | "medium" | "large">;
@@ -62,21 +61,23 @@ const iconStyles = getVariants({
  * @param {ResponsiveValue<"small" | "medium" | "large">} [props.size="medium"] - The size of the icon
  * @param {string} [props.className] - Additional CSS classes to apply
  */
-export const Icon = forwardRef<SVGSVGElement, IconProps>(
-	({ className, size = "medium", render, ...props }, ref) => {
-		const defaultProps: useRender.ElementProps<"svg"> = {
-			className: iconStyles({ size, className }),
-		};
+export function Icon({
+	className,
+	size = "medium",
+	render,
+	ref,
+	...props
+}: IconProps) {
+	const defaultProps: useRender.ElementProps<"svg"> = {
+		className: iconStyles({ size, className }),
+	};
 
-		const element = useRender({
-			defaultTagName: "svg",
-			render,
-			ref,
-			props: mergeProps<"svg">(defaultProps, props),
-		});
+	const element = useRender({
+		defaultTagName: "svg",
+		render,
+		ref,
+		props: mergeProps<"svg">(defaultProps, props),
+	});
 
-		return element;
-	},
-);
-
-Icon.displayName = "Icon";
+	return element;
+}

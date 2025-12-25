@@ -2,14 +2,8 @@ import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
 import { getVariants } from "@utilities/responsive/responsive";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	createContext,
-	forwardRef,
-	useContext,
-	useMemo,
-} from "react";
+import type { ComponentProps } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 /**
  * Drawer Context
@@ -29,10 +23,9 @@ const useDrawerContext = () => {
 	return context;
 };
 
-type DrawerProps = ComponentPropsWithoutRef<typeof BaseDialog.Root> &
-	DrawerContextValue;
+type DrawerProps = ComponentProps<typeof BaseDialog.Root> & DrawerContextValue;
 
-const Drawer = ({ children, side, ...props }: DrawerProps) => {
+function Drawer({ children, side, ...props }: DrawerProps) {
 	const contextValue = useMemo(
 		() => ({
 			side,
@@ -44,7 +37,7 @@ const Drawer = ({ children, side, ...props }: DrawerProps) => {
 			<BaseDialog.Root {...props}>{children}</BaseDialog.Root>
 		</DrawerContext.Provider>
 	);
-};
+}
 
 const DrawerTrigger = BaseDialog.Trigger;
 
@@ -52,24 +45,20 @@ const DrawerClose = BaseDialog.Close;
 
 const DrawerPortal = BaseDialog.Portal;
 
-export type DrawerOverlayProps = ComponentPropsWithoutRef<
-	typeof BaseDialog.Backdrop
->;
+export type DrawerOverlayProps = ComponentProps<typeof BaseDialog.Backdrop>;
 
-const DrawerOverlay = forwardRef<
-	ComponentRef<typeof BaseDialog.Backdrop>,
-	DrawerOverlayProps
->(({ className, ...props }, ref) => (
-	<BaseDialog.Backdrop
-		ref={ref}
-		className={cn(
-			"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
-			className,
-		)}
-		{...props}
-	/>
-));
-DrawerOverlay.displayName = "DrawerOverlay";
+function DrawerOverlay({ className, ref, ...props }: DrawerOverlayProps) {
+	return (
+		<BaseDialog.Backdrop
+			ref={ref}
+			className={cn(
+				"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 
 const drawerContentStyles = getVariants({
 	base: "fixed z-50 flex flex-col gap-4 bg-white p-4 transition-transform duration-300",
@@ -86,16 +75,18 @@ const drawerContentStyles = getVariants({
 });
 
 export type DrawerContentProps = Omit<
-	ComponentPropsWithoutRef<typeof BaseDialog.Popup>,
+	ComponentProps<typeof BaseDialog.Popup>,
 	"className"
 > & {
 	className?: string;
 };
 
-const DrawerContent = forwardRef<
-	ComponentRef<typeof BaseDialog.Popup>,
-	DrawerContentProps
->(({ children, className, ...props }, ref) => {
+function DrawerContent({
+	children,
+	className,
+	ref,
+	...props
+}: DrawerContentProps) {
 	const { side = "right" } = useDrawerContext();
 	return (
 		<DrawerPortal>
@@ -112,64 +103,61 @@ const DrawerContent = forwardRef<
 			</BaseDialog.Popup>
 		</DrawerPortal>
 	);
-});
-DrawerContent.displayName = "DrawerContent";
+}
 
-const DrawerHeader = forwardRef<
-	HTMLDivElement,
-	ComponentPropsWithoutRef<"div">
->(({ className, ...props }, ref) => (
-	<div ref={ref} className={cn("flex flex-col gap-1", className)} {...props} />
-));
+export type DrawerHeaderProps = ComponentProps<"div">;
 
-DrawerHeader.displayName = "DrawerHeader";
+function DrawerHeader({ className, ref, ...props }: DrawerHeaderProps) {
+	return (
+		<div
+			ref={ref}
+			className={cn("flex flex-col gap-1", className)}
+			{...props}
+		/>
+	);
+}
 
-export type DrawerTitleProps = ComponentPropsWithoutRef<
-	typeof BaseDialog.Title
->;
+export type DrawerTitleProps = ComponentProps<typeof BaseDialog.Title>;
 
-const DrawerTitle = forwardRef<
-	ComponentRef<typeof BaseDialog.Title>,
-	DrawerTitleProps
->(({ className, ...props }, ref) => (
-	<BaseDialog.Title
-		ref={ref}
-		className={cn("font-semibold text-lg", className)}
-		{...props}
-	/>
-));
+function DrawerTitle({ className, ref, ...props }: DrawerTitleProps) {
+	return (
+		<BaseDialog.Title
+			ref={ref}
+			className={cn("font-semibold text-lg", className)}
+			{...props}
+		/>
+	);
+}
 
-DrawerTitle.displayName = "DrawerTitle";
-
-export type DrawerDescriptionProps = ComponentPropsWithoutRef<
+export type DrawerDescriptionProps = ComponentProps<
 	typeof BaseDialog.Description
 >;
 
-const DrawerDescription = forwardRef<
-	ComponentRef<typeof BaseDialog.Description>,
-	DrawerDescriptionProps
->(({ className, ...props }, ref) => (
-	<BaseDialog.Description
-		ref={ref}
-		className={cn("text-gray-500 text-sm", className)}
-		{...props}
-	/>
-));
+function DrawerDescription({
+	className,
+	ref,
+	...props
+}: DrawerDescriptionProps) {
+	return (
+		<BaseDialog.Description
+			ref={ref}
+			className={cn("text-gray-500 text-sm", className)}
+			{...props}
+		/>
+	);
+}
 
-DrawerDescription.displayName = "DrawerDescription";
+export type DrawerFooterProps = ComponentProps<"div">;
 
-const DrawerFooter = forwardRef<
-	HTMLDivElement,
-	ComponentPropsWithoutRef<"div">
->(({ className, ...props }, ref) => (
-	<div
-		ref={ref}
-		className={cn("flex justify-end gap-2", className)}
-		{...props}
-	/>
-));
-
-DrawerFooter.displayName = "DrawerFooter";
+function DrawerFooter({ className, ref, ...props }: DrawerFooterProps) {
+	return (
+		<div
+			ref={ref}
+			className={cn("flex justify-end gap-2", className)}
+			{...props}
+		/>
+	);
+}
 
 export {
 	Drawer,

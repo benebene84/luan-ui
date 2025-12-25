@@ -1,6 +1,7 @@
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { cn } from "@utilities/cn/cn";
-import { createContext, forwardRef, useContext, useMemo } from "react";
+import type { ComponentProps } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 /**
  * Tooltip Context
@@ -26,9 +27,7 @@ const useTooltipContext = () => {
  * Tooltip
  */
 
-export type TooltipProps = React.ComponentProps<
-	typeof TooltipPrimitive.Root
-> & {
+export type TooltipProps = ComponentProps<typeof TooltipPrimitive.Root> & {
 	showArrow?: boolean;
 	side?: "top" | "right" | "bottom" | "left";
 	sideOffset?: number;
@@ -52,14 +51,14 @@ export type TooltipProps = React.ComponentProps<
  * </Tooltip>
  * ```
  */
-const Tooltip = ({
+function Tooltip({
 	children,
 	showArrow = true,
 	side,
 	sideOffset = 10,
 	delayDuration = 600,
 	...props
-}: TooltipProps) => {
+}: TooltipProps) {
 	const contextValue = useMemo(
 		() => ({
 			showArrow,
@@ -75,46 +74,54 @@ const Tooltip = ({
 			</TooltipPrimitive.Provider>
 		</TooltipContext.Provider>
 	);
-};
+}
 
 /**
  * Tooltip Trigger
  */
 
-type TooltipTriggerProps = React.ComponentProps<
+export type TooltipTriggerProps = ComponentProps<
 	typeof TooltipPrimitive.Trigger
 > & {
 	render?: React.ReactElement;
 };
 
-const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(
-	({ render, children, ...props }, ref) => {
-		if (render) {
-			return (
-				<TooltipPrimitive.Trigger ref={ref} render={render} {...props}>
-					{children}
-				</TooltipPrimitive.Trigger>
-			);
-		}
+function TooltipTrigger({
+	render,
+	children,
+	ref,
+	...props
+}: TooltipTriggerProps) {
+	if (render) {
 		return (
-			<TooltipPrimitive.Trigger ref={ref} {...props}>
+			<TooltipPrimitive.Trigger ref={ref} render={render} {...props}>
 				{children}
 			</TooltipPrimitive.Trigger>
 		);
-	},
-);
-TooltipTrigger.displayName = "TooltipTrigger";
+	}
+	return (
+		<TooltipPrimitive.Trigger ref={ref} {...props}>
+			{children}
+		</TooltipPrimitive.Trigger>
+	);
+}
 
 /**
  * Tooltip Content
  */
 
-const TooltipContent = forwardRef<
-	HTMLDivElement,
-	React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Popup> & {
-		showArrow?: boolean;
-	}
->(({ className, children, ...props }, ref) => {
+export type TooltipContentProps = ComponentProps<
+	typeof TooltipPrimitive.Popup
+> & {
+	showArrow?: boolean;
+};
+
+function TooltipContent({
+	className,
+	children,
+	ref,
+	...props
+}: TooltipContentProps) {
 	const { showArrow, side, sideOffset } = useTooltipContext();
 	return (
 		<TooltipPrimitive.Portal>
@@ -137,8 +144,6 @@ const TooltipContent = forwardRef<
 			</TooltipPrimitive.Positioner>
 		</TooltipPrimitive.Portal>
 	);
-});
-
-TooltipContent.displayName = "TooltipContent";
+}
 
 export { Tooltip, TooltipTrigger, TooltipContent };
