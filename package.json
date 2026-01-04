@@ -1,6 +1,6 @@
 {
   "name": "luan-ui",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "A UI library for React",
   "author": "benebene84 <benedikt.sperl@gmail.com> (https://github.com/benebene84)",
   "main": "/dist/index.js",
