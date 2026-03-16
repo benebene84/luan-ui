@@ -148,11 +148,11 @@ function TableCaption({ className, ref, ...props }: TableCaptionProps) {
 
 export {
 	Table,
-	TableHeader,
 	TableBody,
+	TableCaption,
+	TableCell,
 	TableFooter,
 	TableHead,
+	TableHeader,
 	TableRow,
-	TableCell,
-	TableCaption,
 };

@@ -1,55 +1,39 @@
-import { Dialog as BaseDialog } from "@base-ui/react/dialog";
+import { Drawer as BaseDrawer } from "@base-ui/react/drawer";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { cn } from "@utilities/cn/cn";
-import { getVariants } from "@utilities/responsive/responsive";
 import type { ComponentProps } from "react";
-import { createContext, useContext, useMemo } from "react";
 
-/**
- * Drawer Context
- */
+const SIDE_TO_SWIPE_DIRECTION = {
+	left: "left",
+	right: "right",
+	top: "up",
+	bottom: "down",
+} as const;
 
-type DrawerContextValue = {
-	side?: "left" | "right" | "top" | "bottom";
+type DrawerSide = keyof typeof SIDE_TO_SWIPE_DIRECTION;
+
+export type DrawerProps = ComponentProps<typeof BaseDrawer.Root> & {
+	side?: DrawerSide;
 };
 
-const DrawerContext = createContext<DrawerContextValue | undefined>(undefined);
-
-const useDrawerContext = () => {
-	const context = useContext(DrawerContext);
-	if (!context) {
-		throw new Error("Drawer components must be used within a Drawer");
-	}
-	return context;
-};
-
-type DrawerProps = ComponentProps<typeof BaseDialog.Root> & DrawerContextValue;
-
-function Drawer({ children, side, ...props }: DrawerProps) {
-	const contextValue = useMemo(
-		() => ({
-			side,
-		}),
-		[side],
-	);
+function Drawer({ children, side = "right", ...props }: DrawerProps) {
+	const swipeDirection = SIDE_TO_SWIPE_DIRECTION[side];
 	return (
-		<DrawerContext.Provider value={contextValue}>
-			<BaseDialog.Root {...props}>{children}</BaseDialog.Root>
-		</DrawerContext.Provider>
+		<BaseDrawer.Root swipeDirection={swipeDirection} {...props}>
+			{children}
+		</BaseDrawer.Root>
 	);
 }
 
-const DrawerTrigger = BaseDialog.Trigger;
+const DrawerTrigger = BaseDrawer.Trigger;
 
-const DrawerClose = BaseDialog.Close;
+const DrawerClose = BaseDrawer.Close;
 
-const DrawerPortal = BaseDialog.Portal;
-
-export type DrawerOverlayProps = ComponentProps<typeof BaseDialog.Backdrop>;
+export type DrawerOverlayProps = ComponentProps<typeof BaseDrawer.Backdrop>;
 
 function DrawerOverlay({ className, ref, ...props }: DrawerOverlayProps) {
 	return (
-		<BaseDialog.Backdrop
+		<BaseDrawer.Backdrop
 			ref={ref}
 			className={cn(
 				"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
@@ -60,22 +44,8 @@ function DrawerOverlay({ className, ref, ...props }: DrawerOverlayProps) {
 	);
 }
 
-const drawerContentStyles = getVariants({
-	base: "fixed z-50 flex flex-col gap-4 bg-white p-4 transition-transform duration-300",
-	variants: {
-		side: {
-			left: "top-0 left-0 h-screen w-fit rounded-r-lg data-ending-style:-translate-x-full data-starting-style:-translate-x-full",
-			right:
-				"top-0 right-0 h-screen w-fit rounded-l-lg data-ending-style:translate-x-full data-starting-style:translate-x-full",
-			top: "top-0 left-0 h-fit w-screen rounded-b-lg data-ending-style:-translate-y-full data-starting-style:-translate-y-full",
-			bottom:
-				"bottom-0 left-0 h-fit w-screen rounded-t-lg data-ending-style:translate-y-full data-starting-style:translate-y-full",
-		},
-	},
-});
-
 export type DrawerContentProps = Omit<
-	ComponentProps<typeof BaseDialog.Popup>,
+	ComponentProps<typeof BaseDrawer.Popup>,
 	"className"
 > & {
 	className?: string;
@@ -87,21 +57,29 @@ function DrawerContent({
 	ref,
 	...props
 }: DrawerContentProps) {
-	const { side = "right" } = useDrawerContext();
 	return (
-		<DrawerPortal>
+		<BaseDrawer.Portal>
 			<DrawerOverlay />
-			<BaseDialog.Popup
-				className={drawerContentStyles({ side, className })}
-				{...props}
-				ref={ref}
-			>
-				<DrawerClose className="absolute top-4 right-4">
-					<Cross1Icon className="h-4 w-4" />
-				</DrawerClose>
-				{children}
-			</BaseDialog.Popup>
-		</DrawerPortal>
+			<BaseDrawer.Viewport>
+				<BaseDrawer.Popup
+					className={cn(
+						"fixed z-50 flex flex-col gap-4 bg-white p-4 transition-transform duration-300 data-swiping:duration-0",
+						"data-[swipe-direction=right]:data-ending-style:translate-x-full data-[swipe-direction=right]:data-starting-style:translate-x-full data-[swipe-direction=right]:top-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:h-screen data-[swipe-direction=right]:w-fit data-[swipe-direction=right]:translate-x-(--drawer-swipe-movement-x,0px) data-[swipe-direction=right]:rounded-l-lg",
+						"data-[swipe-direction=left]:data-ending-style:-translate-x-full data-[swipe-direction=left]:data-starting-style:-translate-x-full data-[swipe-direction=left]:top-0 data-[swipe-direction=left]:left-0 data-[swipe-direction=left]:h-screen data-[swipe-direction=left]:w-fit data-[swipe-direction=left]:translate-x-(--drawer-swipe-movement-x,0px) data-[swipe-direction=left]:rounded-r-lg",
+						"data-[swipe-direction=up]:data-ending-style:-translate-y-full data-[swipe-direction=up]:data-starting-style:-translate-y-full data-[swipe-direction=up]:top-0 data-[swipe-direction=up]:right-0 data-[swipe-direction=up]:left-0 data-[swipe-direction=up]:h-fit data-[swipe-direction=up]:w-screen data-[swipe-direction=up]:translate-y-(--drawer-swipe-movement-y,0px) data-[swipe-direction=up]:rounded-b-lg",
+						"data-[swipe-direction=down]:data-ending-style:translate-y-full data-[swipe-direction=down]:data-starting-style:translate-y-full data-[swipe-direction=down]:right-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:left-0 data-[swipe-direction=down]:h-fit data-[swipe-direction=down]:w-screen data-[swipe-direction=down]:translate-y-(--drawer-swipe-movement-y,0px) data-[swipe-direction=down]:rounded-t-lg",
+						className,
+					)}
+					ref={ref}
+					{...props}
+				>
+					<DrawerClose className="absolute top-4 right-4">
+						<Cross1Icon className="h-4 w-4" />
+					</DrawerClose>
+					{children}
+				</BaseDrawer.Popup>
+			</BaseDrawer.Viewport>
+		</BaseDrawer.Portal>
 	);
 }
 
@@ -117,11 +95,11 @@ function DrawerHeader({ className, ref, ...props }: DrawerHeaderProps) {
 	);
 }
 
-export type DrawerTitleProps = ComponentProps<typeof BaseDialog.Title>;
+export type DrawerTitleProps = ComponentProps<typeof BaseDrawer.Title>;
 
 function DrawerTitle({ className, ref, ...props }: DrawerTitleProps) {
 	return (
-		<BaseDialog.Title
+		<BaseDrawer.Title
 			ref={ref}
 			className={cn("font-semibold text-lg", className)}
 			{...props}
@@ -130,7 +108,7 @@ function DrawerTitle({ className, ref, ...props }: DrawerTitleProps) {
 }
 
 export type DrawerDescriptionProps = ComponentProps<
-	typeof BaseDialog.Description
+	typeof BaseDrawer.Description
 >;
 
 function DrawerDescription({
@@ -139,7 +117,7 @@ function DrawerDescription({
 	...props
 }: DrawerDescriptionProps) {
 	return (
-		<BaseDialog.Description
+		<BaseDrawer.Description
 			ref={ref}
 			className={cn("text-gray-500 text-sm", className)}
 			{...props}

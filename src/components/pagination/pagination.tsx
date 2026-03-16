@@ -309,4 +309,4 @@ function PaginationNext({
 	);
 }
 
-export { Pagination, PaginationItem, PaginationPrev, PaginationNext };
+export { Pagination, PaginationItem, PaginationNext, PaginationPrev };

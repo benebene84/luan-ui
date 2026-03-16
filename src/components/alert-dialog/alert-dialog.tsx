@@ -93,11 +93,11 @@ const AlertDialogCancel = BaseAlertDialog.Close;
 
 export {
 	AlertDialog,
-	AlertDialogTrigger,
-	AlertDialogContent,
-	AlertDialogOverlay,
-	AlertDialogTitle,
-	AlertDialogDescription,
 	AlertDialogAction,
 	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogOverlay,
+	AlertDialogTitle,
+	AlertDialogTrigger,
 };
