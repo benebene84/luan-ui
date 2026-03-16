@@ -190,8 +190,8 @@ AlertDescription.displayName = "AlertDescription";
 export {
 	Alert,
 	AlertDescription,
-	AlertTitle,
 	type AlertDescriptionProps,
 	type AlertProps,
+	AlertTitle,
 	type AlertTitleProps,
 };

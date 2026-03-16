@@ -215,11 +215,11 @@ const PopoverDescription = PopoverPrimitive.Description;
 
 export {
 	Popover,
-	PopoverTrigger,
-	PopoverContent,
-	PopoverClose,
-	PopoverPortal,
 	PopoverAnchor,
-	PopoverTitle,
+	PopoverClose,
+	PopoverContent,
 	PopoverDescription,
+	PopoverPortal,
+	PopoverTitle,
+	PopoverTrigger,
 };

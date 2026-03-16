@@ -244,13 +244,13 @@ function SelectSeparator({ className, ref, ...props }: SelectSeparatorProps) {
 
 export {
 	Select,
-	SelectGroup,
-	SelectValue,
-	SelectTrigger,
 	SelectContent,
-	SelectLabel,
+	SelectGroup,
 	SelectItem,
-	SelectSeparator,
-	SelectScrollUpArrow,
+	SelectLabel,
 	SelectScrollDownArrow,
+	SelectScrollUpArrow,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
 };

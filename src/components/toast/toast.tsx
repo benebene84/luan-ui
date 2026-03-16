@@ -75,4 +75,4 @@ function Toast({ title, description, button, id, ref }: ToastProps) {
 	);
 }
 
-export { toast, Toast, Toaster };
+export { Toast, Toaster, toast };
