@@ -8,10 +8,10 @@ export type InputProps = ComponentProps<"input"> & {
 };
 
 const inputStyles = getVariants({
-	base: "rounded-sm border border-gray-400 px-3 py-2 text-sm placeholder:text-gray-400 focus-visible:outline focus-visible:outline-gray-800",
+	base: "rounded-sm border border-border-input px-3 py-2 text-sm placeholder:text-text-placeholder focus-visible:outline focus-visible:outline-primary-hover",
 	variants: {
 		error: {
-			true: "border-red-600",
+			true: "border-error",
 		},
 		disabled: {
 			true: "disabled:cursor-not-allowed disabled:opacity-50",
@@ -22,7 +22,7 @@ const inputStyles = getVariants({
 			error: true,
 			disabled: true,
 			className:
-				"border-gray-400 disabled:cursor-not-allowed disabled:opacity-50",
+				"border-border-input disabled:cursor-not-allowed disabled:opacity-50",
 		},
 	],
 });

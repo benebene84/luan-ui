@@ -41,10 +41,10 @@ export const SIZES = {
 };
 
 const checkboxStyles = getVariants({
-	base: "peer flex h-4 w-4 items-center justify-center rounded-sm border border-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-700 data-[checked]:bg-gray-700 data-[checked]:text-gray-100",
+	base: "peer flex h-4 w-4 items-center justify-center rounded-sm border border-primary shadow-sm focus:outline-none focus:ring-1 focus:ring-focus-ring data-[checked]:bg-primary data-[checked]:text-on-primary",
 	variants: {
 		disabled: {
-			true: "cursor-not-allowed bg-gray-400 opacity-50",
+			true: "cursor-not-allowed bg-disabled-bg opacity-50",
 		},
 		size: {
 			small: "h-4 w-4",

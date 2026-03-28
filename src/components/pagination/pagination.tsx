@@ -206,9 +206,9 @@ function PaginationItem({
 			onClick={handleClick}
 			ref={mergeRefs(ref, (el) => registerRef(index ?? 0, el))}
 			className={cn(
-				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200",
+				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-border",
 				{
-					"bg-gray-700 text-white hover:bg-gray-800": isActive,
+					"bg-primary text-on-primary hover:bg-primary-hover": isActive,
 				},
 				className,
 			)}
@@ -255,7 +255,7 @@ function PaginationPrev({
 			ref={mergeRefs(ref, (el) => registerRef(0, el))}
 			disabled={!hasPreviousPage}
 			className={cn(
-				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-25",
+				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-border disabled:opacity-25",
 				className,
 			)}
 			{...props}
@@ -296,7 +296,7 @@ function PaginationNext({
 		<button
 			type="button"
 			className={cn(
-				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-25",
+				"flex h-10 w-10 items-center justify-center rounded-full hover:bg-border disabled:opacity-25",
 				className,
 			)}
 			onClick={() => setPage(page + 1)}

@@ -47,7 +47,7 @@ function AutocompleteInputGroup({
 		<AutocompletePrimitive.InputGroup
 			ref={ref}
 			className={cn(
-				"flex h-9 w-full items-center rounded-md border border-gray-400 bg-transparent text-sm shadow-sm ring-offset-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+				"flex h-9 w-full items-center rounded-md border border-border-input bg-transparent text-sm shadow-sm ring-offset-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
 				className,
 			)}
 			{...props}
@@ -72,7 +72,7 @@ function AutocompleteInput({
 		<AutocompletePrimitive.Input
 			ref={ref}
 			className={cn(
-				"h-full w-full flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-gray-400 disabled:cursor-not-allowed",
+				"h-full w-full flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-text-placeholder disabled:cursor-not-allowed",
 				className,
 			)}
 			{...props}
@@ -162,7 +162,7 @@ function AutocompleteContent({
 				<AutocompletePrimitive.Popup
 					ref={ref}
 					className={cn(
-						"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-closed:fade-out data-closed:zoom-out-95 data-open:fade-in data-open:zoom-in-95 relative z-50 max-h-(--available-height) min-w-(--anchor-width) origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border border-gray-400 bg-white text-gray-700 shadow-md transition-all data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1 data-closed:animate-out data-open:animate-in",
+						"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-closed:fade-out data-closed:zoom-out-95 data-open:fade-in data-open:zoom-in-95 relative z-50 max-h-(--available-height) min-w-(--anchor-width) origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border border-border-input bg-surface text-text-secondary shadow-md transition-all data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1 data-closed:animate-out data-open:animate-in",
 						className,
 					)}
 					{...props}
@@ -209,7 +209,7 @@ function AutocompleteEmpty({
 		<AutocompletePrimitive.Empty
 			ref={ref}
 			className={cn(
-				"px-2 py-4 text-center text-gray-500 text-sm empty:hidden",
+				"px-2 py-4 text-center text-sm text-text-muted empty:hidden",
 				className,
 			)}
 			{...props}
@@ -235,7 +235,7 @@ function AutocompleteItem({
 		<AutocompletePrimitive.Item
 			ref={ref}
 			className={cn(
-				"relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-disabled:pointer-events-none data-highlighted:bg-gray-700 data-highlighted:text-white data-disabled:opacity-50",
+				"relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-disabled:pointer-events-none data-highlighted:bg-highlight data-highlighted:text-on-highlight data-disabled:opacity-50",
 				className,
 			)}
 			{...props}
@@ -289,7 +289,7 @@ function AutocompleteSeparator({
 	return (
 		<AutocompletePrimitive.Separator
 			ref={ref}
-			className={cn("my-2 h-px bg-gray-200", className)}
+			className={cn("my-2 h-px bg-separator", className)}
 			{...props}
 		/>
 	);

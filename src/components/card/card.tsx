@@ -54,10 +54,10 @@ export const CARD_SIZES = {
 
 const cardStyles = getVariants({
 	slots: {
-		root: "flex flex-col rounded-lg border border-gray-200 bg-white shadow-md",
-		header: "flex items-center justify-between border-gray-200 border-b",
+		root: "flex flex-col rounded-lg border border-border bg-surface shadow-md",
+		header: "flex items-center justify-between border-border border-b",
 		content: "flex flex-col",
-		footer: "flex items-center justify-between border-gray-200 border-t",
+		footer: "flex items-center justify-between border-border border-t",
 	},
 	variants: {
 		size: {

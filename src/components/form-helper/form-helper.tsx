@@ -9,20 +9,20 @@ export type FormHelperProps = ComponentProps<"div"> & {
 };
 
 const formHelperStyles = getVariants({
-	base: "text-gray-500 text-sm",
+	base: "text-sm text-text-muted",
 	variants: {
 		error: {
-			true: "text-red-600",
+			true: "text-error",
 		},
 		disabled: {
-			true: "text-gray-300",
+			true: "text-text-disabled",
 		},
 	},
 	compoundVariants: [
 		{
 			error: true,
 			disabled: true,
-			className: "text-gray-300",
+			className: "text-text-disabled",
 		},
 	],
 });

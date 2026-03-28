@@ -33,11 +33,11 @@ const buttonStyles = getVariants({
 	variants: {
 		variant: {
 			primary:
-				"border-transparent bg-gray-700 text-white hover:bg-gray-800 active:bg-gray-900",
+				"border-transparent bg-primary text-on-primary hover:bg-primary-hover active:bg-primary-active",
 			secondary:
-				"border-gray-700 bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100",
+				"border-primary bg-surface text-text-secondary hover:bg-surface-subtle active:bg-surface-muted",
 			destructive:
-				"border-transparent bg-red-500 text-white hover:bg-red-600 active:bg-red-700",
+				"border-transparent bg-destructive text-on-primary hover:bg-destructive-hover active:bg-destructive-active",
 		},
 		size: {
 			small: "gap-2 px-2 py-1 text-sm",

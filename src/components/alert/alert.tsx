@@ -34,13 +34,13 @@ const alertStyles = getVariants({
 	variants: {
 		variant: {
 			primary: {
-				root: "bg-gray-700 text-white",
+				root: "bg-primary text-on-primary",
 			},
 			secondary: {
-				root: "border-gray-700 text-gray-700",
+				root: "border-primary text-text-secondary",
 			},
 			error: {
-				root: "bg-red-500 text-white",
+				root: "bg-destructive text-on-primary",
 			},
 		},
 		size: {

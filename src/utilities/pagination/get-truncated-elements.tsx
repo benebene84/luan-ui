@@ -83,7 +83,7 @@ export const getTruncatedElements = ({
 			result.push(
 				<span
 					key="end-ellipsis"
-					className="flex h-10 w-10 items-center justify-center text-gray-500"
+					className="flex h-10 w-10 items-center justify-center text-text-muted"
 				>
 					...
 				</span>,
@@ -116,7 +116,7 @@ export const getTruncatedElements = ({
 		result.push(
 			<span
 				key="start-ellipsis"
-				className="flex h-10 w-10 items-center justify-center text-gray-500"
+				className="flex h-10 w-10 items-center justify-center text-text-muted"
 			>
 				...
 			</span>,
@@ -148,7 +148,7 @@ export const getTruncatedElements = ({
 		result.push(
 			<span
 				key="start-ellipsis"
-				className="flex h-10 w-10 items-center justify-center text-gray-500"
+				className="flex h-10 w-10 items-center justify-center text-text-muted"
 			>
 				...
 			</span>,
@@ -171,7 +171,7 @@ export const getTruncatedElements = ({
 		result.push(
 			<span
 				key="end-ellipsis"
-				className="flex h-10 w-10 items-center justify-center text-gray-500"
+				className="flex h-10 w-10 items-center justify-center text-text-muted"
 			>
 				...
 			</span>,

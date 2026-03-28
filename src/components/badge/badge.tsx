@@ -23,10 +23,10 @@ const badgeStyles = getVariants({
 	base: "flex w-fit items-center justify-center rounded-full font-medium",
 	variants: {
 		variant: {
-			primary: "bg-gray-700 text-white",
-			secondary: "bg-gray-200 text-gray-700",
-			destructive: "bg-red-500 text-white",
-			outline: "border border-gray-700 bg-white text-gray-700",
+			primary: "bg-primary text-on-primary",
+			secondary: "bg-border text-text-secondary",
+			destructive: "bg-destructive text-on-primary",
+			outline: "border border-primary bg-surface text-text-secondary",
 		},
 		size: {
 			small: "gap-1 px-2 py-1 text-xs",

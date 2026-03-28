@@ -37,7 +37,7 @@ function AccordionItem({ className, ref, ...props }: AccordionItemProps) {
 	return (
 		<BaseAccordion.Item
 			ref={ref}
-			className={cn("border-gray-200 border-b", className)}
+			className={cn("border-border border-b", className)}
 			{...props}
 		/>
 	);
@@ -66,7 +66,7 @@ function AccordionTrigger({
 				{children}
 				<Icon
 					render={
-						<ChevronDownIcon className="shrink-0 cursor-pointer text-gray-500 transition-transform duration-350" />
+						<ChevronDownIcon className="shrink-0 cursor-pointer text-text-muted transition-transform duration-350" />
 					}
 					size="small"
 				/>
