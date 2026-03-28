@@ -36,7 +36,7 @@ function DrawerOverlay({ className, ref, ...props }: DrawerOverlayProps) {
 		<BaseDrawer.Backdrop
 			ref={ref}
 			className={cn(
-				"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+				"fixed inset-0 z-50 bg-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
 				className,
 			)}
 			{...props}
@@ -63,7 +63,7 @@ function DrawerContent({
 			<BaseDrawer.Viewport>
 				<BaseDrawer.Popup
 					className={cn(
-						"fixed z-50 flex flex-col gap-4 bg-white p-4 transition-transform duration-300 data-swiping:duration-0",
+						"fixed z-50 flex flex-col gap-4 bg-surface p-4 transition-transform duration-300 data-swiping:duration-0",
 						"data-[swipe-direction=right]:data-ending-style:translate-x-full data-[swipe-direction=right]:data-starting-style:translate-x-full data-[swipe-direction=right]:top-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:h-screen data-[swipe-direction=right]:w-fit data-[swipe-direction=right]:translate-x-(--drawer-swipe-movement-x,0px) data-[swipe-direction=right]:rounded-l-lg",
 						"data-[swipe-direction=left]:data-ending-style:-translate-x-full data-[swipe-direction=left]:data-starting-style:-translate-x-full data-[swipe-direction=left]:top-0 data-[swipe-direction=left]:left-0 data-[swipe-direction=left]:h-screen data-[swipe-direction=left]:w-fit data-[swipe-direction=left]:translate-x-(--drawer-swipe-movement-x,0px) data-[swipe-direction=left]:rounded-r-lg",
 						"data-[swipe-direction=up]:data-ending-style:-translate-y-full data-[swipe-direction=up]:data-starting-style:-translate-y-full data-[swipe-direction=up]:top-0 data-[swipe-direction=up]:right-0 data-[swipe-direction=up]:left-0 data-[swipe-direction=up]:h-fit data-[swipe-direction=up]:w-screen data-[swipe-direction=up]:translate-y-(--drawer-swipe-movement-y,0px) data-[swipe-direction=up]:rounded-b-lg",
@@ -119,7 +119,7 @@ function DrawerDescription({
 	return (
 		<BaseDrawer.Description
 			ref={ref}
-			className={cn("text-gray-500 text-sm", className)}
+			className={cn("text-sm text-text-muted", className)}
 			{...props}
 		/>
 	);

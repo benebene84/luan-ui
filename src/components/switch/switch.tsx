@@ -13,7 +13,7 @@ export type SwitchProps = Omit<SwitchPrimitive.Root.Props, "className"> & {
 
 const thumbStyles = getVariants({
 	slots: {
-		root: "relative flex cursor-pointer appearance-none items-center rounded-full bg-gray-500 transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-300 data-[checked]:bg-green-500",
+		root: "relative flex cursor-pointer appearance-none items-center rounded-full bg-indicator transition-colors duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring data-[checked]:bg-primary",
 		thumb:
 			"absolute left-1 h-5 w-5 rounded-full transition-transform duration-500 ease-out data-[checked]:translate-x-[1.125rem]",
 	},
@@ -21,17 +21,17 @@ const thumbStyles = getVariants({
 		disabled: {
 			true: {
 				root: "cursor-not-allowed opacity-50",
-				thumb: "bg-gray-300",
+				thumb: "bg-text-disabled",
 			},
 			false: {
 				root: "cursor-pointer opacity-100",
-				thumb: "bg-white",
+				thumb: "bg-surface",
 			},
 		},
 		error: {
 			true: {
-				root: "bg-red-600 data-[checked]:bg-red-600",
-				thumb: "bg-red-600",
+				root: "bg-error data-[checked]:bg-error",
+				thumb: "bg-error",
 			},
 		},
 		size: {

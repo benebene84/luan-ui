@@ -18,7 +18,7 @@ function DialogOverlay({ className, ref, ...props }: DialogOverlayProps) {
 		<BaseDialog.Backdrop
 			ref={ref}
 			className={cn(
-				"fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
+				"fixed inset-0 z-50 bg-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0",
 				className,
 			)}
 			{...props}
@@ -39,7 +39,7 @@ function DialogContent({
 			<DialogOverlay />
 			<BaseDialog.Popup
 				className={cn(
-					"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-4 transition-all duration-150 data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0",
+					"fixed top-1/2 left-1/2 z-50 flex w-fit max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg bg-surface p-4 transition-all duration-150 data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0",
 					className,
 				)}
 				{...props}
@@ -90,7 +90,7 @@ function DialogDescription({
 	return (
 		<BaseDialog.Description
 			ref={ref}
-			className={cn("text-gray-500 text-sm", className)}
+			className={cn("text-sm text-text-muted", className)}
 			{...props}
 		/>
 	);

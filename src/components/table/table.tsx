@@ -30,7 +30,7 @@ function TableHeader({ className, ref, ...props }: TableHeaderProps) {
 		<thead
 			ref={ref}
 			className={cn(
-				"[&_tr]:border-b [&_tr]:bg-gray-700! [&_tr]:text-white [&_tr]:hover:bg-gray-700! [&_tr]:hover:text-white!",
+				"[&_tr]:border-b [&_tr]:bg-primary! [&_tr]:text-on-primary [&_tr]:hover:bg-primary! [&_tr]:hover:text-on-primary!",
 				className,
 			)}
 			{...props}
@@ -65,7 +65,7 @@ function TableFooter({ className, ref, ...props }: TableFooterProps) {
 		<tfoot
 			ref={ref}
 			className={cn(
-				"border-t bg-gray-100 font-medium [&>tr]:bg-gray-100! [&>tr]:text-gray-700! [&>tr]:last:border-b-0",
+				"border-t bg-surface-muted font-medium [&>tr]:bg-surface-muted! [&>tr]:text-text-secondary! [&>tr]:last:border-b-0",
 				className,
 			)}
 			{...props}
@@ -84,7 +84,7 @@ function TableRow({ className, ref, ...props }: TableRowProps) {
 		<tr
 			ref={ref}
 			className={cn(
-				"border-b transition-colors hover:bg-gray-400 hover:text-white data-[state=selected]:bg-gray-500 data-[state=selected]:text-white",
+				"border-b transition-colors hover:bg-border-input hover:text-on-primary data-[state=selected]:bg-indicator data-[state=selected]:text-on-primary",
 				className,
 			)}
 			{...props}
@@ -140,7 +140,7 @@ function TableCaption({ className, ref, ...props }: TableCaptionProps) {
 	return (
 		<caption
 			ref={ref}
-			className={cn("mt-4 text-start text-gray-500 text-sm", className)}
+			className={cn("mt-4 text-start text-sm text-text-muted", className)}
 			{...props}
 		/>
 	);

@@ -62,12 +62,12 @@ function RadioGroupItem({ className, ref, ...props }: RadioGroupItemProps) {
 		<Radio.Root
 			ref={ref}
 			className={cn(
-				"flex h-4 w-4 items-center justify-center rounded-full border border-gray-700 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+				"flex h-4 w-4 items-center justify-center rounded-full border border-primary bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring data-disabled:cursor-not-allowed data-disabled:opacity-50",
 				className,
 			)}
 			{...props}
 		>
-			<Radio.Indicator className="relative h-2 w-2 rounded-full bg-gray-500" />
+			<Radio.Indicator className="relative h-2 w-2 rounded-full bg-indicator" />
 		</Radio.Root>
 	);
 }

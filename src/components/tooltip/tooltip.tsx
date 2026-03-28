@@ -128,7 +128,7 @@ function TooltipContent({
 			<TooltipPrimitive.Positioner side={side} sideOffset={sideOffset ?? 10}>
 				<TooltipPrimitive.Popup
 					className={cn(
-						"relative z-50 w-fit max-w-72 rounded-md bg-gray-700 p-2 text-sm text-white shadow-md",
+						"relative z-50 w-fit max-w-72 rounded-md bg-primary p-2 text-on-primary text-sm shadow-md",
 						className,
 					)}
 					{...props}
@@ -137,7 +137,7 @@ function TooltipContent({
 					{children}
 					{showArrow && (
 						<TooltipPrimitive.Arrow className="data-[side=bottom]:-top-1.25 data-[side=left]:-right-1.25 data-[side=top]:-bottom-1.25 data-[side=right]:-left-1.25">
-							<div className="h-2.5 w-2.5 rotate-45 bg-gray-700" />
+							<div className="h-2.5 w-2.5 rotate-45 bg-primary" />
 						</TooltipPrimitive.Arrow>
 					)}
 				</TooltipPrimitive.Popup>

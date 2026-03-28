@@ -29,7 +29,7 @@ function Label({
 		// biome-ignore lint/a11y/noLabelWithoutControl: htmlFor is passed via props at runtime
 		<label
 			className={cn(
-				"font-medium text-gray-900 text-md peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+				"font-medium text-md text-text peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
 				className,
 			)}
 			{...props}

@@ -33,14 +33,14 @@ function Progress({
 		>
 			<ProgressPrimitive.Track
 				className={cn(
-					"relative h-2 w-full overflow-hidden rounded-full bg-gray-200/80",
+					"relative h-2 w-full overflow-hidden rounded-full bg-skeleton/80",
 					className,
 				)}
 			>
-				<ProgressPrimitive.Indicator className="h-full bg-gray-700/80 transition-all" />
+				<ProgressPrimitive.Indicator className="h-full bg-primary/80 transition-all" />
 			</ProgressPrimitive.Track>
 			{showLabel && (
-				<ProgressPrimitive.Value className="text-gray-500 text-sm">
+				<ProgressPrimitive.Value className="text-sm text-text-muted">
 					{(_formattedValue: string | null, rawValue: number | null) =>
 						`${rawValue}%`
 					}

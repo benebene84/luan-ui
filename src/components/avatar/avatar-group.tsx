@@ -22,7 +22,7 @@ function AvatarGroup({
 			ref={ref}
 		>
 			{elements.length > maxAvatars && (
-				<span className="mr-0 ml-2 hidden text-gray-500 text-sm group-hover:block">
+				<span className="mr-0 ml-2 hidden text-sm text-text-muted group-hover:block">
 					+{elements.length - maxAvatars}
 				</span>
 			)}

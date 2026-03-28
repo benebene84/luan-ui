@@ -6,10 +6,10 @@ export type TextareaProps = ComponentProps<"textarea"> & {
 };
 
 const textAreaStyles = getVariants({
-	base: "w-full rounded-md border border-gray-300 p-2 focus-visible:outline focus-visible:outline-gray-800",
+	base: "w-full rounded-md border border-border-input p-2 focus-visible:outline focus-visible:outline-primary-hover",
 	variants: {
 		error: {
-			true: "border-red-600",
+			true: "border-error",
 		},
 		disabled: {
 			true: "disabled:cursor-not-allowed disabled:opacity-50",
@@ -20,7 +20,7 @@ const textAreaStyles = getVariants({
 			error: true,
 			disabled: true,
 			className:
-				"border-gray-400 disabled:cursor-not-allowed disabled:opacity-50",
+				"border-border-input disabled:cursor-not-allowed disabled:opacity-50",
 		},
 	],
 });

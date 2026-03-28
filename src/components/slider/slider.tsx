@@ -87,8 +87,8 @@ function Slider({
 				{...props}
 			>
 				<SliderPrimitive.Control className="flex w-full items-center">
-					<SliderPrimitive.Track className="relative h-1.5 w-full grow rounded-full bg-gray-700/20 data-disabled:opacity-50">
-						<SliderPrimitive.Indicator className="absolute h-full bg-gray-700" />
+					<SliderPrimitive.Track className="relative h-1.5 w-full grow rounded-full bg-primary/20 data-disabled:opacity-50">
+						<SliderPrimitive.Indicator className="absolute h-full bg-primary" />
 						{value.map((thumbValue, index) => (
 							// biome-ignore lint/suspicious/noArrayIndexKey: index is the only stable identifier for thumbs
 							<Tooltip key={index} delayDuration={0}>
@@ -96,7 +96,7 @@ function Slider({
 									render={
 										<SliderPrimitive.Thumb
 											index={index}
-											className="block h-4 w-4 rounded-full border border-gray-700 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-700 data-disabled:pointer-events-none"
+											className="block h-4 w-4 rounded-full border border-primary bg-surface shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring data-disabled:pointer-events-none"
 										/>
 									}
 								/>
