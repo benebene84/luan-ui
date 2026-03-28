@@ -26,6 +26,33 @@ export {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@components/alert-dialog/alert-dialog";
+export type {
+	AutocompleteClearProps,
+	AutocompleteContentProps,
+	AutocompleteEmptyProps,
+	AutocompleteGroupLabelProps,
+	AutocompleteInputGroupProps,
+	AutocompleteInputProps,
+	AutocompleteItemProps,
+	AutocompleteListProps,
+	AutocompleteProps,
+	AutocompleteSeparatorProps,
+	AutocompleteTriggerProps,
+} from "@components/autocomplete/autocomplete";
+export {
+	Autocomplete,
+	AutocompleteClear,
+	AutocompleteContent,
+	AutocompleteEmpty,
+	AutocompleteGroup,
+	AutocompleteGroupLabel,
+	AutocompleteInput,
+	AutocompleteInputGroup,
+	AutocompleteItem,
+	AutocompleteList,
+	AutocompleteSeparator,
+	AutocompleteTrigger,
+} from "@components/autocomplete/autocomplete";
 export { Avatar, AvatarFallback, AvatarImage } from "@components/avatar/avatar";
 export type { AvatarGroupProps } from "@components/avatar/avatar-group";
 export { AvatarGroup } from "@components/avatar/avatar-group";
@@ -47,6 +74,33 @@ export {
 } from "@components/card/card";
 export type { CheckboxProps } from "@components/checkbox/checkbox";
 export { Checkbox } from "@components/checkbox/checkbox";
+export type {
+	ComboboxClearProps,
+	ComboboxContentProps,
+	ComboboxEmptyProps,
+	ComboboxGroupLabelProps,
+	ComboboxInputGroupProps,
+	ComboboxInputProps,
+	ComboboxItemProps,
+	ComboboxListProps,
+	ComboboxProps,
+	ComboboxSeparatorProps,
+	ComboboxTriggerProps,
+} from "@components/combobox/combobox";
+export {
+	Combobox,
+	ComboboxClear,
+	ComboboxContent,
+	ComboboxEmpty,
+	ComboboxGroup,
+	ComboboxGroupLabel,
+	ComboboxInput,
+	ComboboxInputGroup,
+	ComboboxItem,
+	ComboboxList,
+	ComboboxSeparator,
+	ComboboxTrigger,
+} from "@components/combobox/combobox";
 export {
 	Dialog,
 	DialogClose,
