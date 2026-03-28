@@ -2,9 +2,11 @@ import { FormField } from "@components/form-field/form-field";
 import { FormHelper } from "@components/form-helper/form-helper";
 import { Label } from "@components/label/label";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Fragment } from "react";
 import {
 	Autocomplete,
 	AutocompleteClear,
+	AutocompleteCollection,
 	AutocompleteContent,
 	AutocompleteEmpty,
 	AutocompleteGroup,
@@ -15,6 +17,7 @@ import {
 	AutocompleteList,
 	AutocompleteSeparator,
 	AutocompleteTrigger,
+	useAutocompleteFilteredItems,
 } from "../../src/components/autocomplete/autocomplete";
 
 const meta: Meta<typeof Autocomplete> = {
@@ -66,6 +69,17 @@ const utilityTags: Tag[] = [
 	{ id: "u3", value: "utility: merge-refs" },
 ];
 
+interface TagGroup {
+	label: string;
+	items: Tag[];
+}
+
+const groupedTagItems: TagGroup[] = [
+	{ label: "General", items: tagItems.slice(0, 4) },
+	{ label: "Components", items: componentTags },
+	{ label: "Utilities", items: utilityTags },
+];
+
 export const Default: Story = {
 	render: ({ disabled, required }) => (
 		<Autocomplete
@@ -94,51 +108,50 @@ export const Default: Story = {
 };
 
 export const WithGroups: Story = {
-	render: ({ disabled, required }) => (
-		<Autocomplete
-			items={[...tagItems.slice(0, 4), ...componentTags, ...utilityTags]}
-			itemToStringValue={(tag: Tag) => tag.value}
-			disabled={disabled}
-			required={required}
-		>
-			<AutocompleteInputGroup className="w-60">
-				<AutocompleteInput placeholder="Search tags..." />
-				<AutocompleteClear />
-				<AutocompleteTrigger />
-			</AutocompleteInputGroup>
-			<AutocompleteContent>
-				<AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-				<AutocompleteList>
-					<AutocompleteGroup>
-						<AutocompleteGroupLabel>General</AutocompleteGroupLabel>
-						{tagItems.slice(0, 4).map((tag) => (
-							<AutocompleteItem key={tag.id} value={tag}>
-								{tag.value}
-							</AutocompleteItem>
-						))}
-					</AutocompleteGroup>
-					<AutocompleteSeparator />
-					<AutocompleteGroup>
-						<AutocompleteGroupLabel>Components</AutocompleteGroupLabel>
-						{componentTags.map((tag) => (
-							<AutocompleteItem key={tag.id} value={tag}>
-								{tag.value}
-							</AutocompleteItem>
-						))}
-					</AutocompleteGroup>
-					<AutocompleteSeparator />
-					<AutocompleteGroup>
-						<AutocompleteGroupLabel>Utilities</AutocompleteGroupLabel>
-						{utilityTags.map((tag) => (
-							<AutocompleteItem key={tag.id} value={tag}>
-								{tag.value}
-							</AutocompleteItem>
-						))}
-					</AutocompleteGroup>
-				</AutocompleteList>
-			</AutocompleteContent>
-		</Autocomplete>
-	),
+	render: ({ disabled, required }) => {
+		function GroupedList() {
+			const filteredGroups = useAutocompleteFilteredItems<TagGroup>();
+			return (
+				<>
+					{filteredGroups.map((group, index) => (
+						<Fragment key={group.label}>
+							{index > 0 ? <AutocompleteSeparator /> : null}
+							<AutocompleteGroup items={group.items}>
+								<AutocompleteGroupLabel>{group.label}</AutocompleteGroupLabel>
+								<AutocompleteCollection>
+									{(tag: Tag) => (
+										<AutocompleteItem key={tag.id} value={tag}>
+											{tag.value}
+										</AutocompleteItem>
+									)}
+								</AutocompleteCollection>
+							</AutocompleteGroup>
+						</Fragment>
+					))}
+				</>
+			);
+		}
+		return (
+			<Autocomplete
+				items={groupedTagItems}
+				itemToStringValue={(tag: Tag) => tag.value}
+				disabled={disabled}
+				required={required}
+			>
+				<AutocompleteInputGroup className="w-60">
+					<AutocompleteInput placeholder="Search tags..." />
+					<AutocompleteClear />
+					<AutocompleteTrigger />
+				</AutocompleteInputGroup>
+				<AutocompleteContent>
+					<AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+					<AutocompleteList>
+						<GroupedList />
+					</AutocompleteList>
+				</AutocompleteContent>
+			</Autocomplete>
+		);
+	},
 };
 
 export const WithFormField: Story = {

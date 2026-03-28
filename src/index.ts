@@ -28,6 +28,7 @@ export {
 } from "@components/alert-dialog/alert-dialog";
 export type {
 	AutocompleteClearProps,
+	AutocompleteCollectionProps,
 	AutocompleteContentProps,
 	AutocompleteEmptyProps,
 	AutocompleteGroupLabelProps,
@@ -42,6 +43,7 @@ export type {
 export {
 	Autocomplete,
 	AutocompleteClear,
+	AutocompleteCollection,
 	AutocompleteContent,
 	AutocompleteEmpty,
 	AutocompleteGroup,
@@ -52,6 +54,7 @@ export {
 	AutocompleteList,
 	AutocompleteSeparator,
 	AutocompleteTrigger,
+	useAutocompleteFilteredItems,
 } from "@components/autocomplete/autocomplete";
 export { Avatar, AvatarFallback, AvatarImage } from "@components/avatar/avatar";
 export type { AvatarGroupProps } from "@components/avatar/avatar-group";
@@ -76,6 +79,7 @@ export type { CheckboxProps } from "@components/checkbox/checkbox";
 export { Checkbox } from "@components/checkbox/checkbox";
 export type {
 	ComboboxClearProps,
+	ComboboxCollectionProps,
 	ComboboxContentProps,
 	ComboboxEmptyProps,
 	ComboboxGroupLabelProps,
@@ -90,6 +94,7 @@ export type {
 export {
 	Combobox,
 	ComboboxClear,
+	ComboboxCollection,
 	ComboboxContent,
 	ComboboxEmpty,
 	ComboboxGroup,
@@ -100,6 +105,7 @@ export {
 	ComboboxList,
 	ComboboxSeparator,
 	ComboboxTrigger,
+	useComboboxFilteredItems,
 } from "@components/combobox/combobox";
 export {
 	Dialog,

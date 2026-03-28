@@ -175,6 +175,28 @@ function AutocompleteContent({
 }
 
 /**
+ * AutocompleteCollection
+ *
+ * Renders items from autocomplete context after filtering. Pass a function child
+ * that receives each visible item. For grouped lists, place inside AutocompleteGroup
+ * with an `items` prop, or map filtered groups using useAutocompleteFilteredItems.
+ */
+
+export type AutocompleteCollectionProps = ComponentProps<
+	typeof AutocompletePrimitive.Collection
+>;
+
+function AutocompleteCollection(props: AutocompleteCollectionProps) {
+	return <AutocompletePrimitive.Collection {...props} />;
+}
+
+/**
+ * Returns the autocomplete’s filtered items (flat list or grouped structure), matching
+ * the current input value.
+ */
+const useAutocompleteFilteredItems = AutocompletePrimitive.useFilteredItems;
+
+/**
  * AutocompleteList
  */
 
@@ -298,6 +320,7 @@ function AutocompleteSeparator({
 export {
 	Autocomplete,
 	AutocompleteClear,
+	AutocompleteCollection,
 	AutocompleteContent,
 	AutocompleteEmpty,
 	AutocompleteGroup,
@@ -308,4 +331,5 @@ export {
 	AutocompleteList,
 	AutocompleteSeparator,
 	AutocompleteTrigger,
+	useAutocompleteFilteredItems,
 };

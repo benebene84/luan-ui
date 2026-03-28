@@ -2,9 +2,11 @@ import { FormField } from "@components/form-field/form-field";
 import { FormHelper } from "@components/form-helper/form-helper";
 import { Label } from "@components/label/label";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Fragment } from "react";
 import {
 	Combobox,
 	ComboboxClear,
+	ComboboxCollection,
 	ComboboxContent,
 	ComboboxEmpty,
 	ComboboxGroup,
@@ -15,6 +17,7 @@ import {
 	ComboboxList,
 	ComboboxSeparator,
 	ComboboxTrigger,
+	useComboboxFilteredItems,
 } from "../../src/components/combobox/combobox";
 
 const meta: Meta<typeof Combobox> = {
@@ -67,9 +70,25 @@ const sweetItems: Fruit[] = [
 	{ label: "Cake", value: "cake" },
 ];
 
+interface ItemGroup {
+	label: string;
+	items: Fruit[];
+}
+
+const groupedItems: ItemGroup[] = [
+	{ label: "Fruits", items: fruitItems.slice(0, 3) },
+	{ label: "Vegetables", items: vegetableItems },
+	{ label: "Sweets", items: sweetItems },
+];
+
 export const Default: Story = {
-	render: ({ disabled, required }) => (
-		<Combobox items={fruitItems} disabled={disabled} required={required}>
+	render: ({ disabled, required, multiple }) => (
+		<Combobox
+			items={fruitItems}
+			disabled={disabled}
+			required={required}
+			multiple={multiple}
+		>
 			<ComboboxInputGroup className="w-60">
 				<ComboboxInput placeholder="Select a fruit..." />
 				<ComboboxClear />
@@ -90,50 +109,45 @@ export const Default: Story = {
 };
 
 export const WithGroups: Story = {
-	render: ({ disabled, required }) => (
-		<Combobox
-			items={[...fruitItems.slice(0, 3), ...vegetableItems, ...sweetItems]}
-			disabled={disabled}
-			required={required}
-		>
-			<ComboboxInputGroup className="w-60">
-				<ComboboxInput placeholder="Search items..." />
-				<ComboboxClear />
-				<ComboboxTrigger />
-			</ComboboxInputGroup>
-			<ComboboxContent>
-				<ComboboxEmpty>No items found.</ComboboxEmpty>
-				<ComboboxList>
-					<ComboboxGroup>
-						<ComboboxGroupLabel>Fruits</ComboboxGroupLabel>
-						{fruitItems.slice(0, 3).map((item) => (
-							<ComboboxItem key={item.value} value={item}>
-								{item.label}
-							</ComboboxItem>
-						))}
-					</ComboboxGroup>
-					<ComboboxSeparator />
-					<ComboboxGroup>
-						<ComboboxGroupLabel>Vegetables</ComboboxGroupLabel>
-						{vegetableItems.map((item) => (
-							<ComboboxItem key={item.value} value={item}>
-								{item.label}
-							</ComboboxItem>
-						))}
-					</ComboboxGroup>
-					<ComboboxSeparator />
-					<ComboboxGroup>
-						<ComboboxGroupLabel>Sweets</ComboboxGroupLabel>
-						{sweetItems.map((item) => (
-							<ComboboxItem key={item.value} value={item}>
-								{item.label}
-							</ComboboxItem>
-						))}
-					</ComboboxGroup>
-				</ComboboxList>
-			</ComboboxContent>
-		</Combobox>
-	),
+	render: ({ disabled, required }) => {
+		function GroupedList() {
+			const filteredGroups = useComboboxFilteredItems<ItemGroup>();
+			return (
+				<>
+					{filteredGroups.map((group, index) => (
+						<Fragment key={group.label}>
+							{index > 0 ? <ComboboxSeparator /> : null}
+							<ComboboxGroup items={group.items}>
+								<ComboboxGroupLabel>{group.label}</ComboboxGroupLabel>
+								<ComboboxCollection>
+									{(item: Fruit) => (
+										<ComboboxItem key={item.value} value={item}>
+											{item.label}
+										</ComboboxItem>
+									)}
+								</ComboboxCollection>
+							</ComboboxGroup>
+						</Fragment>
+					))}
+				</>
+			);
+		}
+		return (
+			<Combobox items={groupedItems} disabled={disabled} required={required}>
+				<ComboboxInputGroup className="w-60">
+					<ComboboxInput placeholder="Search items..." />
+					<ComboboxClear />
+					<ComboboxTrigger />
+				</ComboboxInputGroup>
+				<ComboboxContent>
+					<ComboboxEmpty>No items found.</ComboboxEmpty>
+					<ComboboxList>
+						<GroupedList />
+					</ComboboxList>
+				</ComboboxContent>
+			</Combobox>
+		);
+	},
 };
 
 export const WithFormField: Story = {

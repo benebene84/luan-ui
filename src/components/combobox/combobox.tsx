@@ -165,6 +165,28 @@ function ComboboxContent({
 }
 
 /**
+ * ComboboxCollection
+ *
+ * Renders items from combobox context after filtering. Pass a function child that
+ * receives each visible item. For grouped lists, place inside ComboboxGroup with
+ * an `items` prop, or map filtered groups using useComboboxFilteredItems.
+ */
+
+export type ComboboxCollectionProps = ComponentProps<
+	typeof ComboboxPrimitive.Collection
+>;
+
+function ComboboxCollection(props: ComboboxCollectionProps) {
+	return <ComboboxPrimitive.Collection {...props} />;
+}
+
+/**
+ * Returns the combobox’s filtered items (flat list or grouped structure), matching
+ * the current input query.
+ */
+const useComboboxFilteredItems = ComboboxPrimitive.useFilteredItems;
+
+/**
  * ComboboxList
  */
 
@@ -285,6 +307,7 @@ function ComboboxSeparator({
 export {
 	Combobox,
 	ComboboxClear,
+	ComboboxCollection,
 	ComboboxContent,
 	ComboboxEmpty,
 	ComboboxGroup,
@@ -295,4 +318,5 @@ export {
 	ComboboxList,
 	ComboboxSeparator,
 	ComboboxTrigger,
+	useComboboxFilteredItems,
 };
