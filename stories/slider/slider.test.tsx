@@ -31,6 +31,20 @@ describe("Slider", () => {
 		expect(maxValue).not.toBeInTheDocument();
 	});
 
+	it("shows the value in a tooltip on hover when showTooltipValue is true", async () => {
+		await Default.run();
+		await user.hover(screen.getByRole("slider"));
+		expect(await screen.findByText("50")).toBeInTheDocument();
+	});
+
+	it("does not show a value tooltip when showTooltipValue is false", async () => {
+		await Default.run({ args: { showTooltipValue: false } });
+		await user.hover(screen.getByRole("slider"));
+		await waitFor(() => {
+			expect(screen.queryByText("50")).not.toBeInTheDocument();
+		});
+	});
+
 	it("renders range slider with two thumbs", async () => {
 		await Range.run();
 		const sliders = screen.getAllByRole("slider");

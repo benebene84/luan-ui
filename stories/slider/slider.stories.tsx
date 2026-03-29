@@ -34,6 +34,11 @@ const meta: Meta<typeof Slider> = {
 			control: "boolean",
 			description: "Whether to show the min and max values",
 		},
+		showTooltipValue: {
+			control: "boolean",
+			description:
+				"Whether to show the current value in a tooltip on each thumb",
+		},
 	},
 };
 
@@ -49,6 +54,7 @@ export const Default: Story = {
 		step: 1,
 		disabled: false,
 		showMinMax: true,
+		showTooltipValue: true,
 	},
 };
 

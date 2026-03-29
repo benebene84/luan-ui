@@ -15,6 +15,11 @@ export type SliderProps = ComponentProps<typeof SliderPrimitive.Root> & {
 	 * @default true
 	 */
 	showMinMax?: boolean;
+	/**
+	 * Whether to show the current value in a tooltip on each thumb
+	 * @default true
+	 */
+	showTooltipValue?: boolean;
 };
 
 /**
@@ -35,6 +40,7 @@ export type SliderProps = ComponentProps<typeof SliderPrimitive.Root> & {
  * @param {number} [props.min=0] - The minimum value of the slider
  * @param {number} [props.max=100] - The maximum value of the slider
  * @param {boolean} [props.showMinMax=true] - Whether to show min/max values below the slider
+ * @param {boolean} [props.showTooltipValue=true] - Whether to show the value in a tooltip on each thumb
  * @param {string} [props.className] - Additional CSS classes to apply to the slider
  * @returns {JSX.Element} A slider component with optional tooltips and min/max display
  */
@@ -44,6 +50,7 @@ function Slider({
 	min = 0,
 	max = 100,
 	showMinMax = true,
+	showTooltipValue = true,
 	disabled: initialDisabled,
 	onValueChange,
 	ref,
@@ -89,22 +96,33 @@ function Slider({
 				<SliderPrimitive.Control className="flex w-full items-center">
 					<SliderPrimitive.Track className="relative h-1.5 w-full grow rounded-full bg-primary/20 data-disabled:opacity-50">
 						<SliderPrimitive.Indicator className="absolute h-full bg-primary" />
-						{value.map((thumbValue, index) => (
-							// biome-ignore lint/suspicious/noArrayIndexKey: index is the only stable identifier for thumbs
-							<Tooltip key={index} delayDuration={0}>
-								<TooltipTrigger
-									render={
-										<SliderPrimitive.Thumb
-											index={index}
-											className="block h-4 w-4 rounded-full border border-primary bg-surface shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring data-disabled:pointer-events-none"
-										/>
-									}
+						{value.map((thumbValue, index) => {
+							const thumbClassName =
+								"block h-4 w-4 rounded-full border border-primary bg-surface shadow outline-none transition-colors focus-within:ring-2 focus-within:ring-focus-ring focus-within:ring-offset-surface data-disabled:pointer-events-none";
+							return showTooltipValue ? (
+								// biome-ignore lint/suspicious/noArrayIndexKey: index is the only stable identifier for thumbs
+								<Tooltip key={index} delayDuration={0}>
+									<TooltipTrigger
+										render={
+											<SliderPrimitive.Thumb
+												index={index}
+												className={thumbClassName}
+											/>
+										}
+									/>
+									<TooltipContent>
+										<p>{thumbValue}</p>
+									</TooltipContent>
+								</Tooltip>
+							) : (
+								<SliderPrimitive.Thumb
+									className={thumbClassName}
+									index={index}
+									// biome-ignore lint/suspicious/noArrayIndexKey: index is the only stable identifier for thumbs
+									key={index}
 								/>
-								<TooltipContent>
-									<p>{thumbValue}</p>
-								</TooltipContent>
-							</Tooltip>
-						))}
+							);
+						})}
 					</SliderPrimitive.Track>
 				</SliderPrimitive.Control>
 			</SliderPrimitive.Root>
