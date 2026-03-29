@@ -16,7 +16,7 @@ try {
 	const startTimeCompile = performance.now();
 	console.log("\nCompiling TypeScript...");
 	execSync("pnpm tsc -p ./tsconfig.build.json", { stdio: "inherit" });
-	execSync("pnpm tsc-alias -p ./tsconfig.build.json", { stdio: "inherit" });
+	execSync("pnpm tsc-alias -p ./tsconfig.build.json -f", { stdio: "inherit" });
 
 	const endTimeCompile = performance.now();
 	const durationCompile = (endTimeCompile - startTimeCompile) / 1000;
