@@ -84,7 +84,7 @@ function TableRow({ className, ref, ...props }: TableRowProps) {
 		<tr
 			ref={ref}
 			className={cn(
-				"border-b transition-colors hover:bg-border-input hover:text-on-primary data-[state=selected]:bg-indicator data-[state=selected]:text-on-primary",
+				"border-b transition-colors data-[state=selected]:bg-indicator data-[state=selected]:text-on-primary",
 				className,
 			)}
 			{...props}
