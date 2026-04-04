@@ -65,7 +65,7 @@ function TableFooter({ className, ref, ...props }: TableFooterProps) {
 		<tfoot
 			ref={ref}
 			className={cn(
-				"border-t bg-surface-muted font-medium [&>tr]:bg-surface-muted! [&>tr]:text-text-secondary! [&>tr]:last:border-b-0",
+				"border-border border-t bg-surface-muted font-medium [&>tr]:bg-surface-muted! [&>tr]:text-text-secondary! [&>tr]:last:border-b-0",
 				className,
 			)}
 			{...props}
@@ -84,7 +84,7 @@ function TableRow({ className, ref, ...props }: TableRowProps) {
 		<tr
 			ref={ref}
 			className={cn(
-				"border-b transition-colors data-[state=selected]:bg-indicator data-[state=selected]:text-on-primary",
+				"border-border border-b transition-colors data-[state=selected]:bg-indicator data-[state=selected]:text-on-primary",
 				className,
 			)}
 			{...props}
