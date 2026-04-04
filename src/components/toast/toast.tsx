@@ -49,7 +49,7 @@ const Toaster = SonnerToaster;
 function Toast({ title, description, button, id, ref }: ToastProps) {
 	return (
 		<div
-			className="flex w-full items-center gap-4 rounded-lg bg-surface p-4 shadow-lg ring-1 ring-black/5 md:max-w-96"
+			className="flex w-full items-center gap-4 rounded-lg bg-surface p-4 shadow-lg ring-1 ring-ring-subtle md:max-w-96"
 			ref={ref}
 		>
 			<div className="flex flex-1 items-center">

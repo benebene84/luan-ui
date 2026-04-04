@@ -8,7 +8,7 @@ export type InputProps = ComponentProps<"input"> & {
 };
 
 const inputStyles = getVariants({
-	base: "rounded-sm border border-border-input px-3 py-2 text-sm placeholder:text-text-placeholder focus-visible:outline focus-visible:outline-primary-hover",
+	base: "rounded-sm border border-border-input bg-surface px-3 py-2 text-sm text-text placeholder:text-text-placeholder focus-visible:outline focus-visible:outline-primary-hover",
 	variants: {
 		error: {
 			true: "border-error",

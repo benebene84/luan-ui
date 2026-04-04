@@ -6,7 +6,7 @@ export type TextareaProps = ComponentProps<"textarea"> & {
 };
 
 const textAreaStyles = getVariants({
-	base: "w-full rounded-md border border-border-input p-2 focus-visible:outline focus-visible:outline-primary-hover",
+	base: "w-full rounded-md border border-border-input bg-surface p-2 text-text placeholder:text-text-placeholder focus-visible:outline focus-visible:outline-primary-hover",
 	variants: {
 		error: {
 			true: "border-error",

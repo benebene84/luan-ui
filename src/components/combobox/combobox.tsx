@@ -53,7 +53,7 @@ function ComboboxInputGroup({
 		<ComboboxPrimitive.InputGroup
 			ref={ref}
 			className={cn(
-				"flex h-9 w-full items-center rounded-md border border-border-input bg-transparent text-sm shadow-sm ring-offset-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+				"flex h-9 w-full items-center rounded-md border border-border-input bg-surface text-sm text-text shadow-sm ring-offset-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
 				className,
 			)}
 			{...props}
@@ -72,7 +72,7 @@ function ComboboxInput({ className, ref, ...props }: ComboboxInputProps) {
 		<ComboboxPrimitive.Input
 			ref={ref}
 			className={cn(
-				"h-full w-full flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-text-placeholder disabled:cursor-not-allowed",
+				"h-full w-full flex-1 bg-transparent px-3 py-2 text-sm text-text outline-none placeholder:text-text-placeholder disabled:cursor-not-allowed",
 				className,
 			)}
 			{...props}
