@@ -75,7 +75,6 @@ export const Responsive: Story = {
 
 export const AsLink: Story = {
 	render: () => (
-		// biome-ignore lint/a11y/useAnchorContent: <just a demo>
 		<Button render={<a href="https://www.google.com" />}>
 			<Icon render={<ArrowLeftIcon />} size="small" />
 			Link Button

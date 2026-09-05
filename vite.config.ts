@@ -7,8 +7,8 @@ export default defineConfig({
 	plugins: [react(), tailwindcss()],
 	resolve: {
 		alias: {
-			"@components": path.resolve(__dirname, "./src/components"),
-			"@utilities": path.resolve(__dirname, "./src/utilities"),
+			"@components": path.resolve(import.meta.dirname, "./src/components"),
+			"@utilities": path.resolve(import.meta.dirname, "./src/utilities"),
 		},
 	},
 });
