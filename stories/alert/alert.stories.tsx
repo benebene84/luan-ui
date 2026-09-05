@@ -42,7 +42,6 @@ export const Default: Story = {
 export const WithRenderProp: Story = {
 	render: ({ variant = "primary", size = "medium" }) => (
 		<Alert
-			// biome-ignore lint/a11y/useAnchorContent: <just a demo>
 			render={<a href="https://example.com" />}
 			variant={variant}
 			size={size}

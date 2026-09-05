@@ -59,7 +59,6 @@ export const WithIcon: Story = {
 
 export const AsLink: Story = {
 	render: () => (
-		// biome-ignore lint/a11y/useAnchorContent: <just a demo>
 		<Badge render={<a href="https://www.google.com" />}>Link Badge</Badge>
 	),
 };

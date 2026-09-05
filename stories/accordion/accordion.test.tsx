@@ -75,8 +75,8 @@ describe("Accordion", () => {
 		await user.tab();
 		expect(firstTrigger).toHaveFocus();
 
-		// Arrow down should move to second item
-		await user.keyboard("{ArrowDown}");
+		// Tab moves between headers (APG no longer uses roving arrow-key focus)
+		await user.tab();
 		expect(secondTrigger).toHaveFocus();
 
 		// Enter should open the item
