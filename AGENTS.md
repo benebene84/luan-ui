@@ -6,7 +6,9 @@ React component library built on Base UI primitives with Tailwind CSS v4.
 
 ```bash
 pnpm install          # Install dependencies (pnpm 10.26.2, Node v22.14.0)
-pnpm build            # Build library (tsc + tsc-alias, outputs to dist/)
+pnpm build            # Build library (tsc + tsc-alias + MCP server, outputs to dist/)
+pnpm generate:mcp     # Generate dist/mcp/index.json from component docs and types
+pnpm build:mcp        # Generate the index and bundle dist/mcp/server.js
 pnpm dev              # Start Storybook dev server on port 6006
 pnpm build-storybook  # Build static Storybook site
 ```
@@ -52,7 +54,9 @@ stories/
   button/
     button.stories.tsx         # Storybook stories
     button.test.tsx            # Tests (co-located with stories, NOT in src/)
-scripts/                       # Build scripts (build.ts, color.ts, copy-build-assets.ts)
+scripts/                       # Build scripts (build.ts, MCP indexer, copy-build-assets.ts)
+mcp/
+  server.ts                   # Design-system MCP server (stdio); bundled into dist/mcp/
 ```
 
 ## Code Style Guidelines
@@ -163,3 +167,9 @@ scripts/                       # Build scripts (build.ts, color.ts, copy-build-a
 ### Pre-commit Hook
 
 Lefthook runs `pnpm check` on every commit. Ensure all Biome checks pass before committing.
+
+### MCP server
+
+The package ships a stdio MCP server (`luan-mcp`) with the npm tarball. `pnpm build` generates `dist/mcp/index.json` from Storybook MDX and component types, then bundles `mcp/server.ts` with esbuild so `@modelcontextprotocol/sdk` is not a consumer dependency. Never import `mcp/` or `dist/mcp/` from `src/index.ts`.
+
+The indexer uses the TypeScript 6 compiler API (`typescript-6`, aliased from `typescript@6`) because TypeScript 7 no longer exports `createProgram`. The library itself still compiles with TypeScript 7.

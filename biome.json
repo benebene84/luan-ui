@@ -7,7 +7,13 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["src/**/*", "stories/**/*", "scripts/**/*", "!**/*.mdx"]
+		"includes": [
+			"src/**/*",
+			"stories/**/*",
+			"scripts/**/*",
+			"mcp/**/*",
+			"!**/*.mdx"
+		]
 	},
 	"formatter": {
 		"enabled": true,
