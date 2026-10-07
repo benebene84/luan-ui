@@ -32,6 +32,13 @@ try {
 	const durationCopy = (endTimeCopy - startTimeCopy) / 1000;
 	console.log(`Done! ${color(`(${durationCopy.toFixed(2)} seconds)`, "blue")}`);
 
+	const startTimeMcp = performance.now();
+	console.log("\nBuilding MCP server...");
+	execSync("pnpm build:mcp", { stdio: "inherit" });
+	const endTimeMcp = performance.now();
+	const durationMcp = (endTimeMcp - startTimeMcp) / 1000;
+	console.log(`Done! ${color(`(${durationMcp.toFixed(2)} seconds)`, "blue")}`);
+
 	const endTime = performance.now();
 	const duration = (endTime - startTime) / 1000;
 

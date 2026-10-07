@@ -29,6 +29,34 @@ In your project, you have to import the custom config to enable animations and c
 
 Now you should be able to use the components in your project.
 
+## MCP server
+
+The package ships a local [MCP](https://modelcontextprotocol.io) server so coding agents can look up the installed version of Luan UI — not a generic component library, and not a stale copy of the docs.
+
+After installing `luan-ui`, point Cursor at `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "luan-ui": {
+      "command": "npx",
+      "args": ["-y", "luan-mcp"]
+    }
+  }
+}
+```
+
+Claude Code uses the same shape in `.mcp.json` at the repo root.
+
+The server exposes two tools:
+
+- `list_components` — discover what exists
+- `get_component` — full docs for one component (import, props, variants, usage, examples)
+
+Pass `"conventions"` to `get_component` for shared patterns such as responsive values, the `render` prop, form context, and portals.
+
+Add a line to your agent rules so the tools actually get called: *Use the `luan-ui` MCP tools (`list_components`, `get_component`) before writing UI with Luan UI.*
+
 ## Documentation
 
 Component docs are MDX pages in Storybook, next to each set of stories. Run `pnpm dev` and open a component’s **Docs** tab. Shared patterns live under **Conventions**.
@@ -67,13 +95,3 @@ This is especially recommended for components that render in a portal, such as d
 ## Requirements
 
 This library requires **React 19** or higher due to its use of the ref-as-prop pattern.
-
-## Philosophy
-
-While I strive for some standardisation and enforcement of best practices, it is equally important that all components remain flexible and that they easily adapt to changing requirements among consumers. Having common design requirements shouldn't limit consumers in their way how they use the components.
-
-Therefore all the components pass on their standard HTML props. You can use and overwrite all props like id, event handlers and so on. Also all components forward their ref, hence they can be targeted by other libraries or with settings refs yourself.
-
-Base UI is used as a headless UI library. Using a headless ui library gives you the advantage to have full control over the styling, while the "heavy-lifting" - especially in regards to accessibility - is done for you already. Because handling focus, setting the appropriate aria attributes and similar things are a difficult task to do right.
-
-All of the components are built with composability and extensibility in mind.
