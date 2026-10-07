@@ -23,7 +23,6 @@ import {
 const meta: Meta<typeof Combobox> = {
 	title: "Components/Combobox",
 	component: Combobox,
-	tags: ["autodocs"],
 	argTypes: {
 		disabled: {
 			control: "boolean",

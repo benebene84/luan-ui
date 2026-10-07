@@ -1,0 +1,98 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { Button } from "../src/components/button/button";
+import { FormField } from "../src/components/form-field/form-field";
+import { FormHelper } from "../src/components/form-helper/form-helper";
+import { Input } from "../src/components/input/input";
+import { Label } from "../src/components/label/label";
+
+<Meta title="Conventions" />
+
+# Conventions
+
+Patterns that apply across the library.
+
+## HTML props and refs
+
+Every component forwards native HTML attributes (`id`, event handlers, `aria-*`) and accepts a `ref` as a prop (React 19). `className` is merged with the component’s default styles.
+
+```tsx
+<Button id="save" onClick={handleSave} className="mt-4" ref={buttonRef}>
+  Save
+</Button>
+```
+
+## Render prop
+
+Several components use Base UI’s `render` prop to change the underlying element without extra DOM. Pass an element or a function that receives the component’s props:
+
+```tsx
+<Button render={<a href="/contact" />}>Contact us</Button>
+
+<DialogTrigger
+  render={(props) => (
+    <Button {...props} variant="secondary">
+      Open
+    </Button>
+  )}
+/>
+```
+
+<div className="flex gap-2 py-2">
+  <Button render={<a href="#conventions" />}>As a link</Button>
+</div>
+
+## Responsive values
+
+Size-like props often accept either a single value or a breakpoint map. Breakpoints are `sm`, `md`, `lg`, and `xl`. `initial` is the mobile-first default.
+
+```tsx
+<Button size="large" />
+
+<Button
+  size={{
+    initial: "small",
+    sm: "medium",
+    md: "large",
+  }}
+>
+  Responsive
+</Button>
+```
+
+<div className="py-2">
+  <Button
+    size={{
+      initial: "small",
+      sm: "medium",
+      md: "large",
+    }}
+  >
+    Resize the viewport
+  </Button>
+</div>
+
+## Form context
+
+`FormField` provides `disabled`, `required`, and `error` to nested form controls. Child props take precedence over context.
+
+`FormField` expects a `Label`, a control, and optionally a `FormHelper` as direct children.
+
+```tsx
+<FormField required error>
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" type="email" />
+  <FormHelper>Enter a valid email address.</FormHelper>
+</FormField>
+```
+
+<div className="max-w-sm py-2">
+  <FormField required error>
+    <Label htmlFor="conventions-email">Email</Label>
+    <Input id="conventions-email" type="email" placeholder="you@example.com" />
+    <FormHelper>Enter a valid email address.</FormHelper>
+  </FormField>
+</div>
+
+## Portals and theming
+
+Dialogs, drawers, popovers, selects, comboboxes, autocompletes, dropdowns, and tooltips render in a portal. Apply `data-theme` on `<html>` so overlays inherit the theme.

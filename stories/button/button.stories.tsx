@@ -8,7 +8,6 @@ import { Button } from "../../src/components/button/button";
 const meta = {
 	title: "Components/Button",
 	component: Button,
-	tags: ["autodocs"],
 	argTypes: {
 		variant: {
 			control: "radio",

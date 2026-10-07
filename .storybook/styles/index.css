@@ -1,1 +1,39 @@
 @import "../../src/styles/index.css";
+@source "../../stories";
+
+.sb-props-table {
+	margin: 1rem 0 1.5rem;
+}
+
+.sb-props-table h4 {
+	margin: 1.25rem 0 0.5rem;
+}
+
+.sb-props-table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.sb-props-table th,
+.sb-props-table td {
+	border-bottom: 1px solid var(--sbdocs-border, rgb(38 38 38 / 10%));
+	padding: 0.5rem 0.75rem;
+	text-align: left;
+	vertical-align: top;
+}
+
+.sb-props-table th {
+	font-size: 0.8125rem;
+	font-weight: 700;
+}
+
+.sb-props-table td code {
+	font-size: 0.8125rem;
+	word-break: break-word;
+}
+
+.sb-props-table p {
+	color: var(--sbdocs-muted, #666);
+	font-size: 0.875rem;
+	margin-top: 0.5rem;
+}

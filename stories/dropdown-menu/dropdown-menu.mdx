@@ -1,0 +1,164 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as DropdownMenuStories from "./dropdown-menu.stories";
+
+<Meta of={DropdownMenuStories} />
+
+# Dropdown Menu
+
+A menu of actions, checkboxes, radios, and nested submenus. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button />}>Open menu</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>
+      Profile
+      <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+    </DropdownMenuItem>
+    <DropdownMenuItem>Log out</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+Also exported: `DropdownMenuGroup`, `DropdownMenuPortal`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`.
+
+`DropdownMenuItem`, `DropdownMenuSubTrigger`, and `DropdownMenuLabel` accept `inset` for extra left padding.
+
+## Anatomy
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger />
+  <DropdownMenuContent>
+    <DropdownMenuLabel />
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>
+      <DropdownMenuShortcut />
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## Stories
+
+<Canvas of={DropdownMenuStories.Default} />
+
+<Canvas of={DropdownMenuStories.WithCheckboxItems} />
+
+<Canvas of={DropdownMenuStories.WithSubmenu} />
+
+## Props
+
+<PropsTable
+  heading="DropdownMenu"
+  extra="Also accepts Base UI Menu.Root props."
+  rows={[
+    {
+      name: "open",
+      type: "boolean",
+      description: "Controlled open state",
+    },
+    {
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
+      description: "Called when open state changes",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DropdownMenuTrigger"
+  extra="Accepts render for composing with Button."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element that receives trigger behavior",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Trigger content",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DropdownMenuContent"
+  extra="Also accepts className and ref."
+  rows={[
+    {
+      name: "sideOffset",
+      type: "number",
+      defaultValue: "4",
+      description: "Distance from the trigger",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Items, labels, and separators",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DropdownMenuItem / DropdownMenuSubTrigger / DropdownMenuLabel"
+  extra="Also accept className, children, and ref."
+  rows={[
+    {
+      name: "inset",
+      type: "boolean",
+      description: "Extra left padding to align with items that have icons",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the item (DropdownMenuItem)",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DropdownMenuCheckboxItem"
+  extra="Also accepts Base UI Menu.CheckboxItem props."
+  rows={[
+    {
+      name: "checked",
+      type: "boolean",
+      description: "Controlled checked state",
+    },
+    {
+      name: "onCheckedChange",
+      type: "(checked: boolean) => void",
+      description: "Called when the item is toggled",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Item label",
+    },
+  ]}
+/>

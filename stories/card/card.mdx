@@ -1,0 +1,95 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as CardStories from "./card.stories";
+
+<Meta of={CardStories} />
+
+# Card
+
+A bordered container with optional header, content, and footer. Nested parts inherit `size` from `Card`.
+
+## Import
+
+```tsx
+import { Card, CardContent, CardFooter, CardHeader } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Card size="medium">
+  <CardHeader>
+    <h3 className="font-semibold text-lg">Card title</h3>
+  </CardHeader>
+  <CardContent>
+    <p>Main content goes here.</p>
+  </CardContent>
+  <CardFooter>
+    <Button variant="secondary">Read more</Button>
+  </CardFooter>
+</Card>
+```
+
+`CardHeader`, `CardContent`, and `CardFooter` must be used inside `Card`. Use `render` on `Card` to change the element (for example `<article>`).
+
+## Anatomy
+
+```tsx
+<Card>
+  <CardHeader />
+  <CardContent />
+  <CardFooter />
+</Card>
+```
+
+## Stories
+
+<Canvas of={CardStories.Default} />
+
+<Canvas of={CardStories.Responsive} />
+
+<Canvas of={CardStories.CustomStyles} />
+
+## Props
+
+`size` is `"small" | "medium" | "large"` or a [responsive value](?path=/docs/conventions--docs#responsive-values). Nested parts inherit size from `Card`.
+
+<PropsTable
+  heading="Card"
+  extra="Also accepts native div attributes, className, and ref."
+  rows={[
+    {
+      name: "size",
+      type: '"small" | "medium" | "large" | ResponsiveValue',
+      defaultValue: '"medium"',
+      description: "Spacing for the card and its parts",
+    },
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of div",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Header, content, and footer",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="CardHeader / CardContent / CardFooter"
+  extra="Must be used inside Card. Also accept render, className, and native div attributes."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of div",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Section content",
+    },
+  ]}
+/>

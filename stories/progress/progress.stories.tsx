@@ -4,7 +4,6 @@ import { Progress } from "../../src/components/progress/progress";
 const meta = {
 	title: "Components/Progress",
 	component: Progress,
-	tags: ["autodocs"],
 	argTypes: {
 		value: {
 			control: {

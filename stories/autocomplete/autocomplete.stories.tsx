@@ -23,7 +23,6 @@ import {
 const meta: Meta<typeof Autocomplete> = {
 	title: "Components/Autocomplete",
 	component: Autocomplete,
-	tags: ["autodocs"],
 	argTypes: {
 		disabled: {
 			control: "boolean",

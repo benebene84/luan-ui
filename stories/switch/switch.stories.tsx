@@ -4,7 +4,6 @@ import { Switch } from "../../src/components/switch/switch";
 const meta = {
 	title: "Components/Switch",
 	component: Switch,
-	tags: ["autodocs"],
 	args: {
 		disabled: false,
 	},

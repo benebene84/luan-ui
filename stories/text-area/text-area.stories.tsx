@@ -5,7 +5,6 @@ import { Textarea } from "../../src/components/text-area/text-area";
 const meta = {
 	title: "Components/Textarea",
 	component: Textarea,
-	tags: ["autodocs"],
 	argTypes: {
 		placeholder: {
 			control: "text",

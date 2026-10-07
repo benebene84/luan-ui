@@ -1,0 +1,95 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Slider } from "../../src/components/slider/slider";
+import { PropsTable } from "../_docs/props-table";
+import * as SliderStories from "./slider.stories";
+
+<Meta of={SliderStories} />
+
+# Slider
+
+A range input with optional min/max labels and value tooltips on each thumb. Pass an array to `defaultValue` for multiple thumbs. Inside `FormField`, it inherits `disabled`.
+
+## Import
+
+```tsx
+import { Slider } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Slider min={0} max={100} defaultValue={50} />
+<Slider min={0} max={100} defaultValue={[20, 80]} />
+<Slider defaultValue={40} showMinMax={false} showTooltipValue={false} />
+```
+
+<div className="max-w-md py-2">
+  <Slider min={0} max={100} defaultValue={50} />
+</div>
+
+## Stories
+
+<Canvas of={SliderStories.Default} />
+
+<Canvas of={SliderStories.Range} />
+
+<Canvas of={SliderStories.Disabled} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts Base UI slider props, className, and ref. Inside FormField, disabled inherits from context unless overridden."
+  rows={[
+    {
+      name: "defaultValue",
+      type: "number | number[]",
+      defaultValue: "[0]",
+      description: "Uncontrolled initial value. Use an array for multiple thumbs.",
+    },
+    {
+      name: "value",
+      type: "number | number[]",
+      description: "Controlled value",
+    },
+    {
+      name: "onValueChange",
+      type: "(value, details) => void",
+      description: "Called when the value changes",
+    },
+    {
+      name: "min",
+      type: "number",
+      defaultValue: "0",
+      description: "Minimum",
+    },
+    {
+      name: "max",
+      type: "number",
+      defaultValue: "100",
+      description: "Maximum",
+    },
+    {
+      name: "step",
+      type: "number",
+      description: "Increment",
+    },
+    {
+      name: "showMinMax",
+      type: "boolean",
+      defaultValue: "true",
+      description: "Labels under the track",
+    },
+    {
+      name: "showTooltipValue",
+      type: "boolean",
+      defaultValue: "true",
+      description: "Tooltip on each thumb",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables the slider",
+    },
+  ]}
+/>

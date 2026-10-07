@@ -1,0 +1,123 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as AccordionStories from "./accordion.stories";
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+Expandable sections. Built on Base UI Accordion. The trigger includes a chevron that rotates when open.
+
+## Import
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Accordion>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Section 1</AccordionTrigger>
+    <AccordionContent>Content for section 1.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Section 2</AccordionTrigger>
+    <AccordionContent>Content for section 2.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+Set `multiple` to keep more than one item open. Control open items with `value` and `onValueChange`.
+
+## Anatomy
+
+```tsx
+<Accordion>
+  <AccordionItem value="…">
+    <AccordionTrigger />
+    <AccordionContent />
+  </AccordionItem>
+</Accordion>
+```
+
+## Stories
+
+<Canvas of={AccordionStories.Default} />
+
+<Canvas of={AccordionStories.Multiple} />
+
+## Props
+
+<PropsTable
+  heading="Accordion"
+  extra="Also accepts Base UI Accordion.Root props, className, and ref."
+  rows={[
+    {
+      name: "multiple",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Allow more than one item open",
+    },
+    {
+      name: "value",
+      type: "string[]",
+      description: "Controlled open item values",
+    },
+    {
+      name: "defaultValue",
+      type: "string[]",
+      description: "Uncontrolled initial open items",
+    },
+    {
+      name: "onValueChange",
+      type: "(value: string[]) => void",
+      description: "Called when open items change",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "AccordionItem elements",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AccordionItem"
+  extra="Also accepts Base UI Accordion.Item props, className, and ref."
+  rows={[
+    {
+      name: "value",
+      type: "string",
+      description: "Unique item id (required)",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the item",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Trigger and content",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AccordionTrigger / AccordionContent"
+  extra="Also accept className, children, and native attributes. The trigger includes a chevron that rotates when open."
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Heading text or panel body",
+    },
+  ]}
+/>

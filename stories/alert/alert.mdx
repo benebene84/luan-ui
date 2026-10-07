@@ -1,0 +1,114 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
+import { Alert, AlertDescription, AlertTitle } from "../../src/components/alert/alert";
+import { Icon } from "../../src/components/icon/icon";
+import { PropsTable } from "../_docs/props-table";
+import * as AlertStories from "./alert.stories";
+
+<Meta of={AlertStories} />
+
+# Alert
+
+An inline message with a title, description, and optional leading icon. `AlertTitle` and `AlertDescription` inherit size from the parent `Alert`.
+
+## Import
+
+```tsx
+import { Alert, AlertDescription, AlertTitle } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex flex-col gap-3 py-2">
+  <Alert variant="primary">
+    <Icon render={<CheckCircledIcon />} size="small" />
+    <AlertTitle>Saved</AlertTitle>
+    <AlertDescription>Your changes were stored.</AlertDescription>
+  </Alert>
+  <Alert variant="secondary">
+    <AlertTitle>Tip</AlertTitle>
+    <AlertDescription>You can undo this action.</AlertDescription>
+  </Alert>
+  <Alert variant="error">
+    <AlertTitle>Something went wrong</AlertTitle>
+    <AlertDescription>Please try again.</AlertDescription>
+  </Alert>
+</div>
+
+```tsx
+<Alert variant="primary" size="medium">
+  <Icon render={<CheckCircledIcon />} size="small" />
+  <AlertTitle>Information</AlertTitle>
+  <AlertDescription>This is an informational alert.</AlertDescription>
+</Alert>
+```
+
+`AlertTitle` and `AlertDescription` accept `render` to change the element (for example `<h4>` or `<p>`).
+
+## Anatomy
+
+```tsx
+<Alert>
+  {/* optional icon */}
+  <AlertTitle />
+  <AlertDescription />
+</Alert>
+```
+
+## Stories
+
+<Canvas of={AlertStories.Default} />
+
+<Canvas of={AlertStories.WithRenderProp} />
+
+<Canvas of={AlertStories.Responsive} />
+
+## Props
+
+`size` is `"small" | "medium"` or a [responsive value](?path=/docs/conventions--docs#responsive-values). Title and description must be used inside `Alert`.
+
+<PropsTable
+  heading="Alert"
+  extra="Also accepts native div attributes, className, and ref."
+  rows={[
+    {
+      name: "variant",
+      type: '"primary" | "secondary" | "error"',
+      defaultValue: '"primary"',
+      description: "Visual style",
+    },
+    {
+      name: "size",
+      type: '"small" | "medium" | ResponsiveValue',
+      defaultValue: '"medium"',
+      description: "Padding and type size",
+    },
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of div",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Icon, title, and description",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AlertTitle / AlertDescription"
+  extra="Must be used inside Alert. Also accept render, className, and native div attributes."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of div",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Text content",
+    },
+  ]}
+/>

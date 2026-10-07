@@ -1,0 +1,158 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as AutocompleteStories from "./autocomplete.stories";
+
+<Meta of={AutocompleteStories} />
+
+# Autocomplete
+
+An input that suggests options as you type. Unlike [Combobox](?path=/docs/components-combobox--docs), the value can be free-form text; suggestions are optional. Inside `FormField`, it inherits `disabled` and `required`. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import {
+  Autocomplete,
+  AutocompleteClear,
+  AutocompleteCollection,
+  AutocompleteContent,
+  AutocompleteEmpty,
+  AutocompleteGroup,
+  AutocompleteGroupLabel,
+  AutocompleteInput,
+  AutocompleteInputGroup,
+  AutocompleteItem,
+  AutocompleteList,
+  AutocompleteSeparator,
+  AutocompleteTrigger,
+  useAutocompleteFilteredItems,
+} from "luan-ui";
+```
+
+## Usage
+
+Use `itemToStringValue` when items are objects so filtering and the input value use a string.
+
+```tsx
+<Autocomplete items={tagItems} itemToStringValue={(tag) => tag.value}>
+  <AutocompleteInputGroup className="w-60">
+    <AutocompleteInput placeholder="Search tags…" />
+    <AutocompleteClear />
+    <AutocompleteTrigger />
+  </AutocompleteInputGroup>
+  <AutocompleteContent>
+    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+    <AutocompleteList>
+      {(tag) => (
+        <AutocompleteItem key={tag.id} value={tag}>
+          {tag.value}
+        </AutocompleteItem>
+      )}
+    </AutocompleteList>
+  </AutocompleteContent>
+</Autocomplete>
+```
+
+For grouped lists, use `useAutocompleteFilteredItems` with `AutocompleteGroup` and `AutocompleteCollection`.
+
+## Anatomy
+
+```tsx
+<Autocomplete>
+  <AutocompleteInputGroup>
+    <AutocompleteInput />
+    <AutocompleteClear />
+    <AutocompleteTrigger />
+  </AutocompleteInputGroup>
+  <AutocompleteContent>
+    <AutocompleteEmpty />
+    <AutocompleteList>
+      <AutocompleteItem />
+    </AutocompleteList>
+  </AutocompleteContent>
+</Autocomplete>
+```
+
+## Stories
+
+<Canvas of={AutocompleteStories.Default} />
+
+<Canvas of={AutocompleteStories.WithGroups} />
+
+<Canvas of={AutocompleteStories.WithFormField} />
+
+## Props
+
+<PropsTable
+  heading="Autocomplete"
+  extra="Also accepts Base UI Autocomplete.Root props. Inside FormField, disabled and required inherit from context unless overridden."
+  rows={[
+    {
+      name: "items",
+      type: "T[]",
+      description: "Suggested items",
+    },
+    {
+      name: "itemToStringValue",
+      type: "(item: T) => string",
+      description: "How to stringify an item for the input",
+    },
+    {
+      name: "value / defaultValue",
+      type: "string",
+      description: "Input text",
+    },
+    {
+      name: "onValueChange",
+      type: "(value: string) => void",
+      description: "Called when the input changes",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the autocomplete",
+    },
+    {
+      name: "required",
+      type: "boolean",
+      description: "Marks the field required",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AutocompleteContent"
+  extra="Also accepts className and ref."
+  rows={[
+    {
+      name: "sideOffset",
+      type: "number",
+      defaultValue: "4",
+      description: "Distance from the input",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Empty state and list",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AutocompleteItem"
+  extra="Also accepts Base UI Autocomplete.Item props, className, and ref."
+  rows={[
+    {
+      name: "value",
+      type: "T",
+      description: "Item value",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Item label",
+    },
+  ]}
+/>
+
+`useAutocompleteFilteredItems()` returns the groups or flat list matching the current input.

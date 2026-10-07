@@ -1,0 +1,52 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Skeleton } from "../../src/components/skeleton/skeleton";
+import { PropsTable } from "../_docs/props-table";
+import * as SkeletonStories from "./skeleton.stories";
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+A pulsing placeholder for content that is still loading. Size and shape come from `className`.
+
+## Import
+
+```tsx
+import { Skeleton } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex flex-col gap-3 py-2">
+  <Skeleton className="h-12 w-12 rounded-full" />
+  <Skeleton className="h-4 w-[250px]" />
+  <Skeleton className="h-4 w-[200px]" />
+</div>
+
+```tsx
+<Skeleton className="h-4 w-[250px]" />
+<Skeleton className="h-12 w-12 rounded-full" />
+```
+
+## Stories
+
+<Canvas of={SkeletonStories.Default} />
+
+<Canvas of={SkeletonStories.Card} />
+
+<Canvas of={SkeletonStories.Avatar} />
+
+<Canvas of={SkeletonStories.Text} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts native div attributes and ref."
+  rows={[
+    {
+      name: "className",
+      type: "string",
+      description: "Dimensions and shape (for example h-4 w-[250px] rounded-full)",
+    },
+  ]}
+/>

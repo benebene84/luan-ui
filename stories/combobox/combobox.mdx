@@ -1,0 +1,158 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as ComboboxStories from "./combobox.stories";
+
+<Meta of={ComboboxStories} />
+
+# Combobox
+
+A filterable select: the input is restricted to predefined items. Unlike [Autocomplete](?path=/docs/components-autocomplete--docs), you pick from the list rather than typing free-form text. Inside `FormField`, it inherits `disabled` and `required`. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import {
+  Combobox,
+  ComboboxClear,
+  ComboboxCollection,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxGroupLabel,
+  ComboboxInput,
+  ComboboxInputGroup,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  useComboboxFilteredItems,
+} from "luan-ui";
+```
+
+## Usage
+
+`ComboboxList` can render a function child that receives each filtered item from `items`.
+
+```tsx
+<Combobox items={fruitItems}>
+  <ComboboxInputGroup className="w-60">
+    <ComboboxInput placeholder="Select a fruit…" />
+    <ComboboxClear />
+    <ComboboxTrigger />
+  </ComboboxInputGroup>
+  <ComboboxContent>
+    <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.value} value={item}>
+          {item.label}
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+For grouped lists, use `useComboboxFilteredItems` inside the list, then `ComboboxGroup` + `ComboboxCollection`. Set `multiple` to allow several selected values.
+
+## Anatomy
+
+```tsx
+<Combobox>
+  <ComboboxInputGroup>
+    <ComboboxInput />
+    <ComboboxClear />
+    <ComboboxTrigger />
+  </ComboboxInputGroup>
+  <ComboboxContent>
+    <ComboboxEmpty />
+    <ComboboxList>
+      <ComboboxItem />
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+## Stories
+
+<Canvas of={ComboboxStories.Default} />
+
+<Canvas of={ComboboxStories.WithGroups} />
+
+<Canvas of={ComboboxStories.WithFormField} />
+
+## Props
+
+<PropsTable
+  heading="Combobox"
+  extra="Also accepts Base UI Combobox.Root props. Inside FormField, disabled and required inherit from context unless overridden."
+  rows={[
+    {
+      name: "items",
+      type: "T[]",
+      description: "Selectable items",
+    },
+    {
+      name: "multiple",
+      type: "boolean",
+      description: "Allow multiple selected values",
+    },
+    {
+      name: "value / defaultValue",
+      type: "T | T[]",
+      description: "Selected item(s)",
+    },
+    {
+      name: "onValueChange",
+      type: "(value) => void",
+      description: "Called when the selection changes",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the combobox",
+    },
+    {
+      name: "required",
+      type: "boolean",
+      description: "Marks the field required",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="ComboboxContent"
+  extra="Also accepts className and ref."
+  rows={[
+    {
+      name: "sideOffset",
+      type: "number",
+      defaultValue: "4",
+      description: "Distance from the input",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Empty state and list",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="ComboboxItem"
+  extra="Also accepts Base UI Combobox.Item props, className, and ref."
+  rows={[
+    {
+      name: "value",
+      type: "T",
+      description: "Item value",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Item label",
+    },
+  ]}
+/>
+
+`useComboboxFilteredItems()` returns the groups or flat list after filtering against the current query.

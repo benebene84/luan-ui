@@ -1,0 +1,127 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Button } from "../../src/components/button/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../../src/components/tooltip/tooltip";
+import { PropsTable } from "../_docs/props-table";
+import * as TooltipStories from "./tooltip.stories";
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+A short label shown on hover or focus. Each `Tooltip` includes its own delay provider. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import { Tooltip, TooltipContent, TooltipTrigger } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Tooltip>
+  <TooltipTrigger render={<Button variant="secondary" />}>
+    Hover me
+  </TooltipTrigger>
+  <TooltipContent>
+    <p>Tooltip content</p>
+  </TooltipContent>
+</Tooltip>
+```
+
+<div className="py-2">
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="secondary" />}>
+      Hover me
+    </TooltipTrigger>
+    <TooltipContent>
+      <p>Saves the document</p>
+    </TooltipContent>
+  </Tooltip>
+</div>
+
+`delayDuration` defaults to `600` ms. `sideOffset` defaults to `10`. Set `showArrow={false}` to hide the arrow.
+
+## Anatomy
+
+```tsx
+<Tooltip>
+  <TooltipTrigger />
+  <TooltipContent />
+</Tooltip>
+```
+
+## Stories
+
+<Canvas of={TooltipStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="Tooltip"
+  extra="Also accepts Base UI Tooltip.Root props."
+  rows={[
+    {
+      name: "showArrow",
+      type: "boolean",
+      defaultValue: "true",
+      description: "Arrow pointing at the trigger",
+    },
+    {
+      name: "side",
+      type: '"top" | "right" | "bottom" | "left"',
+      description: "Preferred side",
+    },
+    {
+      name: "sideOffset",
+      type: "number",
+      defaultValue: "10",
+      description: "Distance from the trigger",
+    },
+    {
+      name: "delayDuration",
+      type: "number",
+      defaultValue: "600",
+      description: "Open delay in milliseconds",
+    },
+    {
+      name: "open",
+      type: "boolean",
+      description: "Controlled open state",
+    },
+    {
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
+      description: "Called when open state changes",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="TooltipTrigger"
+  extra="Also accepts Base UI Tooltip.Trigger props."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement",
+      description: "Element that receives hover/focus (for example Button)",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Trigger content",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="TooltipContent"
+  extra="Also accepts className, children, and ref. Arrow is configured on Tooltip."
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Tooltip text",
+    },
+  ]}
+/>

@@ -7,7 +7,6 @@ import { Badge } from "../../src/components/badge/badge";
 const meta = {
 	title: "Components/Badge",
 	component: Badge,
-	tags: ["autodocs"],
 	argTypes: {
 		variant: {
 			control: "radio",

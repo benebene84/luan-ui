@@ -1,0 +1,80 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Badge } from "../../src/components/badge/badge";
+import { PropsTable } from "../_docs/props-table";
+import * as BadgeStories from "./badge.stories";
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+A compact label for status, counts, or categories.
+
+## Import
+
+```tsx
+import { Badge } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex flex-wrap items-center gap-2 py-2">
+  <Badge variant="primary">Primary</Badge>
+  <Badge variant="secondary">Secondary</Badge>
+  <Badge variant="destructive">Destructive</Badge>
+  <Badge variant="outline">Outline</Badge>
+</div>
+
+```tsx
+<Badge variant="primary">New</Badge>
+<Badge variant="outline" size="small">
+  Outline
+</Badge>
+```
+
+### As a link
+
+```tsx
+<Badge render={<a href="/releases" />}>v0.9</Badge>
+```
+
+<Canvas of={BadgeStories.AsLink} />
+
+## Stories
+
+<Canvas of={BadgeStories.Default} />
+
+<Canvas of={BadgeStories.WithIcon} />
+
+<Canvas of={BadgeStories.Responsive} />
+
+## Props
+
+`size` also accepts a [responsive value](?path=/docs/conventions--docs#responsive-values).
+
+<PropsTable
+  extra="Also accepts native div attributes, className, and ref."
+  rows={[
+    {
+      name: "variant",
+      type: '"primary" | "secondary" | "destructive" | "outline"',
+      defaultValue: '"primary"',
+      description: "Visual style",
+    },
+    {
+      name: "size",
+      type: '"small" | "medium" | "large" | ResponsiveValue',
+      defaultValue: '"medium"',
+      description: "Padding and type size",
+    },
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of div",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Badge content",
+    },
+  ]}
+/>

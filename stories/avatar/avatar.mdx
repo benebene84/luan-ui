@@ -1,0 +1,96 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as AvatarStories from "./avatar.stories";
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+A user image with a fallback when the image is missing or still loading. Default size is `40×40`; override with `className`.
+
+## Import
+
+```tsx
+import { Avatar, AvatarFallback, AvatarImage } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Avatar>
+  <AvatarImage src="https://github.com/benebene84.png" alt="@benebene84" />
+  <AvatarFallback>BS</AvatarFallback>
+</Avatar>
+```
+
+## Anatomy
+
+```tsx
+<Avatar>
+  <AvatarImage />
+  <AvatarFallback />
+</Avatar>
+```
+
+See also [Avatar Group](?path=/docs/components-avatargroup--docs).
+
+## Stories
+
+<Canvas of={AvatarStories.WithImage} />
+
+<Canvas of={AvatarStories.WithFallback} />
+
+<Canvas of={AvatarStories.CustomSize} />
+
+## Props
+
+<PropsTable
+  heading="Avatar"
+  extra="Default size is 40×40. Also accepts native span attributes, className, and ref."
+  rows={[
+    {
+      name: "className",
+      type: "string",
+      description: "Override size and border (for example h-16 w-16)",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "AvatarImage and/or AvatarFallback",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AvatarImage"
+  extra="Also accepts native img attributes and ref."
+  rows={[
+    {
+      name: "src",
+      type: "string",
+      description: "Image URL",
+    },
+    {
+      name: "alt",
+      type: "string",
+      description: "Accessible name",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AvatarFallback"
+  extra="Shown when the image is missing or still loading. Also accepts className and ref."
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Initials or placeholder",
+    },
+    {
+      name: "delay",
+      type: "number",
+      description: "Delay before showing the fallback (Base UI)",
+    },
+  ]}
+/>

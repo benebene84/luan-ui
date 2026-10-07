@@ -1,0 +1,149 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as AlertDialogStories from "./alert-dialog.stories";
+
+<Meta of={AlertDialogStories} />
+
+# Alert Dialog
+
+A modal for confirming a destructive or irreversible action. `AlertDialogAction` and `AlertDialogCancel` both close the dialog. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<AlertDialog>
+  <AlertDialogTrigger
+    render={(props) => (
+      <Button {...props} variant="destructive">
+        Delete account
+      </Button>
+    )}
+  />
+  <AlertDialogContent>
+    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+    <AlertDialogDescription>
+      This action cannot be undone.
+    </AlertDialogDescription>
+    <div className="flex justify-end gap-4">
+      <AlertDialogCancel
+        render={(props) => (
+          <Button {...props} variant="secondary">
+            Cancel
+          </Button>
+        )}
+      />
+      <AlertDialogAction
+        render={(props) => (
+          <Button {...props} variant="destructive">
+            Delete account
+          </Button>
+        )}
+      />
+    </div>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+`AlertDialogOverlay` is rendered automatically inside `AlertDialogContent`.
+
+## Anatomy
+
+```tsx
+<AlertDialog>
+  <AlertDialogTrigger />
+  <AlertDialogContent>
+    <AlertDialogTitle />
+    <AlertDialogDescription />
+    <AlertDialogCancel />
+    <AlertDialogAction />
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+## Stories
+
+<Canvas of={AlertDialogStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="AlertDialog"
+  extra="Also accepts Base UI AlertDialog.Root props."
+  rows={[
+    {
+      name: "open",
+      type: "boolean",
+      description: "Controlled open state",
+    },
+    {
+      name: "defaultOpen",
+      type: "boolean",
+      description: "Uncontrolled initial state",
+    },
+    {
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
+      description: "Called when open state changes",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AlertDialogTrigger / AlertDialogAction / AlertDialogCancel"
+  extra="Action and cancel both close the dialog. All three accept render for composing with Button."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element that receives trigger or close behavior",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Button label",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AlertDialogContent"
+  extra="Renders portal and overlay automatically. Also accepts className and ref."
+  rows={[
+    {
+      name: "className",
+      type: "string",
+      description: "Width and layout",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Title, description, and actions",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="AlertDialogTitle / AlertDialogDescription"
+  extra="Map to Base UI Title/Description. Accept className, children, and ref."
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Heading or supporting text",
+    },
+  ]}
+/>

@@ -1,0 +1,56 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as AvatarGroupStories from "./avatar-group.stories";
+
+<Meta of={AvatarGroupStories} />
+
+# Avatar Group
+
+Overlaps a row of avatars and reveals a leftover count on hover when there are more than `maxAvatars`.
+
+## Import
+
+```tsx
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<AvatarGroup maxAvatars={3}>
+  <Avatar>
+    <AvatarImage src="https://github.com/benebene84.png" alt="@benebene84" />
+    <AvatarFallback>BS</AvatarFallback>
+  </Avatar>
+  <Avatar>
+    <AvatarFallback>U2</AvatarFallback>
+  </Avatar>
+</AvatarGroup>
+```
+
+Hovering the group spreads the avatars and shows `+N` for hidden ones.
+
+## Stories
+
+<Canvas of={AvatarGroupStories.Default} />
+
+<Canvas of={AvatarGroupStories.WithFallbacks} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts native div attributes, className, and ref."
+  rows={[
+    {
+      name: "maxAvatars",
+      type: "number",
+      defaultValue: "3",
+      description: "How many avatars to show",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Avatar elements",
+    },
+  ]}
+/>

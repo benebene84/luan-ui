@@ -1,0 +1,114 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Label } from "../../src/components/label/label";
+import { RadioGroup, RadioGroupItem } from "../../src/components/radio-group/radio-group";
+import { PropsTable } from "../_docs/props-table";
+import * as RadioGroupStories from "./radio-group.stories";
+
+<Meta of={RadioGroupStories} />
+
+# Radio Group
+
+A set of radio buttons where only one value can be selected. Inside `FormField`, it inherits `disabled` and `required`.
+
+## Import
+
+```tsx
+import { Label, RadioGroup, RadioGroupItem } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<RadioGroup defaultValue="option1">
+  <div className="flex items-center gap-2">
+    <RadioGroupItem value="option1" id="option1" />
+    <Label htmlFor="option1">Option 1</Label>
+  </div>
+  <div className="flex items-center gap-2">
+    <RadioGroupItem value="option2" id="option2" />
+    <Label htmlFor="option2">Option 2</Label>
+  </div>
+</RadioGroup>
+```
+
+<div className="py-2">
+  <RadioGroup defaultValue="option1">
+    <div className="flex items-center gap-2">
+      <RadioGroupItem value="option1" id="docs-radio-1" />
+      <Label htmlFor="docs-radio-1">Option 1</Label>
+    </div>
+    <div className="flex items-center gap-2">
+      <RadioGroupItem value="option2" id="docs-radio-2" />
+      <Label htmlFor="docs-radio-2">Option 2</Label>
+    </div>
+  </RadioGroup>
+</div>
+
+Control the value with `value` and `onValueChange`.
+
+## Stories
+
+<Canvas of={RadioGroupStories.Default} />
+
+<Canvas of={RadioGroupStories.WithFormField} />
+
+## Props
+
+<PropsTable
+  heading="RadioGroup"
+  extra="Also accepts Base UI radio group props, className, and ref. Inside FormField, disabled and required inherit from context unless overridden."
+  rows={[
+    {
+      name: "defaultValue",
+      type: "string",
+      description: "Uncontrolled initial value",
+    },
+    {
+      name: "value",
+      type: "string",
+      description: "Controlled value",
+    },
+    {
+      name: "onValueChange",
+      type: "(value: string) => void",
+      description: "Called when the value changes",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the group",
+    },
+    {
+      name: "required",
+      type: "boolean",
+      description: "Marks the group required",
+    },
+    {
+      name: "name",
+      type: "string",
+      description: "Form field name",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="RadioGroupItem"
+  extra="Also accepts Base UI radio props, className, and ref."
+  rows={[
+    {
+      name: "value",
+      type: "string",
+      description: "Item value (required)",
+    },
+    {
+      name: "id",
+      type: "string",
+      description: "Associate with a Label",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables this item",
+    },
+  ]}
+/>

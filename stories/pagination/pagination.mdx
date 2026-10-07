@@ -1,0 +1,117 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as PaginationStories from "./pagination.stories";
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Page navigation with previous/next controls and numbered items. Extra page items are truncated around the current page.
+
+## Import
+
+```tsx
+import {
+  Pagination,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrev,
+} from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Pagination page={page} totalPages={25} onPageChange={setPage}>
+  <PaginationPrev aria-label="Previous">
+    <ChevronLeftIcon className="h-5 w-5" />
+  </PaginationPrev>
+  {Array.from({ length: 25 }, (_, index) => (
+    <PaginationItem key={index} index={index + 1} />
+  ))}
+  <PaginationNext aria-label="Next">
+    <ChevronRightIcon className="h-5 w-5" />
+  </PaginationNext>
+</Pagination>
+```
+
+If `PaginationItem` has no children, it renders `index`. `PaginationPrev` is disabled on page 1; `PaginationNext` is disabled on the last page.
+
+The root is a `<nav aria-label="Pagination">`. Override the element with `render`.
+
+## Anatomy
+
+```tsx
+<Pagination page={1} totalPages={10} onPageChange={…}>
+  <PaginationPrev />
+  <PaginationItem index={1} />
+  <PaginationNext />
+</Pagination>
+```
+
+## Stories
+
+<Canvas of={PaginationStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="Pagination"
+  extra="Also accepts native nav attributes, className, and ref."
+  rows={[
+    {
+      name: "page",
+      type: "number",
+      description: "Current page (required)",
+    },
+    {
+      name: "totalPages",
+      type: "number",
+      description: "Total page count (required)",
+    },
+    {
+      name: "onPageChange",
+      type: "(page: number) => void",
+      description: "Called when the page changes (required)",
+    },
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of nav",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Prev, items, and next",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="PaginationItem"
+  extra="Also accepts native button attributes, className, and ref."
+  rows={[
+    {
+      name: "index",
+      type: "number",
+      description: "Page number this item represents",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Label; defaults to index",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="PaginationPrev / PaginationNext"
+  extra="Automatically disabled on the first or last page. Also accept native button attributes, className, and ref."
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Typically an icon",
+    },
+  ]}
+/>

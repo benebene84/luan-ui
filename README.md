@@ -29,6 +29,10 @@ In your project, you have to import the custom config to enable animations and c
 
 Now you should be able to use the components in your project.
 
+## Documentation
+
+Component docs are MDX pages in Storybook, next to each set of stories. Run `pnpm dev` and open a component’s **Docs** tab. Shared patterns live under **Conventions**.
+
 ## Theming
 
 Luan UI ships with two built-in themes that are activated via a `data-theme` attribute:

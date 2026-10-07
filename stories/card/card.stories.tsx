@@ -11,7 +11,6 @@ import {
 const meta = {
 	title: "Components/Card",
 	component: Card,
-	tags: ["autodocs"],
 	argTypes: {
 		size: {
 			control: "radio",

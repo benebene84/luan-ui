@@ -1,0 +1,43 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Luan UI
+
+A React 19 component library built on [Base UI](https://base-ui.com) primitives and Tailwind CSS v4. Components stay flexible: they forward HTML props and refs, and many support a `render` prop for composition.
+
+## Installation
+
+```bash
+npm install luan-ui
+yarn add luan-ui
+pnpm add luan-ui
+```
+
+Requires **React 19** or higher (ref-as-prop).
+
+## Set-up
+
+Install [Tailwind v4](https://tailwindcss.com/docs/installation), then import Luan UI styles:
+
+```css
+@import "tailwindcss";
+@import "luan-ui/dist/styles/index.css";
+```
+
+Apply a theme with `data-theme="luan-light"` or `data-theme="luan-dark"`. Put it on `<html>` so portaled overlays (dialogs, popovers, selects) inherit it.
+
+```html
+<html data-theme="luan-light">
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+Use the toolbar in this Storybook to switch themes.
+
+## Next
+
+- [Conventions](?path=/docs/conventions--docs) — render props, responsive values, and form context
+- Open any component under **Components** for MDX docs and live examples

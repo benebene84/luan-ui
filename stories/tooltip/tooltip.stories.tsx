@@ -14,7 +14,6 @@ type TooltipStoryProps = React.ComponentProps<typeof Tooltip> & {
 const meta: Meta<TooltipStoryProps> = {
 	title: "Components/Tooltip",
 	component: Tooltip,
-	tags: ["autodocs"],
 	argTypes: {
 		children: {
 			control: "text",
