@@ -4,7 +4,6 @@ import { Slider } from "../../src/components/slider/slider";
 const meta: Meta<typeof Slider> = {
 	title: "Components/Slider",
 	component: Slider,
-	tags: ["autodocs"],
 	argTypes: {
 		defaultValue: {
 			control: "object",

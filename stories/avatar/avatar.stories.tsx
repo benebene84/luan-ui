@@ -8,7 +8,6 @@ import {
 const meta = {
 	title: "Components/Avatar",
 	component: Avatar,
-	tags: ["autodocs"],
 	argTypes: {
 		className: {
 			control: "text",

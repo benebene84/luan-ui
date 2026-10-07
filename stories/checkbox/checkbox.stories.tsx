@@ -4,7 +4,6 @@ import { Checkbox } from "../../src/components/checkbox/checkbox";
 const meta = {
 	title: "Components/Checkbox",
 	component: Checkbox,
-	tags: ["autodocs"],
 	argTypes: {
 		disabled: {
 			control: "boolean",

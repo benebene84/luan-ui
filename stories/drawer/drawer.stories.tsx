@@ -23,7 +23,6 @@ const meta = {
 			options: ["left", "right", "top", "bottom"],
 		},
 	},
-	tags: ["autodocs"],
 } satisfies Meta<typeof Drawer>;
 
 export default meta;

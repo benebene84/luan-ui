@@ -1,0 +1,76 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Switch } from "../../src/components/switch/switch";
+import { PropsTable } from "../_docs/props-table";
+import * as SwitchStories from "./switch.stories";
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+A toggle between on and off. Size is responsive. Inside `FormField`, it inherits `disabled` and `error`.
+
+## Import
+
+```tsx
+import { Switch } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex items-center gap-4 py-2">
+  <Switch size="small" />
+  <Switch size="medium" />
+  <Switch size="large" />
+  <Switch disabled />
+</div>
+
+```tsx
+<Switch />
+<Switch size="small" />
+<Switch checked={enabled} onCheckedChange={setEnabled} />
+```
+
+## Stories
+
+<Canvas of={SwitchStories.Default} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts Base UI switch props, className, and ref. Inside FormField, disabled and error inherit from context unless overridden."
+  rows={[
+    {
+      name: "size",
+      type: '"small" | "medium" | "large" | ResponsiveValue',
+      defaultValue: '"medium"',
+      description: "Track and thumb size",
+    },
+    {
+      name: "checked",
+      type: "boolean",
+      description: "Controlled state",
+    },
+    {
+      name: "defaultChecked",
+      type: "boolean",
+      description: "Uncontrolled initial state",
+    },
+    {
+      name: "onCheckedChange",
+      type: "(checked: boolean) => void",
+      description: "Called when the value changes",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables the switch",
+    },
+    {
+      name: "error",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Error styling",
+    },
+  ]}
+/>

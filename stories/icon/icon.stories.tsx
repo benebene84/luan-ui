@@ -7,7 +7,6 @@ import { Icon } from "../../src/components/icon/icon";
 const meta = {
 	title: "Components/Icon",
 	component: Icon,
-	tags: ["autodocs"],
 	argTypes: {
 		size: {
 			control: "radio",

@@ -1,0 +1,59 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { StarIcon } from "@radix-ui/react-icons";
+import { Icon } from "../../src/components/icon/icon";
+import { PropsTable } from "../_docs/props-table";
+import * as IconStories from "./icon.stories";
+
+<Meta of={IconStories} />
+
+# Icon
+
+A sized wrapper for SVG icons. Pass the icon through `render`.
+
+## Import
+
+```tsx
+import { Icon } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex items-center gap-4 py-2">
+  <Icon render={<StarIcon />} size="small" />
+  <Icon render={<StarIcon />} size="medium" />
+  <Icon render={<StarIcon />} size="large" />
+</div>
+
+```tsx
+import { StarIcon } from "@radix-ui/react-icons";
+import { Icon } from "luan-ui";
+
+<Icon render={<StarIcon />} size="medium" />
+```
+
+Sizes map to `16`, `24`, and `32` pixels. `className` is useful for color (`text-primary`).
+
+## Stories
+
+<Canvas of={IconStories.Default} />
+
+<Canvas of={IconStories.Responsive} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts SVG attributes, className, and ref."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "The SVG icon to render",
+    },
+    {
+      name: "size",
+      type: '"small" | "medium" | "large" | ResponsiveValue',
+      defaultValue: '"medium"',
+      description: "Width and height (16, 24, or 32)",
+    },
+  ]}
+/>

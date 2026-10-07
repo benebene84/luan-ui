@@ -11,7 +11,6 @@ import { accordionContents } from "./accordion.data";
 const meta = {
 	title: "Components/Accordion",
 	component: Accordion,
-	tags: ["autodocs"],
 	argTypes: {
 		multiple: {
 			control: "boolean",

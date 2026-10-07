@@ -1,0 +1,55 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Label } from "../../src/components/label/label";
+import { Textarea } from "../../src/components/text-area/text-area";
+import { PropsTable } from "../_docs/props-table";
+import * as TextareaStories from "./text-area.stories";
+
+<Meta of={TextareaStories} />
+
+# Textarea
+
+A styled multi-line text field.
+
+## Import
+
+```tsx
+import { Textarea } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex max-w-md flex-col gap-2 py-2">
+  <Label htmlFor="docs-bio">Bio</Label>
+  <Textarea id="docs-bio" placeholder="Tell us about yourself" rows={4} />
+</div>
+
+```tsx
+<Label htmlFor="bio">Bio</Label>
+<Textarea id="bio" placeholder="Tell us about yourself" rows={4} />
+```
+
+Use `error` for an error border and `disabled` to prevent editing.
+
+## Stories
+
+<Canvas of={TextareaStories.Default} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts native textarea attributes (rows, placeholder, value, onChange), className, and ref."
+  rows={[
+    {
+      name: "error",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Error border",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables the textarea",
+    },
+  ]}
+/>

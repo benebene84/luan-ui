@@ -52,6 +52,11 @@ const preview = {
 				date: /Date$/i,
 			},
 		},
+		options: {
+			storySort: {
+				order: ["Introduction", "Conventions", "Components"],
+			},
+		},
 	},
 } satisfies Preview;
 

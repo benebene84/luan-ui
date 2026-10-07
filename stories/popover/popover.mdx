@@ -1,0 +1,135 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as PopoverStories from "./popover.stories";
+
+<Meta of={PopoverStories} />
+
+# Popover
+
+A floating panel anchored to a trigger. Arrow, close button, and placement are configured on `Popover`. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import { Popover, PopoverContent, PopoverTrigger } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Popover>
+  <PopoverTrigger render={<Button variant="secondary" />}>
+    Open popover
+  </PopoverTrigger>
+  <PopoverContent>
+    <div className="flex flex-col gap-2">
+      <h3 className="font-medium">Popover title</h3>
+      <p>Basic popover content.</p>
+    </div>
+  </PopoverContent>
+</Popover>
+```
+
+```tsx
+<Popover side="bottom" showArrow={false} showCloseButton={false}>
+  <PopoverTrigger render={<Button />}>Info</PopoverTrigger>
+  <PopoverContent>No arrow, no close button.</PopoverContent>
+</Popover>
+```
+
+Also exported: `PopoverClose`, `PopoverAnchor`, `PopoverPortal`.
+
+## Anatomy
+
+```tsx
+<Popover>
+  <PopoverTrigger />
+  <PopoverContent />
+</Popover>
+```
+
+## Stories
+
+<Canvas of={PopoverStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="Popover"
+  extra="Also accepts Base UI Popover.Root props (open, onOpenChange, defaultOpen)."
+  rows={[
+    {
+      name: "showArrow",
+      type: "boolean",
+      defaultValue: "true",
+      description: "Arrow pointing at the trigger",
+    },
+    {
+      name: "showCloseButton",
+      type: "boolean",
+      defaultValue: "true",
+      description: "Close icon in the content",
+    },
+    {
+      name: "closeButtonAriaLabel",
+      type: "string",
+      defaultValue: '"Close"',
+      description: "Accessible name for the close button",
+    },
+    {
+      name: "side",
+      type: '"top" | "right" | "bottom" | "left"',
+      description: "Preferred side",
+    },
+    {
+      name: "sideOffset",
+      type: "number",
+      defaultValue: "10",
+      description: "Distance from the trigger",
+    },
+    {
+      name: "open",
+      type: "boolean",
+      description: "Controlled open state",
+    },
+    {
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
+      description: "Called when open state changes",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="PopoverTrigger"
+  extra="Accepts render for composing with Button."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element that receives trigger behavior",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Trigger content",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="PopoverContent"
+  extra="Also accepts className and ref. Arrow and close button are configured on Popover."
+  rows={[
+    {
+      name: "sideOffset",
+      type: "number",
+      description: "Overrides Popover sideOffset when set",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Panel content",
+    },
+  ]}
+/>

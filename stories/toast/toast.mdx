@@ -1,0 +1,94 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as ToastStories from "./toast.stories";
+
+<Meta of={ToastStories} />
+
+# Toast
+
+Custom toasts built on [Sonner](https://sonner.emilkowal.ski/). Mount `Toaster` once, then call `toast()`.
+
+## Import
+
+```tsx
+import { Toaster, toast } from "luan-ui";
+```
+
+## Usage
+
+Mount the toaster near the root of the app:
+
+```tsx
+import { Toaster } from "luan-ui";
+
+export function App() {
+  return (
+    <>
+      <Toaster />
+      {/* routes */}
+    </>
+  );
+}
+```
+
+Trigger a toast:
+
+```tsx
+toast({
+  title: "Invite sent",
+  description: "We emailed the invitation.",
+  button: {
+    label: "Close",
+    onClick: () => {},
+  },
+});
+```
+
+The action button runs `button.onClick` and then dismisses the toast. `toast()` returns a toast id. Additional Sonner toaster options can be passed through.
+
+`Toast` is the visual component used internally. Prefer `toast()` rather than rendering `Toast` yourself.
+
+## Stories
+
+<Canvas of={ToastStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="toast(options)"
+  extra="Returns a toast id. Additional Sonner toaster options can be passed through."
+  rows={[
+    {
+      name: "title",
+      type: "string",
+      description: "Heading",
+    },
+    {
+      name: "description",
+      type: "string",
+      description: "Supporting text",
+    },
+    {
+      name: "button.label",
+      type: "string",
+      description: "Action button label",
+    },
+    {
+      name: "button.onClick",
+      type: "() => void",
+      description: "Action handler. The toast dismisses afterward.",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="Toaster"
+  extra="Place once near the app root. Accepts Sonner Toaster props."
+  rows={[
+    {
+      name: "position",
+      type: "string",
+      description: "Viewport position (Sonner)",
+    },
+  ]}
+/>

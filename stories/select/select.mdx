@@ -1,0 +1,147 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as SelectStories from "./select.stories";
+
+<Meta of={SelectStories} />
+
+# Select
+
+A single-value picker from a predefined list. Inside `FormField`, it inherits `disabled` and `required`. Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "luan-ui";
+```
+
+## Usage
+
+Pass `items` on the root so Base UI can match values to labels. Each item is typically `{ value, label }`. Use `value: null` for a placeholder option.
+
+```tsx
+<Select items={fruitItems}>
+  <SelectTrigger className="w-45">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectLabel>Fruits</SelectLabel>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>
+```
+
+## Anatomy
+
+```tsx
+<Select>
+  <SelectTrigger>
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectLabel />
+      <SelectItem />
+    </SelectGroup>
+    <SelectSeparator />
+  </SelectContent>
+</Select>
+```
+
+## Stories
+
+<Canvas of={SelectStories.Default} />
+
+<Canvas of={SelectStories.WithGroups} />
+
+<Canvas of={SelectStories.WithFormField} />
+
+## Props
+
+<PropsTable
+  heading="Select"
+  extra="Also accepts Base UI Select.Root props. Inside FormField, disabled and required inherit from context unless overridden."
+  rows={[
+    {
+      name: "items",
+      type: "Array<{ value, label }>",
+      description: "Item list for value/label matching",
+    },
+    {
+      name: "value",
+      type: "unknown",
+      description: "Controlled value",
+    },
+    {
+      name: "defaultValue",
+      type: "unknown",
+      description: "Uncontrolled initial value",
+    },
+    {
+      name: "onValueChange",
+      type: "(value) => void",
+      description: "Called when the value changes",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the select",
+    },
+    {
+      name: "required",
+      type: "boolean",
+      description: "Marks the field required",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="SelectContent"
+  extra="Also accepts className and ref."
+  rows={[
+    {
+      name: "sideOffset",
+      type: "number",
+      defaultValue: "4",
+      description: "Distance from the trigger",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Groups, labels, and items",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="SelectItem"
+  extra="Also accepts Base UI Select.Item props, className, and ref."
+  rows={[
+    {
+      name: "value",
+      type: "string | null",
+      description: "Item value. Use null for a placeholder option.",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the item",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Item label",
+    },
+  ]}
+/>

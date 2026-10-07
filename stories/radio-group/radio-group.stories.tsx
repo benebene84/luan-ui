@@ -10,7 +10,6 @@ import {
 const meta = {
 	title: "Components/RadioGroup",
 	component: RadioGroup,
-	tags: ["autodocs"],
 	argTypes: {
 		disabled: {
 			control: "boolean",

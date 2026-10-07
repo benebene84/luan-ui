@@ -10,7 +10,6 @@ import {
 const meta = {
 	title: "Components/Alert",
 	component: Alert,
-	tags: ["autodocs"],
 	argTypes: {
 		variant: {
 			control: "radio",

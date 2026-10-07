@@ -10,7 +10,6 @@ import {
 const meta = {
 	title: "Components/Pagination",
 	component: Pagination,
-	tags: ["autodocs"],
 	argTypes: {
 		page: {
 			control: "number",

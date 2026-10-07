@@ -11,7 +11,6 @@ type FormFieldStoryProps = React.ComponentProps<typeof FormField>;
 const meta = {
 	title: "Components/FormField",
 	component: FormField,
-	tags: ["autodocs"],
 	argTypes: {
 		orientation: {
 			control: "select",

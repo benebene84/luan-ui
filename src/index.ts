@@ -129,8 +129,10 @@ export {
 } from "@components/drawer/drawer";
 export {
 	DropdownMenu,
+	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuGroup,
+	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuPortal,
 	DropdownMenuRadioGroup,
@@ -142,6 +144,12 @@ export {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@components/dropdown-menu/dropdown-menu";
+export type { FormFieldProps } from "@components/form-field/form-field";
+export { FormField } from "@components/form-field/form-field";
+export type { FormHelperProps } from "@components/form-helper/form-helper";
+export { FormHelper } from "@components/form-helper/form-helper";
+export type { IconProps } from "@components/icon/icon";
+export { Icon } from "@components/icon/icon";
 export type { InputProps } from "@components/input/input";
 export { Input } from "@components/input/input";
 export type { LabelProps } from "@components/label/label";

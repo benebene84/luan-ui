@@ -13,7 +13,6 @@ import {
 const meta: Meta<typeof Table> = {
 	title: "Components/Table",
 	component: Table,
-	tags: ["autodocs"],
 };
 
 export default meta;

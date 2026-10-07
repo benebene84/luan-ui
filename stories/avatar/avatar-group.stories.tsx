@@ -10,7 +10,6 @@ import { AvatarGroup } from "../../src/components/avatar/avatar-group";
 const meta = {
 	title: "Components/AvatarGroup",
 	component: AvatarGroup,
-	tags: ["autodocs"],
 	argTypes: {
 		className: {
 			control: "text",

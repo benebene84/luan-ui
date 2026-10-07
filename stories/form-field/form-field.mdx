@@ -1,0 +1,131 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Checkbox } from "../../src/components/checkbox/checkbox";
+import { FormField } from "../../src/components/form-field/form-field";
+import { FormHelper } from "../../src/components/form-helper/form-helper";
+import { Input } from "../../src/components/input/input";
+import { Label } from "../../src/components/label/label";
+import { PropsTable } from "../_docs/props-table";
+import * as FormFieldStories from "./form-field.stories";
+
+<Meta of={FormFieldStories} />
+
+# Form Field
+
+A layout wrapper that wires a label, control, and helper text together. It provides `disabled`, `required`, and `error` to nested form controls through context.
+
+`FormHelper` shows supporting or error text and inherits those states.
+
+`FormField` requires a `Label` and a control as children. `FormHelper` is optional.
+
+## Import
+
+```tsx
+import { FormField, FormHelper, Input, Label } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<FormField required error>
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" type="email" />
+  <FormHelper>There was an error on this field.</FormHelper>
+</FormField>
+```
+
+The label shows a trailing `*`. The input uses the error border. The helper uses `role="alert"` and error color.
+
+Horizontal layout places the control first, then the label and helper in a column — useful for checkboxes:
+
+```tsx
+<FormField orientation="horizontal" required>
+  <Label htmlFor="terms">Agree to terms</Label>
+  <Checkbox id="terms" />
+  <FormHelper>You must agree to continue.</FormHelper>
+</FormField>
+```
+
+<div className="py-2">
+  <FormField orientation="horizontal" required>
+    <Label htmlFor="docs-form-terms">Agree to terms</Label>
+    <Checkbox id="docs-form-terms" />
+    <FormHelper>You must agree to continue.</FormHelper>
+  </FormField>
+</div>
+
+See [form context](?path=/docs/conventions--docs#form-context).
+
+## Anatomy
+
+```tsx
+<FormField>
+  <Label />
+  {/* any form control */}
+  <FormHelper />
+</FormField>
+```
+
+## Stories
+
+<Canvas of={FormFieldStories.Vertical} />
+
+<Canvas of={FormFieldStories.Horizontal} />
+
+## Props
+
+Child props on nested controls override context. See [form context](?path=/docs/conventions--docs#form-context).
+
+<PropsTable
+  heading="FormField"
+  extra="Also accepts native div attributes, className, and ref."
+  rows={[
+    {
+      name: "orientation",
+      type: '"vertical" | "horizontal"',
+      defaultValue: '"vertical"',
+      description: "Stack direction",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Passed to nested controls",
+    },
+    {
+      name: "required",
+      type: "boolean",
+      description: "Passed to nested controls and the label",
+    },
+    {
+      name: "error",
+      type: "boolean",
+      description: "Passed to nested controls and the helper",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Label, control, and optional FormHelper",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="FormHelper"
+  extra="Must be a child of FormField to inherit context. Also accepts native div attributes, className, and ref."
+  rows={[
+    {
+      name: "error",
+      type: "boolean",
+      description: "Error color and role=alert. Defaults from context.",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disabled text color. Defaults from context.",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Helper or error text",
+    },
+  ]}
+/>

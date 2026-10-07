@@ -1,0 +1,140 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as DrawerStories from "./drawer.stories";
+
+<Meta of={DrawerStories} />
+
+# Drawer
+
+A sliding panel from any side of the viewport. Swipe to dismiss matches the `side` prop (`left`, `right`, `top`, `bottom`; default `"right"`). Portaled — apply the theme on `<html>`.
+
+## Import
+
+```tsx
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Drawer side="right">
+  <DrawerTrigger render={(props) => <Button {...props}>Open drawer</Button>} />
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Drawer title</DrawerTitle>
+      <DrawerDescription>Description of the drawer content.</DrawerDescription>
+    </DrawerHeader>
+    <div className="py-4">
+      <p>Main content of the drawer.</p>
+    </div>
+    <DrawerFooter>
+      <DrawerClose
+        render={(props) => (
+          <Button {...props} variant="secondary">
+            Cancel
+          </Button>
+        )}
+      />
+      <Button>Save changes</Button>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+`DrawerContent` includes a close icon in the corner. Use the story controls to try each `side`.
+
+## Anatomy
+
+```tsx
+<Drawer>
+  <DrawerTrigger />
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle />
+      <DrawerDescription />
+    </DrawerHeader>
+    <DrawerFooter>
+      <DrawerClose />
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+## Stories
+
+<Canvas of={DrawerStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="Drawer"
+  extra="Also accepts Base UI Drawer.Root props."
+  rows={[
+    {
+      name: "side",
+      type: '"left" | "right" | "top" | "bottom"',
+      defaultValue: '"right"',
+      description: "Edge the drawer slides from. Sets swipe-to-dismiss direction.",
+    },
+    {
+      name: "open",
+      type: "boolean",
+      description: "Controlled open state",
+    },
+    {
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
+      description: "Called when open state changes",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DrawerTrigger / DrawerClose"
+  extra="Accept render for composing with Button."
+  rows={[
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element that receives trigger or close behavior",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DrawerContent"
+  extra="Includes a close icon in the corner. Also accepts className and ref."
+  rows={[
+    {
+      name: "className",
+      type: "string",
+      description: "Width and layout",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Header, body, and footer",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="DrawerHeader / DrawerFooter / DrawerTitle / DrawerDescription"
+  extra="Header and footer are divs. Title and description map to Base UI. All accept className, children, and ref."
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Section content",
+    },
+  ]}
+/>

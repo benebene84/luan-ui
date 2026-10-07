@@ -1,0 +1,72 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { FormField } from "../../src/components/form-field/form-field";
+import { FormHelper } from "../../src/components/form-helper/form-helper";
+import { Input } from "../../src/components/input/input";
+import { Label } from "../../src/components/label/label";
+import { PropsTable } from "../_docs/props-table";
+import * as InputStories from "./input.stories";
+
+<Meta of={InputStories} />
+
+# Input
+
+A styled text input. Inside `FormField`, it inherits `disabled`, `required`, and `error`.
+
+## Import
+
+```tsx
+import { Input } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex max-w-sm flex-col gap-3 py-2">
+  <Input placeholder="Enter your email" id="docs-email" type="email" />
+  <Input error placeholder="Invalid value" />
+  <Input disabled placeholder="Disabled" />
+</div>
+
+```tsx
+<Label htmlFor="email">Email</Label>
+<Input id="email" type="email" placeholder="you@example.com" />
+```
+
+### Inside FormField
+
+<div className="max-w-sm py-2">
+  <FormField required error>
+    <Label htmlFor="docs-input-field">Email</Label>
+    <Input id="docs-input-field" type="email" placeholder="you@example.com" />
+    <FormHelper>Enter a valid email address.</FormHelper>
+  </FormField>
+</div>
+
+## Stories
+
+<Canvas of={InputStories.Default} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts native input attributes (type, placeholder, value, onChange), className, and ref. Inside FormField, disabled, required, and error inherit from context unless overridden."
+  rows={[
+    {
+      name: "error",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Error border and aria-invalid",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables the input",
+    },
+    {
+      name: "required",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Marks the field required",
+    },
+  ]}
+/>

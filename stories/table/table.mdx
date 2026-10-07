@@ -1,0 +1,126 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "../_docs/props-table";
+import * as TableStories from "./table.stories";
+
+<Meta of={TableStories} />
+
+# Table
+
+Semantic table parts with overflow scrolling on the wrapper.
+
+## Import
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Table>
+  <TableCaption>A list of your recent invoices.</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Invoice</TableHead>
+      <TableHead>Amount</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>INV001</TableCell>
+      <TableCell>$250.00</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>Total</TableCell>
+      <TableCell>$250.00</TableCell>
+    </TableRow>
+  </TableFooter>
+</Table>
+```
+
+Each part maps to the matching HTML table element. Use `colSpan` on cells as needed.
+
+## Anatomy
+
+```tsx
+<Table>
+  <TableCaption />
+  <TableHeader>
+    <TableRow>
+      <TableHead />
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell />
+    </TableRow>
+  </TableBody>
+  <TableFooter />
+</Table>
+```
+
+## Stories
+
+<Canvas of={TableStories.Default} />
+
+<Canvas of={TableStories.WithoutFooter} />
+
+## Props
+
+Each part maps to the matching HTML table element and accepts native attributes plus `className` and `ref`.
+
+<PropsTable
+  rows={[
+    {
+      name: "Table",
+      type: "ComponentProps<'table'>",
+      description: "Scroll wrapper plus table. className is applied to the table.",
+    },
+    {
+      name: "TableHeader",
+      type: "ComponentProps<'thead'>",
+      description: "Header row group",
+    },
+    {
+      name: "TableBody",
+      type: "ComponentProps<'tbody'>",
+      description: "Body row group",
+    },
+    {
+      name: "TableFooter",
+      type: "ComponentProps<'tfoot'>",
+      description: "Footer row group",
+    },
+    {
+      name: "TableRow",
+      type: "ComponentProps<'tr'>",
+      description: "Row",
+    },
+    {
+      name: "TableHead",
+      type: "ComponentProps<'th'>",
+      description: "Header cell",
+    },
+    {
+      name: "TableCell",
+      type: "ComponentProps<'td'>",
+      description: "Body cell. Use colSpan as needed.",
+    },
+    {
+      name: "TableCaption",
+      type: "ComponentProps<'caption'>",
+      description: "Caption below the table",
+    },
+  ]}
+/>

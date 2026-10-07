@@ -1,0 +1,61 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Input } from "../../src/components/input/input";
+import { Label } from "../../src/components/label/label";
+import { PropsTable } from "../_docs/props-table";
+import * as LabelStories from "./label.stories";
+
+<Meta of={LabelStories} />
+
+# Label
+
+A form label. Inside `FormField`, it inherits `required` and shows a trailing asterisk.
+
+## Import
+
+```tsx
+import { Label } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex max-w-sm flex-col gap-2 py-2">
+  <Label htmlFor="docs-label-email" required>
+    Email
+  </Label>
+  <Input id="docs-label-email" type="email" />
+</div>
+
+```tsx
+<Label htmlFor="email" required>
+  Email
+</Label>
+<Input id="email" type="email" />
+```
+
+## Stories
+
+<Canvas of={LabelStories.Default} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts native label attributes, className, and ref. Inside FormField, required inherits from context unless overridden."
+  rows={[
+    {
+      name: "required",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Renders a * after the label",
+    },
+    {
+      name: "htmlFor",
+      type: "string",
+      description: "Associated control id",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Label text",
+    },
+  ]}
+/>

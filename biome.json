@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["src/**/*", "stories/**/*", "scripts/**/*"]
+		"includes": ["src/**/*", "stories/**/*", "scripts/**/*", "!**/*.mdx"]
 	},
 	"formatter": {
 		"enabled": true,

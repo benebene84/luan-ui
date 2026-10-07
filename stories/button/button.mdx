@@ -1,0 +1,113 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import { Button } from "../../src/components/button/button";
+import { Icon } from "../../src/components/icon/icon";
+import { PropsTable } from "../_docs/props-table";
+import * as ButtonStories from "./button.stories";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+A button with visual variants and sizes. Icons are passed as children. Use `render` to turn the button into a link or another element.
+
+## Import
+
+```tsx
+import { Button } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex flex-wrap items-center gap-2 py-2">
+  <Button variant="primary">Primary</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="destructive">Delete</Button>
+  <Button disabled>Disabled</Button>
+</div>
+
+```tsx
+<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="destructive">Delete</Button>
+```
+
+### With icons
+
+<div className="py-2">
+  <Button>
+    <Icon render={<ArrowLeftIcon />} size="small" />
+    Continue
+    <Icon render={<ArrowRightIcon />} size="small" />
+  </Button>
+</div>
+
+```tsx
+<Button>
+  <Icon render={<ArrowLeftIcon />} size="small" />
+  Continue
+  <Icon render={<ArrowRightIcon />} size="small" />
+</Button>
+```
+
+### As a link
+
+```tsx
+<Button render={<a href="/contact" />}>Contact us</Button>
+```
+
+<Canvas of={ButtonStories.AsLink} />
+
+### Responsive size
+
+```tsx
+<Button size={{ initial: "small", sm: "medium", md: "large" }}>
+  Responsive
+</Button>
+```
+
+<Canvas of={ButtonStories.Responsive} />
+
+## Stories
+
+<Canvas of={ButtonStories.Default} />
+
+<Canvas of={ButtonStories.WithoutIcons} />
+
+## Props
+
+`size` also accepts a [responsive value](?path=/docs/conventions--docs#responsive-values). `render` swaps the underlying element.
+
+<PropsTable
+  extra="Also accepts native button attributes, className, and ref."
+  rows={[
+    {
+      name: "variant",
+      type: '"primary" | "secondary" | "destructive"',
+      defaultValue: '"primary"',
+      description: "Visual style",
+    },
+    {
+      name: "size",
+      type: '"small" | "medium" | "large" | ResponsiveValue<…>',
+      defaultValue: '"medium"',
+      description: "Padding and type size",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables interaction",
+    },
+    {
+      name: "render",
+      type: "ReactElement | (props) => ReactElement",
+      description: "Element to render instead of button",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Label and optional icons",
+    },
+  ]}
+/>

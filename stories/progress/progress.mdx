@@ -1,0 +1,58 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Progress } from "../../src/components/progress/progress";
+import { PropsTable } from "../_docs/props-table";
+import * as ProgressStories from "./progress.stories";
+
+<Meta of={ProgressStories} />
+
+# Progress
+
+A progress bar with an optional percentage label.
+
+## Import
+
+```tsx
+import { Progress } from "luan-ui";
+```
+
+## Usage
+
+<div className="flex max-w-md flex-col gap-4 py-2">
+  <Progress value={50} />
+  <Progress value={75} showLabel={false} />
+</div>
+
+```tsx
+<Progress value={50} />
+<Progress value={75} showLabel={false} />
+<Progress value={3} max={10} />
+```
+
+## Stories
+
+<Canvas of={ProgressStories.Default} />
+
+## Props
+
+<PropsTable
+  extra="Also accepts Base UI progress props, className (applied to the track), and ref."
+  rows={[
+    {
+      name: "value",
+      type: "number",
+      description: "Current progress",
+    },
+    {
+      name: "max",
+      type: "number",
+      defaultValue: "100",
+      description: "Maximum value",
+    },
+    {
+      name: "showLabel",
+      type: "boolean",
+      defaultValue: "true",
+      description: "Shows a percentage next to the bar",
+    },
+  ]}
+/>

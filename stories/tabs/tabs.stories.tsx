@@ -12,7 +12,6 @@ type TabsProps = React.ComponentProps<typeof Tabs>;
 const meta: Meta<TabsProps> = {
 	title: "Components/Tabs",
 	component: Tabs,
-	tags: ["autodocs"],
 } satisfies Meta<typeof Tabs>;
 
 export default meta;

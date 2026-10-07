@@ -1,0 +1,118 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../src/components/tabs/tabs";
+import { PropsTable } from "../_docs/props-table";
+import * as TabsStories from "./tabs.stories";
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+Switch between panels. Built on Base UI Tabs.
+
+## Import
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "luan-ui";
+```
+
+## Usage
+
+```tsx
+<Tabs defaultValue="account">
+  <TabsList>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+    <TabsTrigger value="settings" disabled>
+      Disabled
+    </TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">Account settings</TabsContent>
+  <TabsContent value="password">Password settings</TabsContent>
+</Tabs>
+```
+
+Control the active tab with `value` and `onValueChange`. Each `TabsContent` `value` must match a trigger.
+
+<div className="py-2">
+  <Tabs defaultValue="account">
+    <TabsList>
+      <TabsTrigger value="account">Account</TabsTrigger>
+      <TabsTrigger value="password">Password</TabsTrigger>
+    </TabsList>
+    <TabsContent value="account">Account settings content</TabsContent>
+    <TabsContent value="password">Password settings content</TabsContent>
+  </Tabs>
+</div>
+
+## Anatomy
+
+```tsx
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="…" />
+  </TabsList>
+  <TabsContent value="…" />
+</Tabs>
+```
+
+## Stories
+
+<Canvas of={TabsStories.Default} />
+
+## Props
+
+<PropsTable
+  heading="Tabs"
+  extra="Also accepts Base UI Tabs.Root props, className, and ref."
+  rows={[
+    {
+      name: "defaultValue",
+      type: "string",
+      description: "Uncontrolled initial tab",
+    },
+    {
+      name: "value",
+      type: "string",
+      description: "Controlled active tab",
+    },
+    {
+      name: "onValueChange",
+      type: "(value: string) => void",
+      description: "Called when the tab changes",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="TabsTrigger"
+  extra="Also accepts Base UI Tab props, className, and ref."
+  rows={[
+    {
+      name: "value",
+      type: "string",
+      description: "Tab id (required)",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Disables the trigger",
+    },
+  ]}
+/>
+
+<PropsTable
+  heading="TabsContent"
+  extra="value must match a trigger. Also accepts className and ref."
+  rows={[
+    {
+      name: "value",
+      type: "string",
+      description: "Panel id (required)",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "Panel content",
+    },
+  ]}
+/>
